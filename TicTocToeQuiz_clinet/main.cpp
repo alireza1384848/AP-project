@@ -7,6 +7,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWindow w;
+    //salam o drod bar shoma
     qDebug() <<"salam";
     w.show();
     return a.exec();
