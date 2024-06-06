@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "signuppage.h"
 
 #include <QApplication>
 #include <QDebug>
@@ -6,9 +7,8 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow w;
-    //salam o drod bar shoma1234454123
-    qDebug() <<"salam";
+    //MainWindow w;
+    SignUpPage w;
     w.show();
     return a.exec();
 }
