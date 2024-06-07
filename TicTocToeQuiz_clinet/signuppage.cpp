@@ -56,7 +56,9 @@ void SignUpPage::set_Username(QString username)
 
 void SignUpPage::set_Pass(QString pass)
 {
-    info.Password = pass;
+QByteArray _pass = pass.toUtf8();
+   QString a = QCryptographicHash::hash(_pass,QCryptographicHash::Md4);
+    info.Password = a;
     qDebug()<<info.Password;
 }
 

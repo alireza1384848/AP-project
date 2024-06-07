@@ -4,6 +4,7 @@
 #include<QGridLayout>
 #include<QLineEdit>
 #include<QLabel>
+#include<QCryptographicHash>
 #include <QDialog>
 struct UserInformation{
     QString username;
