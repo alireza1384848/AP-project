@@ -12,7 +12,6 @@ Server::Server(char *address, int portnum, QObject *parent): QTcpServer{parent}
     }
     qDebug() << "servre ready to listen on address = "<<serverAddr.toString()<<" port  : "<<portNo;
 }
-
 void Server::incomingConnection(qintptr socketDescriptor)
 {
     qDebug() << "Incoming connection from client num "<<Clients.size()+1;
@@ -25,6 +24,11 @@ void Server::incomingConnection(qintptr socketDescriptor)
 
 }
 
+void Server::WriteOnSocket(QByteArray message, QTcpSocket *whichSocket)
+{
+    qDebug() << "sending data to Client " <<whichSocket->peerAddress().toString()<<":"<<whichSocket->peerPort();
+    whichSocket->write(message);
+}
 void Server::Disconnected()
 {
     QTcpSocket *socket = qobject_cast<QTcpSocket *>(sender());
@@ -36,9 +40,11 @@ void Server::Readyread()
     QTcpSocket * fromsocket = qobject_cast<QTcpSocket * >(sender());
     qDebug() <<"Server read data from "<< fromsocket->peerAddress().toString()<<":"<<fromsocket->peerPort();
     QByteArray Data = fromsocket->readAll();
+    //QEventLoop loop;
+    //QTimer::singleShot(1000, &loop, SLOT(quit()));
+    //loop.exec();
     for (QTcpSocket *client : Clients) {
-
-        if (client != fromsocket) {
+        if (client == fromsocket) {
             qDebug() << "sending data to Client " <<client->peerAddress().toString()
                      <<":"<<client->peerPort();
             client->write(Data);
@@ -46,3 +52,6 @@ void Server::Readyread()
     }
     emit IGotData(fromsocket,Data);
 }
+
+
+
