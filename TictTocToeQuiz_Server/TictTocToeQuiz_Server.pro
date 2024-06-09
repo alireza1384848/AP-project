@@ -1,4 +1,5 @@
 QT = core
+QT += network
 CONFIG += c++17 cmdline
 
 # You can make your code fail to compile if it uses deprecated APIs.
@@ -7,14 +8,20 @@ CONFIG += c++17 cmdline
 
 SOURCES += \
         main.cpp \
+        respondreqest.cpp \
+        server.cpp \
+        server.cpp \
         user_info.cpp \
         user_w_r.cpp
-
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    user_info.h \
+    respondreqest.h \
+    respondreqest.h\
+    server.h \
+    server.h\
+    user_info.h\
     user_w_r.h
