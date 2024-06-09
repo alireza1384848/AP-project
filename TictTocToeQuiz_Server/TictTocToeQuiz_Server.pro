@@ -18,12 +18,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-<<<<<<< HEAD
-    respondreqest.h\
-    server.h\
-=======
     respondreqest.h \
     server.h \
->>>>>>> master
     user_info.h\
     user_w_r.h
