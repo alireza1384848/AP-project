@@ -10,7 +10,6 @@ SOURCES += \
         main.cpp \
         respondreqest.cpp \
         server.cpp \
-        server.cpp \
         user_info.cpp \
         user_w_r.cpp
 # Default rules for deployment.
@@ -20,8 +19,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     respondreqest.h \
-    respondreqest.h\
     server.h \
-    server.h\
     user_info.h\
     user_w_r.h

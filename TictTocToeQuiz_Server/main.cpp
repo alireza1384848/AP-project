@@ -10,6 +10,6 @@ int main(int argc, char *argv[])
     QCoreApplication a(argc, argv);
     QFile file("Users.json");
     if(!file.exists())
-     file.open(QIODevice::WriteOnly | QIODevice::Text);
+    file.open(QIODevice::WriteOnly | QIODevice::Text);
     return a.exec();
 }
