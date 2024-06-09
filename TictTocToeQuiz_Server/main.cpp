@@ -1,9 +1,15 @@
+
+ //"In the name of God"\\
 #include <QCoreApplication>
 #include "server.h"
-
+#include "user_w_r.h"
+#include <QCoreApplication>
+#include "user_w_r.h"
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
-  //  Server my("127.0.0.1",50000);
+    QFile file("Users.json");
+    if(!file.exists())
+     file.open(QIODevice::WriteOnly | QIODevice::Text);
     return a.exec();
 }
