@@ -28,6 +28,7 @@ public slots:
     void set_Email(QString Email);
 
 private:
+    Ui::SignUpPage *ui;
     UserInformation info;
     QGridLayout * layout;
     QLabel * Emaillabel;
@@ -37,7 +38,7 @@ private:
     QLineEdit * Lineedit_User;
     QLineEdit * Lineedit_Pass;
     QLineEdit * Lineedit_Email;
-    Ui::SignUpPage *ui;
+
 };
 
 #endif // SIGNUPPAGE_H

@@ -15,6 +15,7 @@ class User_info:public QObject
 public:
     User_info(QString Uname,QString Pass,QString Em);
     QString information_getter(int num_of_info);//1->Username / 2->Password / 3->Email
+
 };
 
 #endif // USER_INFO_H

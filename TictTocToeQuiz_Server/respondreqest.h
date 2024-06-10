@@ -1,6 +1,6 @@
 #ifndef RESPONDREQEST_H
 #define RESPONDREQEST_H
-
+#include"user_w_r.h"
 #include <QObject>
 #include <QJsonObject>
 #include <QJsonDocument>
@@ -10,8 +10,8 @@ class RespondReqest : public QObject
 {
     Q_OBJECT
 private:
-    //object qestion
-    //object as class save read
+    User_w_r * MangeFile;
+    //object qustion
 public:
     explicit RespondReqest(QObject *parent = nullptr);
     void sendQuestion();
@@ -21,7 +21,6 @@ public:
     void setClientready();
 public slots:
     void ProccesData(QByteArray Data);
-
 signals:
 };
 

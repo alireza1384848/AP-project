@@ -19,5 +19,4 @@ public:
     QJsonArray LoadUsersFromFile();
     void SaveUsersToFile(const QJsonArray&);
 };
-
 #endif // USER_W_R_H
