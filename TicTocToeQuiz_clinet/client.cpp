@@ -5,6 +5,7 @@ Client::Client(){}
 void Client::ConnectToServer(const QString &IP,const int &port)
 {
     socket->connectToHost(QHostAddress(IP), port);
+
 }
 
 QJsonObject Client::readData()
