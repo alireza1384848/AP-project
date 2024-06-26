@@ -4,7 +4,7 @@
 void Gameboard::SendwhichCliched()
 {
     int pos= sender()->property("position").toInt();
-       this->setbuttostext(pos,"O");
+    this->setbuttostext(pos,"O");
 }
 
 Gameboard::Gameboard(QWidget *parent)
