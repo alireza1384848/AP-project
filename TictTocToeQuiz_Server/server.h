@@ -1,6 +1,6 @@
 #ifndef SERVER_H
 #define SERVER_H
-
+#include"respondreqest.h"
 #include <QObject>
 #include <QTcpServer>
 #include <QTcpSocket>
@@ -16,6 +16,7 @@ private:
     quint16 portNo;
     QVector<QTcpSocket *> Clients;
     bool isfull=false;
+    RespondReqest * Responder;
 
 signals:
     void IGotData(QTcpSocket * from, QByteArray data);
@@ -26,6 +27,7 @@ public:
     void incomingConnection(qintptr)override;
 public slots:
     void WriteOnSocket(QByteArray message,QTcpSocket * whichSocket);
+    void ChangeReadyStatusSokeckt(QTcpSocket * a);
     void Disconnected();
     void Readyread();
 };
