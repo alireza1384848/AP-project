@@ -9,8 +9,12 @@ CONFIG += c++17 cmdline
 SOURCES += \
         bottom.cpp \
         main.cpp \
+        multiple_question.cpp \
+        number_question.cpp \
+        questions.cpp \
         respondreqest.cpp \
         server.cpp \
+        short_question.cpp \
         user_info.cpp \
         user_w_r.cpp
 # Default rules for deployment.
@@ -20,7 +24,11 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     bottom.h \
+    multiple_question.h \
+    number_question.h \
+    questions.h \
     respondreqest.h \
     server.h \
+    short_question.h \
     user_info.h\
     user_w_r.h
