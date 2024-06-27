@@ -16,9 +16,10 @@ void RespondReqest::updateUserinfo()
 
 }
 
-void RespondReqest::addUserinfo()
+void RespondReqest::addUserinfo(QString username,QString pass,QString Email)
 {
-
+    User_info myuser(username,pass,Email);
+    MangeFile->AddNewUser(myuser.json_getter());
 }
 
 void RespondReqest::isAnswer()
@@ -38,9 +39,9 @@ void RespondReqest::ProccesData(QTcpSocket *from, QByteArray Data)
     qDebug()<< "in responst to socket"<<from->peerAddress().toString();
     QJsonDocument newJsonDoc = QJsonDocument::fromJson(Data);
     QJsonObject Req = newJsonDoc.object();
-    qDebug()<<"clients Reqwst is "<<Req["typereq"]<<"/n";
+    qDebug()<<"clients Reqest is "<<Req["typereq"]<<"/n";
     if(Req["typereq"]=="write"){
-        this->addUserinfo();
+        this->addUserinfo(Req["Username"].toString(),Req["Password"].toString(),Req["Email"].toString());
     }
     else if(Req["typereq"]=="save"){
         this->updateUserinfo();

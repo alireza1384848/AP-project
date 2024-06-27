@@ -2,7 +2,7 @@
 
 User_w_r::User_w_r()
 {
-
+//inga mitoni begi age file User json nabod besazatesh
 }
 void User_w_r::AddNewUser(const QJsonObject &newuser)
 {
@@ -36,6 +36,7 @@ QJsonArray User_w_r::LoadUsersFromFile()
     QFile file("Users.json");
     if (file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
+        qDebug()<<"File "<<file.fileName()<<"successfully Opend";
         QTextStream in(&file);
         QString jsonString = in.readAll();
         file.close();
@@ -43,14 +44,12 @@ QJsonArray User_w_r::LoadUsersFromFile()
         QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonString.toUtf8());
         return jsonDoc.array();
     }
-
     return QJsonArray();
 }
 void User_w_r::SaveUsersToFile(const QJsonArray& userData)
 {
     QJsonDocument jsonDoc(userData);
     QString jsonString = jsonDoc.toJson(QJsonDocument::Indented);
-
     QFile file("Users.json");
     if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
         QTextStream out(&file);
