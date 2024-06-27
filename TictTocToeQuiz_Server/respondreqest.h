@@ -1,6 +1,7 @@
 #ifndef RESPONDREQEST_H
 #define RESPONDREQEST_H
 #include"user_w_r.h"
+#include"user_info.h"
 #include"multiple_question.h"
 #include"number_question.h"
 #include"short_question.h"
@@ -21,7 +22,7 @@ public:
     explicit RespondReqest(QObject *parent = nullptr);
     void sendQuestion();
     void updateUserinfo();
-    void addUserinfo();
+    void addUserinfo(QString username,QString pass,QString Email);
     void isAnswer();
     void setClientready();
 public slots:
