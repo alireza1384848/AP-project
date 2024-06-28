@@ -17,7 +17,8 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     signinpagge.cpp \
-    signuppage.cpp
+    signuppage.cpp \
+    welcomepage.cpp
 
 HEADERS += \
     client.h \
@@ -25,7 +26,8 @@ HEADERS += \
     gameboard.h \
     mainwindow.h \
     signinpagge.h \
-    signuppage.h
+    signuppage.h \
+    welcomepage.h
 
 FORMS += \
     gameboard.ui \

@@ -5,6 +5,7 @@
 #include"enterpage.h"
 #include "gameboard.h"
 #include"signinpagge.h"
+#include"welcomepage.h"
 #include <QApplication>
 #include <QDebug>
 
@@ -12,10 +13,11 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     //MainWindow w;
-    EnterPage w;
+    //EnterPage w;
     //SignUpPage w;
     //Gameboard w;
    // SigninPagge w;
+    WelcomePage w;
     w.show();
     return a.exec();
 }
