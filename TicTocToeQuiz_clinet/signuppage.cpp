@@ -38,9 +38,6 @@ SignUpPage::SignUpPage(QWidget *parent)
 
     connect(Lineedit_Pass,SIGNAL(textEdited(QString)),this,SLOT(set_Pass(QString)));
     connect(Lineedit_Pass,SIGNAL(textChanged(QString)),this,SLOT(set_Pass(QString)));
-
-
-
 }
 
 SignUpPage::~SignUpPage()
