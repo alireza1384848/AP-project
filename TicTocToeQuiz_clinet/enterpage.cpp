@@ -3,6 +3,8 @@
 EnterPage::EnterPage(QWidget *parent)
     : QWidget{parent}
 {
+    Client::ConnectToServer("",1);
+
     this->setFixedSize(QSize(200,200));
     setWindowTitle("Entring Page");
     layout=new QVBoxLayout;

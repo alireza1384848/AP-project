@@ -6,6 +6,10 @@
 #include<QPushButton>
 #include<QLayout>
 #include<QLineEdit>
+#include<QJsonObject>
+#include"client.h"
+#include"welcomepage.h"
+#include <QMessageBox>
 class SigninPagge : public QWidget
 {
     Q_OBJECT
@@ -17,6 +21,7 @@ class SigninPagge : public QWidget
     QLineEdit *passwordLE;
     QPushButton *signin;
 public:
+    void InformationChecker();
     explicit SigninPagge(QWidget *parent = nullptr);
 
 signals:

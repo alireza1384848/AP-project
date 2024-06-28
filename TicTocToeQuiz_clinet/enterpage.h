@@ -3,6 +3,7 @@
 
 #include"signinpagge.h"
 #include"signuppage.h"
+
 class EnterPage : public QWidget
 {
     Q_OBJECT

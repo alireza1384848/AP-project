@@ -1,7 +1,7 @@
 #include "client.h"
 
 Client::Client(){}
-
+QTcpSocket* Client::socket;
 void Client::ConnectToServer(const QString &IP,const int &port)
 {
     socket->connectToHost(QHostAddress(IP), port);
