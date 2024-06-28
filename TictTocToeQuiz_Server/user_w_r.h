@@ -18,5 +18,6 @@ public:
     QJsonObject User_getter(QString Username);
     QJsonArray LoadUsersFromFile();
     void SaveUsersToFile(const QJsonArray&);
+    void Update_User(QString,QJsonObject);
 };
 #endif // USER_W_R_H
