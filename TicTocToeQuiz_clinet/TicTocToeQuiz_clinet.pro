@@ -12,15 +12,19 @@ CONFIG += c++17
 
 SOURCES += \
     client.cpp \
+    enterpage.cpp \
     gameboard.cpp \
     main.cpp \
     mainwindow.cpp \
+    signinpagge.cpp \
     signuppage.cpp
 
 HEADERS += \
     client.h \
+    enterpage.h \
     gameboard.h \
     mainwindow.h \
+    signinpagge.h \
     signuppage.h
 
 FORMS += \
