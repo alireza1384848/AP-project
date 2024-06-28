@@ -6,7 +6,8 @@
 #include<QPushButton>
 #include<QLayout>
 #include<QLineEdit>
-
+#include "qjsonobject.h"
+#include<string>
 class WelcomePage : public QWidget
 {
     Q_OBJECT
@@ -21,7 +22,7 @@ class WelcomePage : public QWidget
     QLabel * history;
     QPushButton *Start;
 public:
-    explicit WelcomePage(QWidget *parent = nullptr);
+    WelcomePage(QJsonObject);
 
 signals:
 };

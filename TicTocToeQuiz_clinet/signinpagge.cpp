@@ -31,5 +31,37 @@ SigninPagge::SigninPagge(QWidget *parent)
     layout->addWidget(signin);
 
     this->setLayout(layout);
+    QObject::connect(signin,&QPushButton::clicked,this,&SigninPagge::InformationChecker);
+}
+
+void SigninPagge::InformationChecker()
+{
+    QJsonObject UserObject;
+    UserObject.insert("typereq","IsExist");
+    UserObject.insert("username",usernameLE->text());
+    UserObject.insert("password",passwordLE->text());
+
+    Client::WriteData(UserObject);
+
+    QJsonObject response=Client::readData();
+
+    if(response["result"]=="true")
+    {
+        UserObject["typereq"]="UserInformation";
+        Client::WriteData(UserObject);
+        response=Client::readData();
+        WelcomePage *w=new WelcomePage(response);
+        w->show();
+        this->close();
+        return;
+    }
+    else
+    {
+        QMessageBox *mbox=new QMessageBox;
+        mbox->setText("Username or Password is not correct!");
+        mbox->show();
+        mbox->exec();
+        return;
+    }
 
 }

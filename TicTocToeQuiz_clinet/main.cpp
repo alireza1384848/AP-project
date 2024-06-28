@@ -1,4 +1,4 @@
-                                   //"In the name of God"\\
+                                 //"In the name of God"\\
 
 #include "mainwindow.h"
 #include "signuppage.h"
@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
     //SignUpPage w;
     //Gameboard w;
    // SigninPagge w;
-    WelcomePage w;
-    w.show();
+   // WelcomePage w;
+    //w.show();
     return a.exec();
 }
