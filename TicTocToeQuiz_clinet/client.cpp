@@ -1,7 +1,7 @@
 #include "client.h"
 
 Client::Client(){}
-
+QTcpSocket* Client::socket;
 void Client::ConnectToServer(const QString &IP,const int &port)
 {
     socket->connectToHost(QHostAddress(IP), port);
@@ -10,10 +10,14 @@ void Client::ConnectToServer(const QString &IP,const int &port)
 
 QJsonObject Client::readData()
 {
-    QByteArray data = socket->readAll();
-    QJsonDocument document=QJsonDocument::fromJson(data);
-    QJsonObject json=document.object();
+
+
+        QByteArray data = socket->readAll();
+        QJsonDocument document=QJsonDocument::fromJson(data);
+        QJsonObject json=document.object();
+
     return json;
+
 }
 void Client::WriteData(const QJsonObject& json)
 {
