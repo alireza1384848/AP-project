@@ -7,6 +7,7 @@
 #include <QLayout>
 #include "client.h"
 #include"welcomepage.h"
+#include"gameboard.h"
 class WaitingPage : public QWidget
 {
     Q_OBJECT
