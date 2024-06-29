@@ -7,7 +7,7 @@
 #include<QLayout>
 #include<QLineEdit>
 #include "qjsonobject.h"
-#include<string>
+#include"waitingpage.h"
 class WelcomePage : public QWidget
 {
     Q_OBJECT
@@ -21,9 +21,10 @@ class WelcomePage : public QWidget
     QLabel * equals;
     QLabel * history;
     QPushButton *Start;
+    QJsonObject UserInfo;
 public:
     WelcomePage(QJsonObject);
-
+    void StartTheGame();
 signals:
 };
 
