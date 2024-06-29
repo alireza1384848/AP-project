@@ -18,6 +18,7 @@ SOURCES += \
     mainwindow.cpp \
     signinpagge.cpp \
     signuppage.cpp \
+    waitingpage.cpp \
     welcomepage.cpp
 
 HEADERS += \
@@ -27,6 +28,7 @@ HEADERS += \
     mainwindow.h \
     signinpagge.h \
     signuppage.h \
+    waitingpage.h \
     welcomepage.h
 
 FORMS += \

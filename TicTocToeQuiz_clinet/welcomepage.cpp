@@ -1,6 +1,7 @@
 #include "welcomepage.h"
 
 WelcomePage::WelcomePage(QJsonObject User)
+    :UserInfo(User)
 {
 
 
@@ -10,27 +11,23 @@ WelcomePage::WelcomePage(QJsonObject User)
     welcome->setAlignment(Qt::AlignCenter);
     layout->addWidget(welcome);
 
-    username=new QLabel("Username: "+User["username"].toString());
+    username=new QLabel(User["username"].toString());
     username->setAlignment(Qt::AlignCenter);
     layout->addWidget(username);
-
-    password=new QLabel("Password: "+User["password"].toString());
-    password->setAlignment(Qt::AlignCenter);
-    layout->addWidget(password);
 
     email=new QLabel("Email: "+User["email"].toString());
     email->setAlignment(Qt::AlignCenter);
     layout->addWidget(email);
 
-    loses=new QLabel("Loses: "+User["loses"].toString());
+    loses=new QLabel("Loses: "+QString::number(User["loses"].toInt()));
     loses->setAlignment(Qt::AlignCenter);
     layout->addWidget(loses);
 
-    wins=new QLabel("Wins: "+User["wins"].toString());
+    wins=new QLabel("Wins: " +QString::number(User["wins"].toInt()));
     wins->setAlignment(Qt::AlignCenter);
     layout->addWidget(wins);
 
-    equals=new QLabel("Equels: "+User["equals"].toString());
+    equals=new QLabel("Equels: "+QString::number(User["equals"].toInt()));
     equals->setAlignment(Qt::AlignCenter);
     layout->addWidget(equals);
 
@@ -41,4 +38,16 @@ WelcomePage::WelcomePage(QJsonObject User)
     Start=new QPushButton("Start the game");
     layout->addWidget(Start);
     this->setLayout(layout);
+
+    QObject::connect(Start,&QPushButton::clicked,this,&WelcomePage::StartTheGame);
+}
+
+void WelcomePage::StartTheGame()
+{
+    QJsonObject request;
+    request.insert("typereq","ReadyToPlay");
+   // Client::WriteData(request);
+    WaitingPage *w=new WaitingPage(UserInfo);
+    w->show();
+    this->close();
 }
