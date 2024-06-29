@@ -9,9 +9,10 @@
 class Client:public QObject
 {
     Q_OBJECT
-    static QTcpSocket *socket;
+
     Client();
-public:  
+public:
+    static QTcpSocket *socket;
     static void ConnectToServer(const QString &IP,const int &port);
     static QJsonObject readData();
     static void WriteData(const QJsonObject&);
