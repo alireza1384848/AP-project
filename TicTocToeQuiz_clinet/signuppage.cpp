@@ -5,7 +5,7 @@ SignUpPage::SignUpPage(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::SignUpPage)
 {
-        ui->setupUi(this);
+        ui->setupUi(this);  
     this->setWindowTitle("sign up page");
     UsernameLabel = new QLabel(this);
     UsernameLabel->setText("Username :");
@@ -14,21 +14,25 @@ SignUpPage::SignUpPage(QWidget *parent)
     Emaillabel = new QLabel(this);
     Emaillabel->setText("Email :");
     Topic = new QLabel(this);
-    Topic->setText("Sign in Page");
+    Topic->setText("Sign up Page");
     Topic->setGeometry(100,0,100,20);
     layout  = new QGridLayout(this);
     Lineedit_User = new QLineEdit(this);
     Lineedit_Pass = new QLineEdit(this);
     Lineedit_Email = new QLineEdit(this);
 
-    layout->addWidget(UsernameLabel,1,0);
-    layout->addWidget(Lineedit_User,1,1);
+    Ok_Buttom = new QPushButton(this);
+    Ok_Buttom->setText("Sign Up");
+    layout->addWidget(UsernameLabel,1,0,1,2);
+    layout->addWidget(Lineedit_User,1,1,1,2);
 
     layout->addWidget(Passlabel,2,0);
     layout->addWidget(Lineedit_Pass,2,1,1,2);
 
     layout->addWidget(Emaillabel,3,0,1,2);
     layout->addWidget(Lineedit_Email,3,1,1,2);
+
+    layout->addWidget(Ok_Buttom,4,2,1,1);
 
     connect(Lineedit_User,SIGNAL(textChanged(QString)),this,SLOT(set_Username(QString)));
     connect(Lineedit_User,SIGNAL(textEdited(QString)),this,SLOT(set_Username(QString)));
@@ -38,6 +42,10 @@ SignUpPage::SignUpPage(QWidget *parent)
 
     connect(Lineedit_Pass,SIGNAL(textEdited(QString)),this,SLOT(set_Pass(QString)));
     connect(Lineedit_Pass,SIGNAL(textChanged(QString)),this,SLOT(set_Pass(QString)));
+
+    connect(Ok_Buttom,SIGNAL(clicked()),this,SLOT(Clicked_Ok_But()));
+
+
 }
 
 SignUpPage::~SignUpPage()
@@ -63,4 +71,34 @@ void SignUpPage::set_Email(QString Email)
 {
     info.Email = Email;
     qDebug()<<info.Email;
+}
+
+void SignUpPage::Clicked_Ok_But()
+{
+    QJsonObject UserObject;
+    UserObject.insert("typereq","adduser");
+    UserObject.insert("Username",info.username);
+    UserObject.insert("Password",info.Password);
+    UserObject.insert("Email",info.Email);
+  //  Client::WriteData(UserObject);
+    QMessageBox *waitting = new QMessageBox(this);
+  /////////////////////////////////////////// vaghti camel shod az comment dar ar
+ //   if(Client::socket->waitForReadyRead(-1)){
+       // QString Data = Client::readData()["IsExist"].toString();
+   QString Data = "tru";
+        if(Data=="true"){
+             waitting->setText("Your Username is frequntly Used");
+            waitting->setIcon(QMessageBox::Critical);
+             waitting->show();
+        }
+        else
+        {
+            waitting->setText("Sign up Succesfuly Done.");
+            waitting->setIcon(QMessageBox::Warning);
+            waitting->show();
+        }
+
+  //  }
+
+
 }

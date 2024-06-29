@@ -15,6 +15,7 @@ Server::Server(char *address, int portnum, QObject *parent): QTcpServer{parent}
     qDebug() << "servre ready to listen on address = "<<serverAddr.toString()<<" port  : "<<portNo;
     connect(this,SIGNAL(IGotData(QTcpSocket*,QByteArray)),Responder,SLOT(ProccesData(QTcpSocket*,QByteArray)));
     connect(Responder,SIGNAL(ImReady(QTcpSocket*)),this,SLOT(ChangeReadyStatusSokeckt(QTcpSocket*)));
+    connect(Responder,SIGNAL(WriteOnSocket(QJsonObject,QTcpSocket*)),this,SLOT(WriteOnSocket(QJsonObject,QTcpSocket*)));
 }
 void Server::incomingConnection(qintptr socketDescriptor)
 {
@@ -29,9 +30,10 @@ void Server::incomingConnection(qintptr socketDescriptor)
 
 }
 
-void Server::WriteOnSocket(QByteArray message, QTcpSocket *whichSocket){
+void Server::WriteOnSocket(const QJsonObject& json, QTcpSocket *whichSocket){
+    QJsonDocument message(json);
     qDebug() << "sending data to Client " <<whichSocket->peerAddress().toString()<<":"<<whichSocket->peerPort();
-    whichSocket->write(message);
+    whichSocket->write(message.toJson());
 }
 
 void Server::ChangeReadyStatusSokeckt(QTcpSocket *a)

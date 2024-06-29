@@ -38,14 +38,14 @@ void SigninPagge::InformationChecker()
 {
     QJsonObject UserObject;
     UserObject.insert("typereq","IsExist");
-    UserObject.insert("username",usernameLE->text());
-    UserObject.insert("password",passwordLE->text());
+    UserObject.insert("Username",usernameLE->text());
+    UserObject.insert("Password",passwordLE->text());
 
     Client::WriteData(UserObject);
 
     QJsonObject response=Client::readData();
 
-    if(response["result"]=="true")
+    if(response["Result"]=="true")
     {
         UserObject["typereq"]="UserInformation";
         Client::WriteData(UserObject);

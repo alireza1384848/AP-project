@@ -25,11 +25,12 @@ public:
     void addUserinfo(QString username,QString pass,QString Email);
     void isAnswer();
     void setClientready();
+    void IsExistUser(QString username,QString pass);
 public slots:
     void ProccesData(QTcpSocket * from,QByteArray Data);
 signals:
     void ImReady(QTcpSocket * HowAmI);
-//write to which socket
+    void WriteOnSocket(const QJsonObject& json, QTcpSocket *whichSocket);
 };
 
 #endif // RESPONDREQEST_H

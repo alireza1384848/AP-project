@@ -18,8 +18,19 @@ void RespondReqest::updateUserinfo()
 
 void RespondReqest::addUserinfo(QString username,QString pass,QString Email)
 {
+    if(MangeFile->IsUserExist(username)){
+        QJsonObject a;
+        a.insert("IsExist","false");
+        emit WriteOnSocket(a,Socket);
+        return;
+    }
+    else{
     User_info myuser(username,pass,Email);
     MangeFile->AddNewUser(myuser.json_getter());
+    QJsonObject a;
+    a.insert("IsExist","true");
+    emit WriteOnSocket(a,Socket);
+    }
 }
 
 void RespondReqest::isAnswer()
@@ -31,6 +42,21 @@ void RespondReqest::setClientready()
 {
 //emit signl im ready ba soket on
     emit ImReady(Socket);
+}
+
+void RespondReqest::IsExistUser(QString username, QString pass)
+{
+    qDebug()<<"Server is cheching username and pass of User is Existed or not";
+    if (MangeFile->IsUserExist(username)){
+        if(MangeFile->User_getter(username)["Password"].toString()==pass){
+            QJsonObject  mess;
+            mess.insert("Result","true");
+            emit WriteOnSocket(mess,Socket);
+        }
+    }
+    QJsonObject  mess;
+    mess.insert("Result","false");
+    emit WriteOnSocket(mess,Socket);
 }
 
 void RespondReqest::ProccesData(QTcpSocket *from, QByteArray Data)
@@ -54,6 +80,10 @@ void RespondReqest::ProccesData(QTcpSocket *from, QByteArray Data)
     }
     else if(Req["typereq"]=="istrueAnsweer"){
         this->isAnswer();
+    }
+    else if(Req["typereq"]=="IsExist"){
+
+        this->IsExistUser(Req["Username"].toString(),Req["Password"].toString());
     }
 }
 

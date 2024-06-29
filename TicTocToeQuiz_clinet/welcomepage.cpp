@@ -11,23 +11,23 @@ WelcomePage::WelcomePage(QJsonObject User)
     welcome->setAlignment(Qt::AlignCenter);
     layout->addWidget(welcome);
 
-    username=new QLabel(User["username"].toString());
+    username=new QLabel(User["Username"].toString());
     username->setAlignment(Qt::AlignCenter);
     layout->addWidget(username);
 
-    email=new QLabel("Email: "+User["email"].toString());
+    email=new QLabel("Email: "+User["Email"].toString());
     email->setAlignment(Qt::AlignCenter);
     layout->addWidget(email);
 
-    loses=new QLabel("Loses: "+QString::number(User["loses"].toInt()));
+    loses=new QLabel("Loses: "+QString::number(User["Loses"].toInt()));
     loses->setAlignment(Qt::AlignCenter);
     layout->addWidget(loses);
 
-    wins=new QLabel("Wins: " +QString::number(User["wins"].toInt()));
+    wins=new QLabel("Wins: " +QString::number(User["Wins"].toInt()));
     wins->setAlignment(Qt::AlignCenter);
     layout->addWidget(wins);
 
-    equals=new QLabel("Equels: "+QString::number(User["equals"].toInt()));
+    equals=new QLabel("Equels: "+QString::number(User["Equals"].toInt()));
     equals->setAlignment(Qt::AlignCenter);
     layout->addWidget(equals);
 

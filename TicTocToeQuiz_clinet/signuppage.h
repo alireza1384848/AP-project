@@ -4,8 +4,13 @@
 #include<QGridLayout>
 #include<QLineEdit>
 #include<QLabel>
+#include<QPushButton>
+#include<QJsonObject>
 #include<QCryptographicHash>
 #include <QDialog>
+#include <QMessageBox>
+#include <QThread>
+#include"client.h"
 struct UserInformation{
     QString username;
     QString Password;
@@ -26,6 +31,7 @@ public slots:
     void set_Username(QString username);
     void set_Pass(QString pass);
     void set_Email(QString Email);
+    void Clicked_Ok_But();
 
 private:
     Ui::SignUpPage *ui;
@@ -38,6 +44,9 @@ private:
     QLineEdit * Lineedit_User;
     QLineEdit * Lineedit_Pass;
     QLineEdit * Lineedit_Email;
+    QPushButton * Ok_Buttom;
+
+
 
 };
 
