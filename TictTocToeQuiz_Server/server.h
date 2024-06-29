@@ -26,7 +26,7 @@ public:
     explicit Server(char * address,int portnum,QObject *parent = nullptr);
     void incomingConnection(qintptr)override;
 public slots:
-    void WriteOnSocket(QByteArray message,QTcpSocket * whichSocket);
+    void WriteOnSocket(const QJsonObject& json,QTcpSocket * whichSocket);
     void ChangeReadyStatusSokeckt(QTcpSocket * a);
     void Disconnected();
     void Readyread();
