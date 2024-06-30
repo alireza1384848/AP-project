@@ -10,16 +10,18 @@
 class User_w_r:public QObject
 {
     Q_OBJECT
-public:
     User_w_r();
-    void AddNewUser(const QJsonObject &newuser);
-    void UpdateLosesNumber(QString Username);
-    void UpdateWinsNumber(QString Username);
-    void UpdateMatchHistory(QString Username,QString OUsername,bool iswon);//Player username--Opponent Username--Is this Player won?
-    bool IsUserExist(QString Username);
-    QJsonObject User_getter(QString Username);
-    QJsonArray LoadUsersFromFile();
-    void SaveUsersToFile(const QJsonArray&);
-    void Update_User(QString,QJsonObject);
+    static QJsonArray LoadUsersFromFile();
+    static void SaveUsersToFile(const QJsonArray&);
+public:
+
+    static void AddNewUser(const QJsonObject &newuser);
+
+    static bool IsUserExist(QString Username);
+    static QJsonObject User_getter(QString Username);
+    static void Update_User(QString,QJsonObject);
+    //void UpdateLosesNumber(QString Username);
+    //void UpdateWinsNumber(QString Username);
+    //void UpdateMatchHistory(QString Username,QString OUsername,bool iswon);//Player username--Opponent Username--Is this Player won?
 };
 #endif // USER_W_R_H

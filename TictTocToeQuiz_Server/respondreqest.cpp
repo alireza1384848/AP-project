@@ -3,7 +3,7 @@
 RespondReqest::RespondReqest(QObject *parent)
     : QObject{parent}
 {
-    MangeFile = new User_w_r();
+    //MangeFile = new User_w_r(); constructor in function ro private kardam.in khat error midad
 }
 
 void RespondReqest::sendQuestion()
