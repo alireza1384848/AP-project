@@ -46,7 +46,7 @@ void WelcomePage::StartTheGame()
 {
     QJsonObject request;
     request.insert("typereq","ReadyToPlay");
-   // Client::WriteData(request);
+    Client::WriteData(request);
     WaitingPage *w=new WaitingPage(UserInfo);
     w->show();
     this->close();

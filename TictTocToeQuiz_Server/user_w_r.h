@@ -4,6 +4,8 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QObject>
+//#include <QDebug>
+#include <qDebug>
 #include <QFile>
 class User_w_r:public QObject
 {

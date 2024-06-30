@@ -11,6 +11,7 @@
 #include <QMessageBox>
 #include <QThread>
 #include"client.h"
+#include"signinpagge.h"
 struct UserInformation{
     QString username;
     QString Password;
@@ -32,10 +33,12 @@ public slots:
     void set_Pass(QString pass);
     void set_Email(QString Email);
     void Clicked_Ok_But();
+    void Click_Login_But();
 
 private:
     Ui::SignUpPage *ui;
     UserInformation info;
+    SigninPagge * Login;
     QGridLayout * layout;
     QLabel * Emaillabel;
     QLabel * Topic;
@@ -45,6 +48,7 @@ private:
     QLineEdit * Lineedit_Pass;
     QLineEdit * Lineedit_Email;
     QPushButton * Ok_Buttom;
+    QPushButton * login_Buttom;
 
 
 

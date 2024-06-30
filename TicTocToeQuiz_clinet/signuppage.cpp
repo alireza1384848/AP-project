@@ -23,6 +23,11 @@ SignUpPage::SignUpPage(QWidget *parent)
 
     Ok_Buttom = new QPushButton(this);
     Ok_Buttom->setText("Sign Up");
+
+    login_Buttom =  new QPushButton(this);
+    login_Buttom->setText("Login");
+
+
     layout->addWidget(UsernameLabel,1,0,1,2);
     layout->addWidget(Lineedit_User,1,1,1,2);
 
@@ -33,6 +38,9 @@ SignUpPage::SignUpPage(QWidget *parent)
     layout->addWidget(Lineedit_Email,3,1,1,2);
 
     layout->addWidget(Ok_Buttom,4,2,1,1);
+    layout->addWidget(login_Buttom,4,1,1,1);
+
+
 
     connect(Lineedit_User,SIGNAL(textChanged(QString)),this,SLOT(set_Username(QString)));
     connect(Lineedit_User,SIGNAL(textEdited(QString)),this,SLOT(set_Username(QString)));
@@ -44,6 +52,7 @@ SignUpPage::SignUpPage(QWidget *parent)
     connect(Lineedit_Pass,SIGNAL(textChanged(QString)),this,SLOT(set_Pass(QString)));
 
     connect(Ok_Buttom,SIGNAL(clicked()),this,SLOT(Clicked_Ok_But()));
+    connect(login_Buttom,SIGNAL(clicked()),this,SLOT(Click_Login_But()));
 
 
 }
@@ -80,12 +89,15 @@ void SignUpPage::Clicked_Ok_But()
     UserObject.insert("Username",info.username);
     UserObject.insert("Password",info.Password);
     UserObject.insert("Email",info.Email);
-  //  Client::WriteData(UserObject);
+    Client::WriteData(UserObject);
     QMessageBox *waitting = new QMessageBox(this);
   /////////////////////////////////////////// vaghti camel shod az comment dar ar
- //   if(Client::socket->waitForReadyRead(-1)){
-       // QString Data = Client::readData()["IsExist"].toString();
-   QString Data = "tru";
+    if(Client::socket->waitForReadyRead(-1)){
+        QJsonObject a = Client::readData();
+        qDebug()<<a;
+        QString Data = a["IsExist"].toString();
+  // QString Data = "tru";
+        qDebug()<<"Resualt is"+Data;
         if(Data=="true"){
              waitting->setText("Your Username is frequntly Used");
             waitting->setIcon(QMessageBox::Critical);
@@ -98,7 +110,15 @@ void SignUpPage::Clicked_Ok_But()
             waitting->show();
         }
 
-  //  }
+   }
 
 
+}
+
+void SignUpPage::Click_Login_But()
+{
+
+    Login = new SigninPagge();
+    this->close();
+    Login->show();
 }

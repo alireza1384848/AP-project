@@ -27,8 +27,6 @@ ButtonManager::ButtonManager()
     buttons[6]=new Button(random[6],0,"Short");
     buttons[7]=new Button(random[7],0,"Number");
     buttons[8]=new Button(random[8],2,"Multiple");
-
-
 }
 
 QJsonObject ButtonManager::GetButtonInfo(int position)
