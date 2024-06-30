@@ -36,19 +36,22 @@ SigninPagge::SigninPagge(QWidget *parent)
 
 void SigninPagge::InformationChecker()
 {
+    QByteArray _pass = passwordLE->text().toUtf8();
+    qDebug()<<passwordLE->text();
+    QString a = QCryptographicHash::hash(_pass,QCryptographicHash::Md4);
     QJsonObject UserObject;
     UserObject.insert("typereq","IsExist");
     UserObject.insert("Username",usernameLE->text());
-    UserObject.insert("Password",passwordLE->text());
-
+    UserObject.insert("Password",a);
     Client::WriteData(UserObject);
-
-    QJsonObject response=Client::readData();
-
+    if(Client::socket->waitForReadyRead(-1))
+    {    QJsonObject response=Client::readData();
     if(response["Result"]=="true")
     {
         UserObject["typereq"]="UserInformation";
+        UserObject["Username"] =usernameLE->text();
         Client::WriteData(UserObject);
+        Client::socket->waitForReadyRead(-1);
         response=Client::readData();
         WelcomePage *w=new WelcomePage(response);
         w->show();
@@ -62,6 +65,7 @@ void SigninPagge::InformationChecker()
         mbox->show();
         mbox->exec();
         return;
+    }
     }
 
 }

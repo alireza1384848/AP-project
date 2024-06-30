@@ -58,6 +58,7 @@ void User_w_r::Update_User(QString username,QJsonObject userobject)
 }
 bool User_w_r::IsUserExist(QString username)
 {
+    qDebug()<<"find out "<<username<<" is exited or not"<<"in json";
     QJsonArray usersarray=LoadUsersFromFile();
     QJsonObject uobject;
     for(int i=0;i<usersarray.size();i++)

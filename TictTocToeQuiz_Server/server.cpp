@@ -32,7 +32,7 @@ void Server::incomingConnection(qintptr socketDescriptor)
 
 void Server::WriteOnSocket(const QJsonObject& json, QTcpSocket *whichSocket){
     QJsonDocument message(json);
-    qDebug() << "sending data to Client " <<whichSocket->peerAddress().toString()<<":"<<whichSocket->peerPort();
+    qDebug() << "sending data to Client " <<whichSocket->peerAddress().toString()<<":"<<whichSocket->peerPort()<<message.toJson();
     whichSocket->write(message.toJson());
 }
 
@@ -55,13 +55,5 @@ void Server::Readyread()
     QTcpSocket * fromsocket = qobject_cast<QTcpSocket * >(sender());
     qDebug() <<"Server read data from "<< fromsocket->peerAddress().toString()<<":"<<fromsocket->peerPort();
     QByteArray Data = fromsocket->readAll();
-    for (QTcpSocket *client : Clients) {
-
-        if (client == fromsocket) {
-            qDebug() << "sending data to Client " <<client->peerAddress().toString()
-                     <<":"<<client->peerPort();
-            client->write(Data);
-        }
-    }
     emit IGotData(fromsocket,Data);
 }

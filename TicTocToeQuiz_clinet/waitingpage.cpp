@@ -19,18 +19,18 @@ WaitingPage::WaitingPage(QJsonObject userinfo)
 
     // ino pas az rah andazie server az comment dar miarim
 
-    // QObject::connect(button,&QPushButton::clicked,this,&WaitingPage::CancelStarting);
-    // QJsonObject ansewer;
-    // if(Client::socket->waitForReadyRead(-1))
-    // {
-    //     ansewer=Client::readData();
-    //     if(ansewer["typereq"].toString()=="Start")
-    //     {
-    //         Gameboard *w=new Gameboard;
-    //         w->show();
-    //         this->close();
-    //     }
-    // }
+   /* QObject::connect(button,&QPushButton::clicked,this,&WaitingPage::CancelStarting);
+     QJsonObject ansewer;
+     if(Client::socket->waitForReadyRead(-1))
+     {
+         ansewer=Client::readData();
+         if(ansewer["typereq"].toString()=="Start")
+         {
+             Gameboard *w=new Gameboard;
+             w->show();
+             this->close();
+         }
+     }*/
 }
 void WaitingPage::CancelStarting()
 {

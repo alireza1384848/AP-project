@@ -26,6 +26,7 @@ public:
     void isAnswer();
     void setClientready();
     void IsExistUser(QString username,QString pass);
+    void UserInfoGetter(QString username);
 public slots:
     void ProccesData(QTcpSocket * from,QByteArray Data);
 signals:

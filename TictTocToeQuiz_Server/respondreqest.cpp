@@ -20,16 +20,16 @@ void RespondReqest::addUserinfo(QString username,QString pass,QString Email)
 {
     if(MangeFile->IsUserExist(username)){
         QJsonObject a;
-        a.insert("IsExist","false");
+        a.insert("IsExist","true");
         emit WriteOnSocket(a,Socket);
         return;
     }
     else{
     User_info myuser(username,pass,Email);
     MangeFile->AddNewUser(myuser.json_getter());
-    QJsonObject a;
-    a.insert("IsExist","true");
-    emit WriteOnSocket(a,Socket);
+    QJsonObject * a = new QJsonObject();
+    a->insert("IsExist","false");
+    emit WriteOnSocket(*a,Socket);
     }
 }
 
@@ -37,7 +37,6 @@ void RespondReqest::isAnswer()
 {
 
 }
-
 void RespondReqest::setClientready()
 {
 //emit signl im ready ba soket on
@@ -53,10 +52,22 @@ void RespondReqest::IsExistUser(QString username, QString pass)
             mess.insert("Result","true");
             emit WriteOnSocket(mess,Socket);
         }
+        else{
+            QJsonObject  mess;
+            mess.insert("Result","false");
+            emit WriteOnSocket(mess,Socket);
+        }
     }
+    else{
     QJsonObject  mess;
     mess.insert("Result","false");
     emit WriteOnSocket(mess,Socket);
+    }
+}
+
+void RespondReqest::UserInfoGetter(QString username)
+{
+    emit WriteOnSocket(MangeFile->User_getter(username),Socket);
 }
 
 void RespondReqest::ProccesData(QTcpSocket *from, QByteArray Data)
@@ -75,7 +86,7 @@ void RespondReqest::ProccesData(QTcpSocket *from, QByteArray Data)
     else if(Req["typereq"]=="NeedQuestion"){
         this->sendQuestion();
     }
-    else if (Req["typereq"]=="start"){
+    else if (Req["typereq"]=="ReadyToPlay"){
         this->setClientready();
     }
     else if(Req["typereq"]=="istrueAnsweer"){
@@ -84,6 +95,10 @@ void RespondReqest::ProccesData(QTcpSocket *from, QByteArray Data)
     else if(Req["typereq"]=="IsExist"){
 
         this->IsExistUser(Req["Username"].toString(),Req["Password"].toString());
+    }
+    else if(Req["typereq"]=="UserInformation"){
+
+        this->UserInfoGetter(Req["Username"].toString());
     }
 }
 
