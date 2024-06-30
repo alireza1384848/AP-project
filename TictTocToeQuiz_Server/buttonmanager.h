@@ -3,13 +3,16 @@
 #include<QObject>
 #include"button.h"
 #include<QJsonObject>
+#include"multiple_question.h"
+#include"short_question.h"
+#include"number_question.h"
 class ButtonManager : public QObject
 {
     Q_OBJECT
 
     Button *buttons[9];
 public:
-    QJsonObject GetButtonInfo(int position);
+    void ResetQuestion(int position);
     ButtonManager();
 
 signals:

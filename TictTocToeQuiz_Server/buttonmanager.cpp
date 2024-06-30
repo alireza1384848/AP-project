@@ -27,9 +27,54 @@ ButtonManager::ButtonManager()
     buttons[6]=new Button(random[6],0,"Short");
     buttons[7]=new Button(random[7],0,"Number");
     buttons[8]=new Button(random[8],2,"Multiple");
+
+    Questions *questions[9];
+
+    questions[0]=new Multiple_Question();
+    buttons[0]->Query=questions[0]->GetQuestion();
+
+    questions[1]=new Multiple_Question();
+    buttons[1]->Query=questions[1]->GetQuestion();
+
+    questions[2]=new Short_Question();
+    buttons[2]->Query=questions[2]->GetQuestion();
+
+    questions[3]=new Multiple_Question();
+    buttons[3]->Query=questions[3]->GetQuestion();
+
+    questions[4]=new Multiple_Question();
+    buttons[4]->Query=questions[4]->GetQuestion();
+
+    questions[5]=new Multiple_Question();
+    buttons[5]->Query=questions[5]->GetQuestion();
+
+    questions[6]=new Short_Question();
+    buttons[6]->Query=questions[6]->GetQuestion();
+
+    questions[7]=new Number_Question();
+    buttons[7]->Query=questions[7]->GetQuestion();
+
+    questions[8]=new Multiple_Question();
+    buttons[8]->Query=questions[8]->GetQuestion();
 }
 
-QJsonObject ButtonManager::GetButtonInfo(int position)
+void ButtonManager::ResetQuestion(int position)
 {
-    return buttons[position-1]->GetInfo();
+    Questions *Question;
+    if(buttons[position-1]->QuestionType2=="Multiple")
+    {
+        Question=new Multiple_Question;
+        buttons[position-1]->Query=Question->GetQuestion();
+    }
+    else if(buttons[position-1]->QuestionType2=="Short")
+    {
+        Question=new Short_Question;
+        buttons[position-1]->Query=Question->GetQuestion();
+    }
+    else if(buttons[position-1]->QuestionType2=="Number")
+    {
+        Question=new Number_Question;
+        buttons[position-1]->Query=Question->GetQuestion();
+    }
+
 }

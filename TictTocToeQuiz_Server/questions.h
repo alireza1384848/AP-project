@@ -7,6 +7,7 @@
 #include <QNetworkReply>
 #include <QUrl>
 #include<QObject>
+
 class Questions:QObject
 {
 public:
