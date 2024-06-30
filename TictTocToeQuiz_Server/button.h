@@ -9,12 +9,14 @@
    // ForPlayer2=2,
    // Waiting=3,
    // Defalt=4
-///};
+//};
 
 class Button : public QObject
 {
     Q_OBJECT
 private:
+
+    QJsonObject Query;
 
     int QuestionType1;//0:Usual 1:Bomb  2:King question
 
@@ -35,9 +37,9 @@ private:
     }*/
 
 public:
+    friend class ButtonManager;
     explicit Button(int pos,int Type1,QString Type,QObject *parent = nullptr);
     void SetState(QString State);
-    QJsonObject GetInfo();
 signals:
 
 };
