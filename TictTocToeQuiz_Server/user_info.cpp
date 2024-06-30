@@ -9,6 +9,7 @@ User_info::User_info(QString Uname,QString Pass,QString Em)
     UserJson.insert("Email",Em);
     UserJson.insert("Loses",Loses);
     UserJson.insert("Wins",Wins);
+    UserJson.insert("Equals",Equals);
     QJsonArray  history;
     UserJson.insert("History",history);
     //...
@@ -32,11 +33,18 @@ void User_info::Lose_Updater()
     UserJson["loses"] = Loses;
 }
 
-void User_info::win_Updater()
+void User_info::Win_Updater()
 {
     Wins++;
     UserJson["Wins"] =Wins;
 }
+
+void User_info::Equals_Updater()
+{
+    Equals++;
+    UserJson["Equals"] =Equals;
+}
+
 void User_info::History_Updater(QString Opponent, int State)
 {
     //State==0->Lose/State==1->Win
