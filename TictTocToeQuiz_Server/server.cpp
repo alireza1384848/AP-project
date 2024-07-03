@@ -15,6 +15,7 @@ Server::Server(char *address, int portnum, QObject *parent): QTcpServer{parent}
     qDebug() << "servre ready to listen on address = "<<serverAddr.toString()<<" port  : "<<portNo;
     connect(this,SIGNAL(IGotData(QTcpSocket*,QByteArray)),Responder,SLOT(ProccesData(QTcpSocket*,QByteArray)));
     connect(Responder,SIGNAL(ImReady(QTcpSocket*)),this,SLOT(ChangeReadyStatusSokeckt(QTcpSocket*)));
+    connect(Responder,SIGNAL(ImNotReady(QTcpSocket*)),this,SLOT(setNOtReady(QTcpSocket*)));
     connect(Responder,SIGNAL(WriteOnSocket(QJsonObject,QTcpSocket*)),this,SLOT(WriteOnSocket(QJsonObject,QTcpSocket*)));
 }
 void Server::incomingConnection(qintptr socketDescriptor)
@@ -23,6 +24,7 @@ void Server::incomingConnection(qintptr socketDescriptor)
     QTcpSocket *socket = new QTcpSocket(this);
     socket->setSocketDescriptor(socketDescriptor);
     socket->setProperty("ReadyOrNot",0);
+
     Clients.push_back(socket);
     qDebug() << socket->peerAddress().toString()<<":"<<socket->peerPort();
     connect(socket, &QTcpSocket::disconnected, this, &Server::Disconnected);
@@ -42,6 +44,33 @@ void Server::ChangeReadyStatusSokeckt(QTcpSocket *a)
         if (client == a) {
             qDebug() << "Change Ready Status socket: " <<client->peerAddress().toString()<<":"<<client->peerPort();
             client->setProperty("ReadyOrNot",1);
+            players.push_back(a);
+            if(isfull==false&&players.size()==2){
+                QJsonObject res;
+                ButtonManager * b = new ButtonManager(players[0],players[1]);
+                Games.push_back(b);
+                players[0]->setProperty("ServerNO",Games.size()-1);
+                players[1]->setProperty("ServerNO",Games.size()-1);
+                res.insert("IsGameStart","true");
+                WriteOnSocket(res,players[0]);
+                WriteOnSocket(res,players[1]);
+                players.clear();
+            }
+            if(isfull==true){
+                QJsonObject res;
+                res.insert("IsFull","true");
+                WriteOnSocket(res,a);
+            }
+        }
+    }
+}
+
+void Server::setNOtReady(QTcpSocket *a)
+{
+    for (QTcpSocket *client : Clients) {
+        if (client == a) {
+            qDebug() << "Change Ready Status socket to not ready: " <<client->peerAddress().toString()<<":"<<client->peerPort();
+            client->setProperty("ReadyOrNot",0);
         }
     }
 }

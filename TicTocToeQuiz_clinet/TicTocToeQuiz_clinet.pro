@@ -2,6 +2,7 @@ QT       += core gui
 QT += core
 QT += widgets
 QT += network
+QT += concurrent
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17
@@ -16,9 +17,13 @@ SOURCES += \
     gameboard.cpp \
     main.cpp \
     mainwindow.cpp \
+    multiplequstion.cpp \
+    numberquestion.cpp \
+    shortquestion.cpp \
     signinpagge.cpp \
     signuppage.cpp \
     waitingpage.cpp \
+    waittingfunc.cpp \
     welcomepage.cpp
 
 HEADERS += \
@@ -26,14 +31,21 @@ HEADERS += \
     enterpage.h \
     gameboard.h \
     mainwindow.h \
+    multiplequstion.h \
+    numberquestion.h \
+    shortquestion.h \
     signinpagge.h \
     signuppage.h \
     waitingpage.h \
+    waittingfunc.h \
     welcomepage.h
 
 FORMS += \
     gameboard.ui \
     mainwindow.ui \
+    multiplequstion.ui \
+    numberquestion.ui \
+    shortquestion.ui \
     signuppage.ui
 
 # Default rules for deployment.

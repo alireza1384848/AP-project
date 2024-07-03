@@ -8,7 +8,6 @@
 #include<QGroupBox>
 #include<QLineEdit>
 #include<QPushButton>
-
 #include<QCryptographicHash>
 #include <QDialog>
 #include <QVector>

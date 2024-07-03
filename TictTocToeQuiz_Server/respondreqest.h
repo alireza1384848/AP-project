@@ -26,11 +26,13 @@ public:
     void isAnswer();
     void setClientready();
     void IsExistUser(QString username,QString pass);
+    void cancelready();
     void UserInfoGetter(QString username);
 public slots:
     void ProccesData(QTcpSocket * from,QByteArray Data);
 signals:
     void ImReady(QTcpSocket * HowAmI);
+    void ImNotReady(QTcpSocket * HowAmI);
     void WriteOnSocket(const QJsonObject& json, QTcpSocket *whichSocket);
 };
 

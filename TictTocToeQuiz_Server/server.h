@@ -5,6 +5,7 @@
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <QVector>
+#include "buttonmanager.h"
 #include <QEventLoop>
 #include <QTimer>
 
@@ -15,6 +16,8 @@ private:
     QHostAddress serverAddr;
     quint16 portNo;
     QVector<QTcpSocket *> Clients;
+    QVector<QTcpSocket *> players;//add two client here
+    QVector<ButtonManager *> Games ;//add two client here
     bool isfull=false;
     RespondReqest * Responder;
 
@@ -28,6 +31,7 @@ public:
 public slots:
     void WriteOnSocket(const QJsonObject& json,QTcpSocket * whichSocket);
     void ChangeReadyStatusSokeckt(QTcpSocket * a);
+    void setNOtReady(QTcpSocket * a);
     void Disconnected();
     void Readyread();
 };

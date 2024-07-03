@@ -8,7 +8,9 @@
 #include<QLineEdit>
 #include "qjsonobject.h"
 #include"waitingpage.h"
-class WelcomePage : public QWidget
+#include "client.h"
+
+class WelcomePage :  public QWidget
 {
     Q_OBJECT
     QVBoxLayout *layout;

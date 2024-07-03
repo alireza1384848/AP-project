@@ -9,11 +9,14 @@
 class ButtonManager : public QObject
 {
     Q_OBJECT
-
-    Button *buttons[9];
+    QTcpSocket * player1;
+    QTcpSocket * player2;
+    Button * buttons[9];
+    Button * sortbuttons[9];
 public:
     void ResetQuestion(int position);
-    ButtonManager();
+    ButtonManager(QTcpSocket *p1,QTcpSocket *p2);
+    QJsonObject json_getter(int pos);
 
 signals:
 };

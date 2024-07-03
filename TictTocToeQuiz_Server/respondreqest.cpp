@@ -39,8 +39,7 @@ void RespondReqest::isAnswer()
 }
 void RespondReqest::setClientready()
 {
-//emit signl im ready ba soket on
-    emit ImReady(Socket);
+    emit ImReady(Socket);    
 }
 
 void RespondReqest::IsExistUser(QString username, QString pass)
@@ -63,6 +62,11 @@ void RespondReqest::IsExistUser(QString username, QString pass)
     mess.insert("Result","false");
     emit WriteOnSocket(mess,Socket);
     }
+}
+
+void RespondReqest::cancelready()
+{
+   emit ImNotReady(Socket);
 }
 
 void RespondReqest::UserInfoGetter(QString username)
@@ -88,6 +92,9 @@ void RespondReqest::ProccesData(QTcpSocket *from, QByteArray Data)
     }
     else if (Req["typereq"]=="ReadyToPlay"){
         this->setClientready();
+    }
+    else if(Req["typereq"]=="CancelStarting"){
+        this->cancelready();
     }
     else if(Req["typereq"]=="istrueAnsweer"){
         this->isAnswer();
