@@ -1,7 +1,9 @@
 #include "buttonmanager.h"
 
-ButtonManager::ButtonManager()
+ButtonManager::ButtonManager(QTcpSocket *p1, QTcpSocket *p2)
 {
+    player1 = p1;
+    player2 =p2;
     srand(time(0));
     int numbers[9]={0};
     QVector<int>random;
@@ -27,7 +29,9 @@ ButtonManager::ButtonManager()
     buttons[6]=new Button(random[6],0,"Short");
     buttons[7]=new Button(random[7],0,"Number");
     buttons[8]=new Button(random[8],2,"Multiple");
-
+    for (int i=0;i<9;i++){
+        sortbuttons[buttons[i]->pos] = buttons[i];
+    }
     Questions *questions[9];
 
     questions[0]=new Multiple_Question();
@@ -56,6 +60,11 @@ ButtonManager::ButtonManager()
 
     questions[8]=new Multiple_Question();
     buttons[8]->Query=questions[8]->GetQuestion();
+}
+
+QJsonObject ButtonManager::json_getter(int pos)
+{
+    return sortbuttons[pos]->Query_getter();
 }
 
 void ButtonManager::ResetQuestion(int position)

@@ -49,5 +49,6 @@ void WelcomePage::StartTheGame()
     Client::WriteData(request);
     WaitingPage *w=new WaitingPage(UserInfo);
     w->show();
+   // QThread* a=QThread::create(w->waitforconnection);
     this->close();
 }
