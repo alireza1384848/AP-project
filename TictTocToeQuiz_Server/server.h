@@ -8,7 +8,6 @@
 #include "buttonmanager.h"
 #include <QEventLoop>
 #include <QTimer>
-
 class Server : public QTcpServer
 {
     Q_OBJECT
@@ -18,6 +17,9 @@ private:
     QVector<QTcpSocket *> Clients;
     QVector<QTcpSocket *> players;//add two client here
     QVector<ButtonManager *> Games ;//add two client here
+    QVector<QJsonObject> multipleAnswer;
+    QVector<QJsonObject> ShortAnswer;
+    QVector<QJsonObject> numberAnswer;
     bool isfull=false;
     RespondReqest * Responder;
 
@@ -33,6 +35,7 @@ public slots:
     void ChangeReadyStatusSokeckt(QTcpSocket * a);
     void setNOtReady(QTcpSocket * a);
     void Disconnected();
+    void SendQuestion(int pos,QTcpSocket* to);
     void Readyread();
 };
 
