@@ -6,9 +6,9 @@ RespondReqest::RespondReqest(QObject *parent)
     //MangeFile = new User_w_r(); constructor in function ro private kardam.in khat error midad
 }
 
-void RespondReqest::sendQuestion()
+void RespondReqest::sendQuestion(int pos)
 {
-
+    emit SendQuestion(pos,Socket);
 }
 
 void RespondReqest::updateUserinfo()
@@ -88,7 +88,8 @@ void RespondReqest::ProccesData(QTcpSocket *from, QByteArray Data)
         this->updateUserinfo();
     }
     else if(Req["typereq"]=="NeedQuestion"){
-        this->sendQuestion();
+
+        this->sendQuestion(Req["Pos"].toInt());
     }
     else if (Req["typereq"]=="ReadyToPlay"){
         this->setClientready();

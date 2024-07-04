@@ -2,6 +2,7 @@
 
 #include "mainwindow.h"
 #include "signuppage.h"
+#include "multiplequstion.h"
 #include"enterpage.h"
 #include "gameboard.h"
 #include"signinpagge.h"
@@ -20,11 +21,18 @@ int main(int argc, char *argv[])
     object1.insert("Loses",2);
     object1.insert("Wins",3);
     object1.insert("Equals",6);
+    QFile f("multiple.json");
+    f.open(QIODeviceBase::ReadOnly);
+    QTextStream in(&f);
+    QString jsonString = in.readAll();
+     QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonString.toUtf8());
+    QJsonObject n = jsonDoc.object();
     //MainWindow w;
-    EnterPage w;
+    //EnterPage w;
    // SignUpPage w;
     //Gameboard w;
     //SigninPagge w;
+    MultipleQustion w(n);
    // WelcomePage w(object1);
    // WaitingPage w(object1);
     w.show();

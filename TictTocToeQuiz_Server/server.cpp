@@ -17,6 +17,7 @@ Server::Server(char *address, int portnum, QObject *parent): QTcpServer{parent}
     connect(Responder,SIGNAL(ImReady(QTcpSocket*)),this,SLOT(ChangeReadyStatusSokeckt(QTcpSocket*)));
     connect(Responder,SIGNAL(ImNotReady(QTcpSocket*)),this,SLOT(setNOtReady(QTcpSocket*)));
     connect(Responder,SIGNAL(WriteOnSocket(QJsonObject,QTcpSocket*)),this,SLOT(WriteOnSocket(QJsonObject,QTcpSocket*)));
+    connect(Responder,SIGNAL(SendQuestion(int,,QTcpSocket*)),this,SLOT(SendQuestion(int,QTcpSocket*)));
 }
 void Server::incomingConnection(qintptr socketDescriptor)
 {
@@ -79,6 +80,24 @@ void Server::Disconnected()
     QTcpSocket *socket = qobject_cast<QTcpSocket *>(sender());
     qDebug() << "Client"<<socket->peerAddress().toString()<<":"<<socket->peerPort()<<" disconnected";
 }
+
+void Server::SendQuestion(int pos, QTcpSocket *to)
+{
+    //Multiple , Short , Number
+    Games[to->property("ServerNO").toInt()]->ResetQuestion(pos);
+    if( Games[to->property("ServerNO").toInt()]->typeQuestion2Getter(pos)=="Multiple"){
+        multipleAnswer.push_back( Games[to->property("ServerNO").toInt()]->json_Ans_getter(pos));
+    }
+    else if(Games[to->property("ServerNO").toInt()]->typeQuestion2Getter(pos)=="Short"){
+        ShortAnswer.push_back( Games[to->property("ServerNO").toInt()]->json_Ans_getter(pos));
+    }
+    else if(Games[to->property("ServerNO").toInt()]->typeQuestion2Getter(pos)=="Number"){
+        numberAnswer.push_back( Games[to->property("ServerNO").toInt()]->json_Ans_getter(pos));
+    }
+    qDebug() << "Send full Question To clinet : " <<to->peerAddress().toString()<<":"<<to->peerPort();
+    this->WriteOnSocket(Games[to->property("ServerNO").toInt()]->json_FullQ_getter(pos),to);
+}
+
 void Server::Readyread()
 {
     QTcpSocket * fromsocket = qobject_cast<QTcpSocket * >(sender());
