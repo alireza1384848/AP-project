@@ -16,7 +16,11 @@ class ButtonManager : public QObject
 public:
     void ResetQuestion(int position);
     ButtonManager(QTcpSocket *p1,QTcpSocket *p2);
-    QJsonObject json_getter(int pos);
+    QJsonObject json_FullQ_getter(int pos);
+    QJsonObject json_Ans_getter(int pos);
+    QString typeQuestion2Getter(int pos);
+    int typeQuestion1Getter(int pos);
+    //QJsonObject json_getter(int pos);
 
 signals:
 };

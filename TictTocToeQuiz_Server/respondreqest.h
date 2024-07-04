@@ -20,7 +20,7 @@ private:
     //object qustion
 public:
     explicit RespondReqest(QObject *parent = nullptr);
-    void sendQuestion();
+    void sendQuestion(int pos);
     void updateUserinfo();
     void addUserinfo(QString username,QString pass,QString Email);
     void isAnswer();
@@ -34,6 +34,7 @@ signals:
     void ImReady(QTcpSocket * HowAmI);
     void ImNotReady(QTcpSocket * HowAmI);
     void WriteOnSocket(const QJsonObject& json, QTcpSocket *whichSocket);
+    void SendQuestion(int pos,QTcpSocket* to);
 };
 
 #endif // RESPONDREQEST_H

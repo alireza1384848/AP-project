@@ -4,13 +4,14 @@
 #include <QObject>
 #include <QString>
 #include <QJsonObject>
+#include <QJsonArray>
 
 
 class Button : public QObject
 {
     Q_OBJECT
 private:
-
+    int id;
     QJsonObject Query;
     int QuestionType1;//0:Usual 1:Bomb  2:King question
     QString QuestionType2;//Multiple , Short , Number
@@ -21,6 +22,7 @@ private:
      7 8 9
     */
     QString State;
+    QString Answer;
    /* {
         Default: Both players can select it.
         Player's username: This player ansewered correctly.
@@ -33,7 +35,8 @@ public:
     QJsonObject Query_getter();
     int Questionstype1_getter();
     QString Questiontype2_getter();
-
+    void setanswer();
+    QJsonObject AnswerGetter();
 signals:
 
 };

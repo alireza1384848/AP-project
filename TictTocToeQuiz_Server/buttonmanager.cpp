@@ -36,37 +36,56 @@ ButtonManager::ButtonManager(QTcpSocket *p1, QTcpSocket *p2)
 
     questions[0]=new Multiple_Question();
     buttons[0]->Query=questions[0]->GetQuestion();
+    buttons[0]->setanswer();
 
     questions[1]=new Multiple_Question();
     buttons[1]->Query=questions[1]->GetQuestion();
+    buttons[1]->setanswer();
 
     questions[2]=new Short_Question();
     buttons[2]->Query=questions[2]->GetQuestion();
+buttons[2]->setanswer();
 
     questions[3]=new Multiple_Question();
     buttons[3]->Query=questions[3]->GetQuestion();
-
+buttons[3]->setanswer();
     questions[4]=new Multiple_Question();
     buttons[4]->Query=questions[4]->GetQuestion();
-
+buttons[4]->setanswer();
     questions[5]=new Multiple_Question();
     buttons[5]->Query=questions[5]->GetQuestion();
-
+buttons[5]->setanswer();
     questions[6]=new Short_Question();
     buttons[6]->Query=questions[6]->GetQuestion();
-
+buttons[6]->setanswer();
     questions[7]=new Number_Question();
     buttons[7]->Query=questions[7]->GetQuestion();
-
+buttons[7]->setanswer();
     questions[8]=new Multiple_Question();
     buttons[8]->Query=questions[8]->GetQuestion();
+    buttons[8]->setanswer();
 }
 
-QJsonObject ButtonManager::json_getter(int pos)
+QJsonObject ButtonManager::json_FullQ_getter(int pos)
 {
     return sortbuttons[pos]->Query_getter();
 }
 
+QJsonObject ButtonManager::json_Ans_getter(int pos)
+{
+    return sortbuttons[pos]->AnswerGetter();
+}
+
+QString ButtonManager::typeQuestion2Getter(int pos)
+{
+    return sortbuttons[pos]->Questiontype2_getter();
+
+}
+
+int ButtonManager::typeQuestion1Getter(int pos)
+{
+ return sortbuttons[pos]->QuestionType1;
+}
 void ButtonManager::ResetQuestion(int position)
 {
     Questions *Question;
@@ -74,16 +93,19 @@ void ButtonManager::ResetQuestion(int position)
     {
         Question=new Multiple_Question;
         buttons[position-1]->Query=Question->GetQuestion();
+        buttons[position-1]->setanswer();
     }
     else if(buttons[position-1]->QuestionType2=="Short")
     {
         Question=new Short_Question;
         buttons[position-1]->Query=Question->GetQuestion();
+        buttons[position-1]->setanswer();
     }
     else if(buttons[position-1]->QuestionType2=="Number")
     {
         Question=new Number_Question;
         buttons[position-1]->Query=Question->GetQuestion();
+        buttons[position-1]->setanswer();
     }
 
 }
