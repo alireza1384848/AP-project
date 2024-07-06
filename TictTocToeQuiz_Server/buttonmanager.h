@@ -15,11 +15,18 @@ class ButtonManager : public QObject
     Button * sortbuttons[9];
 public:
     void ResetQuestion(int position);
-    ButtonManager(QTcpSocket *p1,QTcpSocket *p2);
+    ButtonManager(QTcpSocket *p1=0,QTcpSocket *p2=0);
     QJsonObject json_FullQ_getter(int pos);
     QJsonObject json_Ans_getter(int pos);
     QString typeQuestion2Getter(int pos);
     int typeQuestion1Getter(int pos);
+    void setState(int pos,QString state);
+    QString getState(int pos);
+    void setowner(int pos,QString owner);
+    QString getowner(int pos);
+    void setBlockfor(int pos,QString blkfor);
+    QString getBlockfor(int pos);
+
     //QJsonObject json_getter(int pos);
 
 signals:

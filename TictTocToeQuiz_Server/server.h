@@ -33,10 +33,13 @@ public:
 public slots:
     void WriteOnSocket(const QJsonObject& json,QTcpSocket * whichSocket);
     void ChangeReadyStatusSokeckt(QTcpSocket * a);
+    void CheckAnswer(QString Answer,int pos,int id,QTcpSocket * from);
     void setNOtReady(QTcpSocket * a);
     void Disconnected();
     void SendQuestion(int pos,QTcpSocket* to);
+    void skipreq(int pos,QTcpSocket* to);
     void Readyread();
+    void clickedBut(int pos,QTcpSocket* to);
 };
 
 #endif // SERVER_H

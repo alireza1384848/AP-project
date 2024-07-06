@@ -8,7 +8,7 @@
 #include <QUrl>
 #include<QObject>
 
-class Questions:QObject
+class Questions:public QObject
 {
 public:
     Questions(QObject *parent = nullptr);
