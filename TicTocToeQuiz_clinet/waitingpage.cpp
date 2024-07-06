@@ -17,13 +17,15 @@ WaitingPage::WaitingPage(QJsonObject userinfo)
 
     this->setLayout(layout);
     WaittingThread =new WaittingFunc();
+    connect(Client::socket,SIGNAL(readyRead()),this,SLOT(CanConnect()));
     // ino pas az rah andazie server az comment dar miari
-    QWidget::connect(button,SIGNAL(clicked()),(QWidget *)this,SLOT(CancelStarting()));
+    QWidget::connect(button,SIGNAL(clicked()),this,SLOT(CancelStarting()));
     QWidget::connect(WaittingThread,SIGNAL(canstart()),this,SLOT(CanConnect()));
-    WaittingThread->start();
+  //  WaittingThread->start();
 }
 void WaitingPage::CanConnect()
 {
+    disconnect(Client::socket,SIGNAL(readyRead()),this,SLOT(CanConnect()));
     WaittingThread->exit();
     Gameboard *w=new Gameboard();
     this->close();

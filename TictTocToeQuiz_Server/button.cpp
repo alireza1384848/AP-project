@@ -1,4 +1,5 @@
 #include "button.h"
+#include <QVariant>
 
 Button::Button(int pos,int Type1, QString Type2, QObject *parent)
     : QObject{parent}
@@ -6,12 +7,30 @@ Button::Button(int pos,int Type1, QString Type2, QObject *parent)
     this->pos = pos;
     this->QuestionType1 = Type1;
     this->QuestionType2 = Type2;//Multiple , Short , Number
+    this->State = "Defalt";
+    this->Owner = "None";
+    this->Blockfor ="None";
 
 }
 
 void Button::SetState(QString State)
 {
     this->State = State;
+}
+
+void Button::Setowner(QString owner)
+{
+    Owner=owner;
+}
+
+void Button::SetBlockfor(QString blockfor)
+{
+    Blockfor = blockfor;
+}
+
+QString Button::Getowner()
+{
+    return Owner;
 }
 
 QJsonObject Button::Query_getter()
@@ -39,6 +58,7 @@ QString Button::Questiontype2_getter()
 void Button::setanswer()
 {
     if(QuestionType2=="Multiple"){
+
         id = Query["id"].toInt();
         QJsonArray ans(Query["answers"].toArray());
         for (int i=0;i<4;i++){
@@ -46,14 +66,18 @@ void Button::setanswer()
                 Answer = ans[i].toObject()["text"].toString();
             }
         }
+        qDebug()<<"m"<<Answer;
     }
     else if(QuestionType2=="Short"){
         id = Query["id"].toInt();
-        Answer =Query["answers"].toString();
+        Answer =Query["answer"].toString();
+        qDebug()<<"s"<<Answer;
     }
     else if(QuestionType2=="Number"){
         id = Query["id"].toInt();
-        Answer =Query["answers"].toString();
+        QVariant a=Query["answer"].toInt();
+        Answer = a.toString();
+        qDebug()<<"i"<<Answer;
     }
 
 }

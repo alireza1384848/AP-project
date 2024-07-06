@@ -1,10 +1,14 @@
 #include "multiplequstion.h"
 #include "ui_multiplequstion.h"
 #include <QDebug>
-MultipleQustion::MultipleQustion(QJsonObject sorce,QWidget *parent)
+MultipleQustion::MultipleQustion(bool canSkip,int pos,QJsonObject sorce,QDialog * board,QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::MultipleQustion)
 {
+
+    Board = board;
+    this->pos = pos;
+    this->sorce = sorce;
     //0:Usual 1:Bomb  2:King question
   ui->setupUi(this);
   //  ui->category->setAlignment(Qt::AlignRight);
@@ -26,6 +30,8 @@ MultipleQustion::MultipleQustion(QJsonObject sorce,QWidget *parent)
             ui->answer4->setText(ans[i].toObject()["text"].toString());
         }
     }
+    if(!canSkip)
+        ui->skipbot->setDisabled(true);
     timer = new QTimer();
     QObject::connect(timer,SIGNAL(timeout()),this,SLOT(SetProgresboreAndTime()));
     timer->start(1000);
@@ -45,3 +51,65 @@ void MultipleQustion::SetProgresboreAndTime()
         emit timeFinished();
     }
 }
+
+void MultipleQustion::on_verifybot_clicked()
+{
+    QJsonObject p;
+    p.insert("typereq","istrueAnsweer");
+    p.insert("Answer",Answer);
+    p.insert("pos",pos);
+    p.insert("id",sorce["id"].toInt());
+    Client::WriteData(p);
+    QJsonObject res;
+    if(Client::socket->waitForReadyRead(-1)){
+        res = Client::readData();
+        Errorbox = new QMessageBox("Warning",res["Resalt"].toString(),QMessageBox::Warning,0,0,0);
+        Errorbox->show();
+        this->close();
+        Board->show();
+    }
+}
+
+
+void MultipleQustion::on_skipbot_clicked()
+{
+    QJsonObject p;
+    p.insert("typereq","Skip");
+    p.insert("pos",pos);
+    Client::WriteData(p);
+    NumUseSkip++;
+    if(NumUseSkip>=2)
+        ui->skipbot->setDisabled(true);
+    this->close();
+    Board->show();
+}
+
+
+void MultipleQustion::on_answer4_clicked()
+{
+    Answer = ui->answer4->text();
+    qDebug()<<ui->answer4->text();
+}
+
+
+void MultipleQustion::on_answer3_clicked()
+{
+    Answer = ui->answer3->text();
+    qDebug()<<ui->answer3->text();
+}
+
+
+void MultipleQustion::on_answer2_clicked()
+{
+    Answer = ui->answer2->text();
+    qDebug()<<ui->answer2->text();
+}
+
+
+void MultipleQustion::on_answer1_clicked()
+{
+    Answer = ui->answer1->text();
+    qDebug()<<ui->answer1->text();
+
+}
+

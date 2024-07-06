@@ -13,7 +13,6 @@ void RespondReqest::sendQuestion(int pos)
 
 void RespondReqest::updateUserinfo()
 {
-
 }
 
 void RespondReqest::addUserinfo(QString username,QString pass,QString Email)
@@ -33,9 +32,9 @@ void RespondReqest::addUserinfo(QString username,QString pass,QString Email)
     }
 }
 
-void RespondReqest::isAnswer()
+void RespondReqest::isAnswer(QString Answer,int pos,int id)
 {
-
+    emit IsAnswer(Answer,pos,id,Socket);
 }
 void RespondReqest::setClientready()
 {
@@ -74,6 +73,18 @@ void RespondReqest::UserInfoGetter(QString username)
     emit WriteOnSocket(MangeFile->User_getter(username),Socket);
 }
 
+void RespondReqest::ClickedOnBut(int pos){
+    emit ButtomClicked(pos,Socket);
+}
+
+void RespondReqest::Skip(int pos)
+{
+    emit Skipreq(pos,Socket);
+}
+
+
+
+
 void RespondReqest::ProccesData(QTcpSocket *from, QByteArray Data)
 {
     Socket = from;
@@ -98,7 +109,7 @@ void RespondReqest::ProccesData(QTcpSocket *from, QByteArray Data)
         this->cancelready();
     }
     else if(Req["typereq"]=="istrueAnsweer"){
-        this->isAnswer();
+        this->isAnswer(Req["Answer"].toString(),Req["pos"].toInt(),Req["id"].toInt());
     }
     else if(Req["typereq"]=="IsExist"){
 
@@ -108,6 +119,14 @@ void RespondReqest::ProccesData(QTcpSocket *from, QByteArray Data)
 
         this->UserInfoGetter(Req["Username"].toString());
     }
+    else if(Req["typereq"]=="ClickedOnBut"){
+        this->ClickedOnBut(Req["pos"].toInt());
+    }
+    else if(Req["typereq"]=="Skip"){
+
+        this->Skip(Req["pos"].toInt());
+    }
+
 }
 
 

@@ -15,6 +15,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     QJsonObject object1;
+    MainWindow v;
     Client::ConnectToServer("127.0.0.1",50000);
     object1.insert("Username","aa");
     object1.insert("Email","bb");
@@ -29,10 +30,10 @@ int main(int argc, char *argv[])
     QJsonObject n = jsonDoc.object();
     //MainWindow w;
     //EnterPage w;
-   // SignUpPage w;
+    SignUpPage w;
     //Gameboard w;
     //SigninPagge w;
-    MultipleQustion w(n);
+ //  MultipleQustion w(2,n,d);
    // WelcomePage w(object1);
    // WaitingPage w(object1);
     w.show();
