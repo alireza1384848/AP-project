@@ -1,5 +1,6 @@
 #include "multiplequstion.h"
 #include "ui_multiplequstion.h"
+
 #include <QDebug>
 MultipleQustion::MultipleQustion(bool canSkip,int pos,QJsonObject sorce,QDialog * board,QWidget *parent)
     : QDialog(parent)
@@ -10,8 +11,8 @@ MultipleQustion::MultipleQustion(bool canSkip,int pos,QJsonObject sorce,QDialog 
     this->pos = pos;
     this->sorce = sorce;
     //0:Usual 1:Bomb  2:King question
-  ui->setupUi(this);
-  //  ui->category->setAlignment(Qt::AlignRight);
+    ui->setupUi(this);
+    //  ui->category->setAlignment(Qt::AlignRight);
     ui->category->setText(sorce["category"].toString());
     ui->type1_label->setText(sorce["type1"].toString());
     ui->quesText->setText(sorce["questionText"].toString());
@@ -48,7 +49,25 @@ void MultipleQustion::SetProgresboreAndTime()
     ui->progressBar->setValue(20-pasedtime);
     if (ui->progressBar->value()==0){
         timer->stop();
-        emit timeFinished();
+        timefinished();
+    }
+}
+
+void MultipleQustion::timefinished()
+{
+    QJsonObject p;
+    p.insert("typereq","istrueAnsweer");
+    p.insert("Answer","");
+    p.insert("pos",pos);
+    p.insert("id",sorce["id"].toInt());
+    Client::WriteData(p);
+    QJsonObject res;
+    if(Client::socket->waitForReadyRead(-1)){
+        res = Client::readData();
+        Errorbox = new QMessageBox("Warning","Your Time is Finished",QMessageBox::Warning,0,0,0);
+        Errorbox->show();
+        this->close();
+        Board->show();
     }
 }
 
@@ -63,10 +82,10 @@ void MultipleQustion::on_verifybot_clicked()
     QJsonObject res;
     if(Client::socket->waitForReadyRead(-1)){
         res = Client::readData();
-        Errorbox = new QMessageBox("Warning",res["Resalt"].toString(),QMessageBox::Warning,0,0,0);
-        Errorbox->show();
-        this->close();
-        Board->show();
+            Errorbox = new QMessageBox("Warning",res["Resalt"].toString(),QMessageBox::Warning,0,0,0);
+            Errorbox->show();
+            this->close();
+            Board->show();
     }
 }
 
@@ -77,11 +96,12 @@ void MultipleQustion::on_skipbot_clicked()
     p.insert("typereq","Skip");
     p.insert("pos",pos);
     Client::WriteData(p);
-    NumUseSkip++;
-    if(NumUseSkip>=2)
-        ui->skipbot->setDisabled(true);
     this->close();
     Board->show();
+    timer->stop();
+    int newskip=Board->property("numskip").toInt();
+    qDebug()<<Board->property("numskip").toInt();
+    Board->property("numskip")=newskip;
 }
 
 

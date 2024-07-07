@@ -13,9 +13,18 @@ class ButtonManager : public QObject
     QTcpSocket * player2;
     Button * buttons[9];
     Button * sortbuttons[9];
+    QString Winner;
+    bool iswin=false;
+    int numblkobj=0;
 public:
+    int numblkgetter();
+    void numblkpluser();
+
     void ResetQuestion(int position);
     ButtonManager(QTcpSocket *p1=0,QTcpSocket *p2=0);
+    bool iswingetter();
+    void Winnersetter(QString win);
+    void iswinsetter(bool iswin);
     QJsonObject json_FullQ_getter(int pos);
     QJsonObject json_Ans_getter(int pos);
     QString typeQuestion2Getter(int pos);
@@ -26,7 +35,8 @@ public:
     QString getowner(int pos);
     void setBlockfor(int pos,QString blkfor);
     QString getBlockfor(int pos);
-
+    bool canWins();
+    QString Winner_getter();
     //QJsonObject json_getter(int pos);
 
 signals:

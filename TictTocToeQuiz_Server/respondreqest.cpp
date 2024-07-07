@@ -82,6 +82,11 @@ void RespondReqest::Skip(int pos)
     emit Skipreq(pos,Socket);
 }
 
+void RespondReqest::updateboard()
+{
+    emit Updateboard(Socket);
+}
+
 
 
 
@@ -125,6 +130,10 @@ void RespondReqest::ProccesData(QTcpSocket *from, QByteArray Data)
     else if(Req["typereq"]=="Skip"){
 
         this->Skip(Req["pos"].toInt());
+    }
+    else if(Req["typereq"]=="UpdateBoard"){
+
+        this->updateboard();
     }
 
 }

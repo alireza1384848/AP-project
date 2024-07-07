@@ -25,10 +25,11 @@ private:
     QString State;//inUse,Defalt
     QString Owner;//None,X,O
     QString Answer;
-    QString Blockfor;//None,x,o,both
+    QString Blockfor;//None,X,O,both
 public:
     friend class ButtonManager;
     explicit Button(int pos,int Type1,QString Type,QObject *parent = nullptr);
+
     void SetState(QString State);
     void Setowner(QString owner);
     void SetBlockfor(QString blockfor);

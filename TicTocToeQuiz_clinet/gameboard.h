@@ -18,6 +18,8 @@
 #include<QJsonObject>
 #include<QJsonValue>
 #include<QMessageBox>
+#include "winnerpage.h"
+#include "loserpage.h"
 namespace Ui {
 class Gameboard;
 }

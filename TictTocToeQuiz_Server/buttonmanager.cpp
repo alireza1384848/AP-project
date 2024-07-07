@@ -3,6 +3,7 @@
 
 ButtonManager::ButtonManager(QTcpSocket *p1, QTcpSocket *p2)
 {
+    Winner ="";
     player1 = p1;
     player2 =p2;
     srand(time(0));
@@ -73,6 +74,21 @@ buttons[7]->setanswer();
  //   qDebug()<<sortbuttons[0];
 }
 
+bool ButtonManager::iswingetter()
+{
+    return iswin;
+}
+
+void ButtonManager::Winnersetter(QString win)
+{
+    Winner = win;
+}
+
+void ButtonManager::iswinsetter(bool iswin)
+{
+    this->iswin=iswin;
+}
+
 QJsonObject ButtonManager::json_FullQ_getter(int pos)
 {
     return sortbuttons[pos]->Query_getter();
@@ -122,6 +138,61 @@ void ButtonManager::setBlockfor(int pos, QString blkfor)
 QString ButtonManager::getBlockfor(int pos)
 {
     return sortbuttons[pos]->Blockfor;
+}
+
+bool ButtonManager::canWins()
+{
+
+    if(sortbuttons[0]->Owner==sortbuttons[1]->Owner&&sortbuttons[0]->Owner==sortbuttons[2]->Owner &&sortbuttons[2]->Owner!="None" ){
+        Winner =sortbuttons[0]->Owner;
+        return true;
+    }
+    else if(sortbuttons[3]->Owner==sortbuttons[4]->Owner&&sortbuttons[4]->Owner==sortbuttons[5]->Owner &&sortbuttons[4]->Owner!="None"){
+        Winner =sortbuttons[3]->Owner;
+        return true;
+    }
+    else if(sortbuttons[6]->Owner==sortbuttons[7]->Owner&&sortbuttons[7]->Owner==sortbuttons[8]->Owner&&sortbuttons[7]->Owner!="None"){
+        Winner =sortbuttons[6]->Owner;
+        return true;
+    }
+    else if(sortbuttons[0]->Owner==sortbuttons[3]->Owner&&sortbuttons[3]->Owner==sortbuttons[6]->Owner && sortbuttons[3]->Owner!="None"){
+        Winner =sortbuttons[0]->Owner;
+        return true;
+    }
+    else if(sortbuttons[1]->Owner==sortbuttons[4]->Owner&&sortbuttons[4]->Owner==sortbuttons[7]->Owner && sortbuttons[4]->Owner!="None"){
+        Winner =sortbuttons[1]->Owner;
+        return true;
+    }
+    else if(sortbuttons[2]->Owner==sortbuttons[5]->Owner&&sortbuttons[5]->Owner==sortbuttons[8]->Owner && sortbuttons[5]->Owner!="None"){
+        Winner =sortbuttons[2]->Owner;
+        return true;
+    }
+    else if(sortbuttons[0]->Owner==sortbuttons[4]->Owner&&sortbuttons[4]->Owner==sortbuttons[8]->Owner && sortbuttons[4]->Owner!="None"){
+        Winner =sortbuttons[0]->Owner;
+        return true;
+    }
+    else if(sortbuttons[2]->Owner==sortbuttons[4]->Owner&&sortbuttons[4]->Owner==sortbuttons[6]->Owner && sortbuttons[4]->Owner!="None"){
+        Winner =sortbuttons[2]->Owner;
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+QString ButtonManager::Winner_getter()
+{
+    return Winner;
+}
+
+int ButtonManager::numblkgetter()
+{
+    return numblkobj;
+}
+
+void ButtonManager::numblkpluser()
+{
+    numblkobj++;
 }
 
 void ButtonManager::ResetQuestion(int position)

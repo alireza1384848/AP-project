@@ -22,6 +22,8 @@ public:
     ~MultipleQustion();
 public slots:
     void SetProgresboreAndTime();
+    void timefinished();
+
 private:
     int pos;
     int pasedtime=0;
@@ -33,7 +35,6 @@ private:
     QDialog * Board;
     Ui::MultipleQustion *ui;
 signals:
-    void timeFinished();
     void skipused();
     //define a slote to say he lose if time finished emitted
 private slots:

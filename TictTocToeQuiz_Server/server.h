@@ -39,6 +39,7 @@ public slots:
     void SendQuestion(int pos,QTcpSocket* to);
     void skipreq(int pos,QTcpSocket* to);
     void Readyread();
+    void sendboardstatus(QTcpSocket* to);
     void clickedBut(int pos,QTcpSocket* to);
 };
 

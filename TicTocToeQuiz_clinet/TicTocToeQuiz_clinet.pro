@@ -15,6 +15,7 @@ SOURCES += \
     client.cpp \
     enterpage.cpp \
     gameboard.cpp \
+    loserpage.cpp \
     main.cpp \
     mainwindow.cpp \
     multiplequstion.cpp \
@@ -24,12 +25,14 @@ SOURCES += \
     signuppage.cpp \
     waitingpage.cpp \
     waittingfunc.cpp \
-    welcomepage.cpp
+    welcomepage.cpp \
+    winnerpage.cpp
 
 HEADERS += \
     client.h \
     enterpage.h \
     gameboard.h \
+    loserpage.h \
     mainwindow.h \
     multiplequstion.h \
     numberquestion.h \
@@ -38,15 +41,18 @@ HEADERS += \
     signuppage.h \
     waitingpage.h \
     waittingfunc.h \
-    welcomepage.h
+    welcomepage.h \
+    winnerpage.h
 
 FORMS += \
     gameboard.ui \
+    loserpage.ui \
     mainwindow.ui \
     multiplequstion.ui \
     numberquestion.ui \
     shortquestion.ui \
-    signuppage.ui
+    signuppage.ui \
+    winnerpage.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

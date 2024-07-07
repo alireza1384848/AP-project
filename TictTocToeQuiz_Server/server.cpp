@@ -21,6 +21,7 @@ Server::Server(char *address, int portnum, QObject *parent): QTcpServer{parent}
     connect(Responder,SIGNAL(ButtomClicked(int,QTcpSocket*)),this,SLOT(clickedBut(int,QTcpSocket*)));
     connect(Responder,SIGNAL(IsAnswer(QString,int,int,QTcpSocket*)),this,SLOT(CheckAnswer(QString,int,int,QTcpSocket*)));
     connect(Responder,SIGNAL(Skipreq(int,QTcpSocket*)),this,SLOT(skipreq(int,QTcpSocket*)));
+    connect(Responder,SIGNAL(Updateboard(QTcpSocket*)),this,SLOT(sendboardstatus(QTcpSocket*)));
 }
 void Server::incomingConnection(qintptr socketDescriptor)
 {
@@ -71,7 +72,7 @@ void Server::ChangeReadyStatusSokeckt(QTcpSocket *a)
     }
 }
 
-void Server::CheckAnswer(QString Answer, int pos, int id,QTcpSocket * from)
+void Server::CheckAnswer(QString Answer, int pos, int id, QTcpSocket * from)
 {
     QJsonObject res;
     qDebug()<<"id is"<<id;
@@ -82,6 +83,12 @@ void Server::CheckAnswer(QString Answer, int pos, int id,QTcpSocket * from)
             if(multipleAnswer[i]["id"].toInt()==id){
                 if(multipleAnswer[i]["answer"].toString()==Answer){
                     Games[server]->setowner(pos,from->property("Character").toString());
+                    //0:Usual 1:Bomb  2:King question
+                    Games[server]->numblkpluser();
+                    if(Games[server]->typeQuestion1Getter(pos)==2){
+                        Games[server]->iswinsetter(true);
+                        Games[server]->Winnersetter(from->property("Character").toString());
+                    }
                     res.insert("Resalt","Your answer is true");
                     WriteOnSocket(res,from);
                     return;
@@ -89,15 +96,23 @@ void Server::CheckAnswer(QString Answer, int pos, int id,QTcpSocket * from)
                 else{
                     Games[server]->setState(pos,"Defalt");
                     if(Games[server]->getBlockfor(pos)=="None")
-                    Games[server]->setBlockfor(pos,property("Character").toString());
-                    else
+                        Games[server]->setBlockfor(pos,from->property("Character").toString());
+                    else{
+                        Games[server]->numblkpluser();
                         Games[server]->setBlockfor(pos,"both");
+                    }
+                    if(Games[server]->typeQuestion1Getter(pos)==1){
+                        Games[server]->iswinsetter(true);
+                        if(from->property("Character").toString()=="X")
+                            Games[server]->Winnersetter("O");
+                        else
+                            Games[server]->Winnersetter("X");
+                    }
                     res.insert("Resalt","Your answer is False");
                     WriteOnSocket(res,from);
                     return;
                 }
-            }
-
+            }       
         }
     }
     if(type=="Short"){
@@ -105,6 +120,10 @@ void Server::CheckAnswer(QString Answer, int pos, int id,QTcpSocket * from)
             if(ShortAnswer[i]["id"].toInt()==id){
                 if(ShortAnswer[i]["answer"].toString()==Answer){
                     Games[server]->setowner(pos,from->property("Character").toString());
+                    if(Games[server]->typeQuestion1Getter(pos)==2){
+                        Games[server]->iswinsetter(true);
+                        Games[server]->Winnersetter(from->property("Character").toString());
+                    }
                     res.insert("Resalt","Your answer is true");
                     WriteOnSocket(res,from);
                     return;
@@ -115,6 +134,14 @@ void Server::CheckAnswer(QString Answer, int pos, int id,QTcpSocket * from)
                         Games[server]->setBlockfor(pos,property("Character").toString());
                     else
                         Games[server]->setBlockfor(pos,"both");
+
+                    if(Games[server]->typeQuestion1Getter(pos)==1){
+                        Games[server]->iswinsetter(true);
+                        if(from->property("Character").toString()=="X")
+                            Games[server]->Winnersetter("O");
+                        else
+                            Games[server]->Winnersetter("X");
+                    }
                     res.insert("Resalt","Your answer is False");
                     WriteOnSocket(res,from);
                     return;
@@ -129,6 +156,13 @@ void Server::CheckAnswer(QString Answer, int pos, int id,QTcpSocket * from)
                 if(numberAnswer[i]["answer"].toString()==Answer){
                     Games[server]->setowner(pos,from->property("Character").toString());
                     res.insert("Resalt","Your answer is true");
+                    if(Games[server]->typeQuestion1Getter(pos)==1){
+                        Games[server]->iswinsetter(true);
+                        if(from->property("Character").toString()=="X")
+                            Games[server]->Winnersetter("O");
+                        else
+                            Games[server]->Winnersetter("X");
+                    }
                     WriteOnSocket(res,from);
                     return;
                 }
@@ -138,6 +172,11 @@ void Server::CheckAnswer(QString Answer, int pos, int id,QTcpSocket * from)
                         Games[server]->setBlockfor(pos,property("Character").toString());
                     else
                         Games[server]->setBlockfor(pos,"both");
+
+                    if(Games[server]->typeQuestion1Getter(pos)==2){
+                        Games[server]->iswinsetter(true);
+                        Games[server]->Winnersetter(from->property("Character").toString());
+                    }
                     res.insert("Resalt","Your answer is False");
                     WriteOnSocket(res,from);
                     return;
@@ -185,7 +224,7 @@ void Server::SendQuestion(int pos, QTcpSocket *to)
 void Server::skipreq(int pos, QTcpSocket *to)
 {
     qDebug()<<"set this"<< pos <<"skip";
-Games[to->property("ServerNO").toInt()]->setState(pos,"Defalt");
+    Games[to->property("ServerNO").toInt()]->setState(pos,"Defalt");
 }
 
 void Server::Readyread()
@@ -196,37 +235,62 @@ void Server::Readyread()
     emit IGotData(fromsocket,Data);
 }
 
+void Server::sendboardstatus(QTcpSocket *to)
+{
+    QJsonObject MainObj;
+    int server = to->property("ServerNO").toInt();
+    if(Games[server]->canWins() ||Games[server]->iswingetter()==true){
+        //if(Games[server]->Winner_getter()!=""){//cheat
+        MainObj.insert("Winner",Games[server]->Winner_getter());
+        MainObj.insert("Character",to->property("Character").toString());
+    }
+    if(Games[server]->numblkgetter()>=9){
+        MainObj.insert("isEqual",true);
+    }
+    for(int i=0;i<9;i++){
+        QJsonObject eachobj;
+        eachobj.insert("Owner",Games[to->property("ServerNO").toInt()]->getowner(i));
+        eachobj.insert("Blkfor",Games[to->property("ServerNO").toInt()]->getBlockfor(i));
+        eachobj.insert("State",Games[to->property("ServerNO").toInt()]->getState(i));
+        //Socket charater
+        eachobj.insert("Character",to->property("Character").toString());
+        QVariant num = i;
+        MainObj.insert(num.toString(),eachobj);
+    }
+    WriteOnSocket(MainObj,to);
+}
+
 void Server::clickedBut(int pos, QTcpSocket *to)
 {
- QJsonObject res;
+    QJsonObject res;
     qDebug()<<pos;
     int server =to->property("ServerNO").toInt();
-if(Games[server]->getowner(pos)=="None"){
+    if(Games[server]->getowner(pos)=="None"){
         QString echara;
         QString chara=to->property("Character").toString();
-    if(chara=="X")
-    echara="O";
-    else
-        echara="X";
+        if(chara=="X")
+            echara="O";
+        else
+            echara="X";
 
-         qDebug()<<"Check that can Clicked buttom";
+        qDebug()<<"Check that can Clicked buttom";
         if(Games[to->property("ServerNO").toInt()]->getState(pos)=="Defalt"&&Games[to->property("ServerNO").toInt()]->getBlockfor(pos)!=chara &&Games[to->property("ServerNO").toInt()]->getBlockfor(pos)!="both"){
-           qDebug()<<"button is free";
-           this->SendQuestion(pos, to);
+            qDebug()<<"button is free"<<"type"<<Games[to->property("ServerNO").toInt()]->typeQuestion2Getter(pos);;
+            this->SendQuestion(pos, to);
             Games[to->property("ServerNO").toInt()]->setState(pos,"inUse");
-           // Games[to->property("ServerNO").toInt()]->setBlockfor(pos,echara);
+            // Games[to->property("ServerNO").toInt()]->setBlockfor(pos,echara);
             return;
         }
- else if(Games[to->property("ServerNO").toInt()]->getState(pos)!="Defalt"){
-         qDebug()<<"button is full";
+        else if(Games[to->property("ServerNO").toInt()]->getState(pos)!="Defalt"){
+            qDebug()<<"button is full"<<"type"<<Games[to->property("ServerNO").toInt()]->typeQuestion2Getter(pos);;
             res.insert("Resalt",false);
             res.insert("Why","your Opponenet is using this Object now please wait...");
             this->WriteOnSocket(res,to);
             return;
         }
     }
-     qDebug()<<"button is full";
+    qDebug()<<"button full"<<"type"<<Games[to->property("ServerNO").toInt()]->typeQuestion2Getter(pos);
     res.insert("Resalt",false);
     res.insert("Why","the Owner of this object is for your Opponenet or fully blocked ");
-this->WriteOnSocket(res,to);
+    this->WriteOnSocket(res,to);
 }

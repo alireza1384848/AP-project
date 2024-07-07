@@ -30,9 +30,11 @@ public:
     void UserInfoGetter(QString username);
     void ClickedOnBut(int pos);
     void Skip(int pos);
+    void updateboard();
 public slots:
     void ProccesData(QTcpSocket * from,QByteArray Data);
 signals:
+    void Updateboard(QTcpSocket * HowAmI);
     void ImReady(QTcpSocket * HowAmI);
     void ImNotReady(QTcpSocket * HowAmI);
     void WriteOnSocket(const QJsonObject& json, QTcpSocket *whichSocket);

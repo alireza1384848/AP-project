@@ -13,6 +13,8 @@ Button::Button(int pos,int Type1, QString Type2, QObject *parent)
 
 }
 
+
+
 void Button::SetState(QString State)
 {
     this->State = State;
@@ -87,6 +89,7 @@ QJsonObject Button::AnswerGetter()
     QJsonObject res;
     res.insert("answer",Answer);
     res.insert("id",id);
+    res.insert("type1",QuestionType1);
     return res;
 }
 
