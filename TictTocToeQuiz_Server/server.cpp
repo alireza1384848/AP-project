@@ -1,4 +1,7 @@
 #include "server.h"
+#include<QCoreApplication>
+#include<QEventLoop>
+#include<QThread>
 
 Server::Server(char *address, int portnum, QObject *parent): QTcpServer{parent}
 {
@@ -14,7 +17,7 @@ Server::Server(char *address, int portnum, QObject *parent): QTcpServer{parent}
     }
     qDebug() << "servre ready to listen on address = "<<serverAddr.toString()<<" port  : "<<portNo;
     connect(this,SIGNAL(IGotData(QTcpSocket*,QByteArray)),Responder,SLOT(ProccesData(QTcpSocket*,QByteArray)));
-    connect(Responder,SIGNAL(ImReady(QTcpSocket*)),this,SLOT(ChangeReadyStatusSokeckt(QTcpSocket*)));
+    connect(Responder,SIGNAL(ImReady(QString,QTcpSocket*)),this,SLOT(ChangeReadyStatusSokeckt(QString,QTcpSocket*)));
     connect(Responder,SIGNAL(ImNotReady(QTcpSocket*)),this,SLOT(setNOtReady(QTcpSocket*)));
     connect(Responder,SIGNAL(WriteOnSocket(QJsonObject,QTcpSocket*)),this,SLOT(WriteOnSocket(QJsonObject,QTcpSocket*)));
     connect(Responder,SIGNAL(SendQuestion(int,QTcpSocket*)),this,SLOT(SendQuestion(int,QTcpSocket*)));
@@ -29,7 +32,6 @@ void Server::incomingConnection(qintptr socketDescriptor)
     QTcpSocket *socket = new QTcpSocket(this);
     socket->setSocketDescriptor(socketDescriptor);
     socket->setProperty("ReadyOrNot",0);
-
     Clients.push_back(socket);
     qDebug() << socket->peerAddress().toString()<<":"<<socket->peerPort();
     connect(socket, &QTcpSocket::disconnected, this, &Server::Disconnected);
@@ -39,24 +41,30 @@ void Server::incomingConnection(qintptr socketDescriptor)
 
 void Server::WriteOnSocket(const QJsonObject& json, QTcpSocket *whichSocket){
     QJsonDocument message(json);
-    qDebug() << "sending data to Client " <<whichSocket->peerAddress().toString()<<":"<<whichSocket->peerPort()<<message.toJson();
+    qDebug() << "sending data to Client " <<whichSocket->peerAddress().toString()<<":"<<whichSocket->peerPort();//<<message.toJson();
     whichSocket->write(message.toJson());
 }
 
-void Server::ChangeReadyStatusSokeckt(QTcpSocket *a)
+void Server::ChangeReadyStatusSokeckt(QString Username,QTcpSocket *a)
 {
     for (QTcpSocket *client : Clients) {
         if (client == a) {
+            if(client->property("Reconnect").toBool() &&client->property("Reconnect") != QVariant::Invalid){
+                QJsonObject res;
+                res.insert("IsGameStart","true");
+                WriteOnSocket(res,client);
+            }
+            else {
             qDebug() << "Change Ready Status socket: " <<client->peerAddress().toString()<<":"<<client->peerPort();
             client->setProperty("ReadyOrNot",1);
-            players.push_back(a);
+            a->setProperty("Username",Username);
+            players.push_back(client);
             if(isfull==false&&players.size()==2){
                 QJsonObject res;
                 ButtonManager * b = new ButtonManager(players[0],players[1]);
                 Games.push_back(b);
                 players[0]->setProperty("ServerNO",Games.size()-1);
                 players[1]->setProperty("ServerNO",Games.size()-1);
-                players[0]->setProperty("Character","X");
                 players[0]->setProperty("NumSkip",0);
                 players[1]->setProperty("NumSkip",0);
                 players[0]->setProperty("Character","X");
@@ -66,10 +74,6 @@ void Server::ChangeReadyStatusSokeckt(QTcpSocket *a)
                 WriteOnSocket(res,players[1]);
                 players.clear();
             }
-            if(isfull==true){
-                QJsonObject res;
-                res.insert("IsFull","true");
-                WriteOnSocket(res,a);
             }
         }
     }
@@ -202,7 +206,35 @@ void Server::setNOtReady(QTcpSocket *a)
 void Server::Disconnected()
 {
     QTcpSocket *socket = qobject_cast<QTcpSocket *>(sender());
-    qDebug() << "Client"<<socket->peerAddress().toString()<<":"<<socket->peerPort()<<" disconnected";
+/*    QEventLoop a;
+    Time = new QTimer();
+    Time->start(20000);
+    bool& Isbreak = isbreak;
+
+    reconnect rec(this,socket);
+    connect(Time,&QTimer::timeout,[&rec,&a,&Isbreak](){
+        Isbreak = true;
+        rec.exit();
+        a.exit();
+    });
+    rec.start();
+    if(canrec){
+        a.exit();
+        Time->stop();
+    }
+    a.exec();*/
+    //disconnect and dont come
+    //if(isbreak){
+    //rec.exit();
+    qDebug() << "Client"<<socket->peerAddress().toString()<<":"<<socket->peerPort()<<"Disconnected";
+    Games[socket->property("ServerNO").toInt()]->setstatus(socket,false);
+    Games[socket->property("ServerNO").toInt()]->iswinsetter(true);
+    if(socket->property("Character").toString()=="X")
+    Games[socket->property("ServerNO").toInt()]->Winnersetter("O");
+    else{
+        Games[socket->property("ServerNO").toInt()]->Winnersetter("X");
+    }
+//}
 }
 
 void Server::SendQuestion(int pos, QTcpSocket *to)
@@ -261,6 +293,8 @@ void Server::sendboardstatus(QTcpSocket *to)
         QVariant num = i;
         MainObj.insert(num.toString(),eachobj);
     }
+    MainObj.insert("player1stat",to->property("NumSkip").toInt());
+    MainObj.insert("player2stat",to->property("NumSkip").toInt());
     MainObj.insert("NumSkip",to->property("NumSkip").toInt());
     WriteOnSocket(MainObj,to);
 }
@@ -280,7 +314,7 @@ void Server::clickedBut(int pos, QTcpSocket *to)
 
         qDebug()<<"Check that can Clicked buttom";
         if(Games[to->property("ServerNO").toInt()]->getState(pos)=="Defalt"&&Games[to->property("ServerNO").toInt()]->getBlockfor(pos)!=chara &&Games[to->property("ServerNO").toInt()]->getBlockfor(pos)!="both"){
-            qDebug()<<"button is free"<<"type"<<Games[to->property("ServerNO").toInt()]->typeQuestion2Getter(pos);;
+            qDebug()<<"button is free"<<"type"<<Games[to->property("ServerNO").toInt()]->typeQuestion2Getter(pos);
             this->SendQuestion(pos, to);
             Games[to->property("ServerNO").toInt()]->setState(pos,"inUse");
             // Games[to->property("ServerNO").toInt()]->setBlockfor(pos,echara);
@@ -298,4 +332,33 @@ void Server::clickedBut(int pos, QTcpSocket *to)
     res.insert("Resalt",false);
     res.insert("Why","the Owner of this object is for your Opponenet or fully blocked ");
     this->WriteOnSocket(res,to);
+}
+
+reconnect::reconnect(Server * ser,QTcpSocket * socket, QObject *parent)
+{
+    server = ser;
+    this->socket =socket;
+}
+
+void reconnect::run()
+{
+    qDebug()<<"Wait for reconnect"<<socket->property("Username");
+    if(!server->firstconnection){
+        if(server->waitForNewConnection(20000)){
+            server->firstconnection = true;
+        }}
+    while(!server->isbreak){
+        qDebug()<<"Wait for reconnect"<<socket->property("Username");
+        if(server->Clients[server->Clients.size()-1]->property("Username")==socket->property("Username")){
+            qDebug()<<"Try to reconnect";
+            server->Clients[server->Clients.size()-1]->setProperty("Reconnect",true);
+            server->Clients[server->Clients.size()-1]->setProperty("ServerNO",socket->property("ServerNO").toInt());
+            server->Clients[server->Clients.size()-1]->setProperty("Character",socket->property("Character").toString());
+            qDebug()<<"reconnect"<<server->Clients[server->Clients.size()-1]->property("Character").toString();
+            server->canrec = true;
+            break;
+           }
+        QThread::msleep(500);
+    }
+
 }

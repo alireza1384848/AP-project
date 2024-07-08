@@ -36,9 +36,9 @@ void RespondReqest::isAnswer(QString Answer,int pos,int id)
 {
     emit IsAnswer(Answer,pos,id,Socket);
 }
-void RespondReqest::setClientready()
+void RespondReqest::setClientready(QString Username)
 {
-    emit ImReady(Socket);    
+    emit ImReady(Username,Socket);
 }
 
 void RespondReqest::IsExistUser(QString username, QString pass)
@@ -108,7 +108,7 @@ void RespondReqest::ProccesData(QTcpSocket *from, QByteArray Data)
         this->sendQuestion(Req["Pos"].toInt());
     }
     else if (Req["typereq"]=="ReadyToPlay"){
-        this->setClientready();
+        this->setClientready(Req["Username"].toString());
     }
     else if(Req["typereq"]=="CancelStarting"){
         this->cancelready();

@@ -9,17 +9,20 @@
 class ButtonManager : public QObject
 {
     Q_OBJECT
-    QTcpSocket * player1;
-    QTcpSocket * player2;
+
+    bool IsConnectedplayer1;
+    bool IsConnectedplayer2;
     Button * buttons[9];
     Button * sortbuttons[9];
     QString Winner;
     bool iswin=false;
     int numblkobj=0;
 public:
+
+    void setstatus(QTcpSocket *which,bool what);
     int numblkgetter();
     void numblkpluser();
-
+    bool Isconnected(QTcpSocket *);
     void ResetQuestion(int position);
     ButtonManager(QTcpSocket *p1=0,QTcpSocket *p2=0);
     bool iswingetter();
@@ -40,6 +43,9 @@ public:
     //QJsonObject json_getter(int pos);
 
 signals:
+protected:
+    QTcpSocket * player1;
+    QTcpSocket * player2;
 };
 
 #endif // BUTTONMANAGER_H

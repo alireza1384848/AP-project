@@ -14,6 +14,7 @@ class WelcomePage :  public QWidget
 {
     Q_OBJECT
     QVBoxLayout *layout;
+    QJsonObject user;
     QLabel * welcome;
     QLabel * username;
     QLabel * password;
