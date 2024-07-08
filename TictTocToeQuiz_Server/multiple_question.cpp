@@ -13,6 +13,10 @@ QJsonObject Multiple_Question::GetQuestion()
    "https://questionbank.liara.run/api/QWxpcmV6YSByb29ob2xsYWhpLEZhcnNoYWQgZ2hhZGFtLFk4NUZ2MnBZa2xNMA/question?type=multiple";
     QUrl url(Address);
     QNetworkAccessManager manager;
+
+    while (1) {
+
+
     QNetworkReply *Reply= manager.get(QNetworkRequest(url));
     QObject::connect(Reply, &QNetworkReply::finished, [&]() {
 
@@ -31,6 +35,10 @@ QJsonObject Multiple_Question::GetQuestion()
         loop.exit();
 
     });
+
+    if(jsonObj["message"]=="error message here")continue;
+
     loop.exec();
     return jsonObj;
+    }
 }
