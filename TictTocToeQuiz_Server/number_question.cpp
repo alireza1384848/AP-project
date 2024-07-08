@@ -10,19 +10,6 @@ QJsonObject Number_Question::GetQuestion()
         "https://questionbank.liara.run/api/QWxpcmV6YSByb29ob2xsYWhpLEZhcnNoYWQgZ2hhZGFtLFk4NUZ2MnBZa2xNMA/question?type=number";
     QUrl url(Address);
     QNetworkAccessManager manager;
-<<<<<<< HEAD
-    while(1)
-    {
-    QNetworkReply *Reply= manager.get(QNetworkRequest(url));
-    if(Reply->error()==QNetworkReply::NoError)
-    {
-        QByteArray data=Reply->readAll();
-        QJsonDocument document=QJsonDocument::fromJson(data);
-        QJsonObject json= document.object();
-        if(json["message"]=="error message here")continue;
-        return json;
-=======
-
     QEventLoop loop;
     QJsonObject jsonObj;
     while(1){
@@ -48,7 +35,5 @@ QJsonObject Number_Question::GetQuestion()
     loop.exec();
     qDebug()<<jsonObj;
     return jsonObj;
->>>>>>> master
-    }
     }
 }

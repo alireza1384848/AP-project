@@ -86,25 +86,26 @@ void Gameboard::UpdateButton()
         if(resalt["isEqual"] != QJsonValue::Null){
             //Winnerpage *a = new Winnerpage();
             QMessageBox * a = new QMessageBox("Equal","Your Game is Equal",QMessageBox::Information,0,0,0);
-            this->close();
             timer->stop();
+            this->close();
             a->open();
         }
         if(resalt["Winner"] != QJsonValue::Null){
             if(resalt["Winner"].toString()==resalt["Character"].toString()){
-                Winnerpage *a = new Winnerpage();
-                this->close();
+                Winnerpage *a = new Winnerpage(resalt["Username"].toString());
                 timer->stop();
+                 this->close();
                 a->open();
             }
             else
             {
+                timer->stop();
                 Loserpage *a = new Loserpage();
                 this->close();
-                timer->stop();
                 a->open();
             }
         }
+        this->setWindowTitle(resalt["Username"].toString()+" Board");
     }
 }
 
@@ -169,6 +170,7 @@ Gameboard::Gameboard(QWidget *parent)
     QObject::connect(timer,SIGNAL(timeout()),this,SLOT(emitclicked()));
     timer->start(1000);
     this->emitclicked();
+
 }
 
 void Gameboard::setbuttostext(int position, QString text)

@@ -21,7 +21,7 @@ private:
 public:
     explicit RespondReqest(QObject *parent = nullptr);
     void sendQuestion(int pos);
-    void updateUserinfo();
+
     void addUserinfo(QString username,QString pass,QString Email);
     void isAnswer(QString Answer,int pos,int id);
     void setClientready(QString Username);
@@ -32,6 +32,7 @@ public:
     void Skip(int pos);
     void updateboard();
 public slots:
+    void updateUserinfo(QString,QJsonObject);
     void ProccesData(QTcpSocket * from,QByteArray Data);
 signals:
     void Updateboard(QTcpSocket * HowAmI);
@@ -42,6 +43,7 @@ signals:
     void Skipreq(int pos,QTcpSocket* to);
     void IsAnswer(QString Answer,int pos,int id,QTcpSocket * from);
     void ButtomClicked(int pos,QTcpSocket * from);
+    void updatehistory(QJsonObject,QTcpSocket * from);
 };
 
 #endif // RESPONDREQEST_H

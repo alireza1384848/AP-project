@@ -19,6 +19,7 @@ class ButtonManager : public QObject
     int numblkobj=0;
 public:
 
+    QTcpSocket *Enemy_getter(QTcpSocket * you);
     void setstatus(QTcpSocket *which,bool what);
     int numblkgetter();
     void numblkpluser();

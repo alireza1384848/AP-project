@@ -10,7 +10,7 @@ SignUpPage::SignUpPage(QWidget *parent)
     this->setWindowTitle("sign up page");
     this->setFixedSize(QSize(300,300));
 
-    QPixmap bkgnd("D:/New folder/AP-project/TicTocToeQuiz_clinet/—Pngtree—tic tac toe pattern png_7613072.png");
+    QPixmap bkgnd("—Pngtree—tic tac toe pattern png_7613072.png");
     bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
     QPalette palette;
     palette.setBrush(QPalette::Window, bkgnd);
@@ -75,6 +75,8 @@ SignUpPage::SignUpPage(QWidget *parent)
     login_Buttom->setText("Signin");
     login_Buttom->setStyleSheet(" background-color: #0054ff;font-weight: 1000;font-size: 17px;border:none;border-radius: 25px;");
     layout->addWidget(login_Buttom);
+
+    Lineedit_Pass->setEchoMode(QLineEdit::Password);
 
     this->setLayout(layout);
     connect(Lineedit_User,SIGNAL(textChanged(QString)),this,SLOT(set_Username(QString)));

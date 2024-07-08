@@ -11,10 +11,10 @@ void RespondReqest::sendQuestion(int pos)
     emit SendQuestion(pos,Socket);
 }
 
-void RespondReqest::updateUserinfo()
+void RespondReqest::updateUserinfo(QString a, QJsonObject b)
 {
+    MangeFile->Update_User(a,b);
 }
-
 void RespondReqest::addUserinfo(QString username,QString pass,QString Email)
 {
     if(MangeFile->IsUserExist(username)){
@@ -93,15 +93,13 @@ void RespondReqest::updateboard()
 void RespondReqest::ProccesData(QTcpSocket *from, QByteArray Data)
 {
     Socket = from;
+    qDebug()<<Data;
     qDebug()<< "in responst to socket"<<from->peerAddress().toString();
     QJsonDocument newJsonDoc = QJsonDocument::fromJson(Data);
     QJsonObject Req = newJsonDoc.object();
     qDebug()<<"clients Reqest is "<<Req["typereq"]<<"/n";
     if(Req["typereq"]=="adduser"){
         this->addUserinfo(Req["Username"].toString(),Req["Password"].toString(),Req["Email"].toString());
-    }
-    else if(Req["typereq"]=="updateuser"){
-        this->updateUserinfo();
     }
     else if(Req["typereq"]=="NeedQuestion"){
 
@@ -135,7 +133,10 @@ void RespondReqest::ProccesData(QTcpSocket *from, QByteArray Data)
 
         this->updateboard();
     }
-
+    else if(Req["typereq"]=="UpdateHistory"){
+        QJsonObject userobj=MangeFile->User_getter(Socket->property("Username").toString());
+        emit updatehistory(userobj,Socket);
+    }
 }
 
 

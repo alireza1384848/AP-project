@@ -187,6 +187,16 @@ QString ButtonManager::Winner_getter()
     return Winner;
 }
 
+QTcpSocket *ButtonManager::Enemy_getter(QTcpSocket *you)
+{
+    if(player1==you)
+        return player2;
+    if(player2==you)
+        return player1;
+
+
+}
+
 void ButtonManager::setstatus(QTcpSocket *which, bool what)
 {
     if(player1==which){

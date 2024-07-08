@@ -32,12 +32,14 @@ private:
 
 signals:
     void IGotData(QTcpSocket * from, QByteArray data);
+    void updateuser(QString,QJsonObject);
     //cpy int respons class void WriteSocket(QByteArray message,QTcpSocket * whichSocket);
     void socketdisco(QTcpSocket * which);
 public:
     explicit Server(char * address,int portnum,QObject *parent = nullptr);
     void incomingConnection(qintptr)override;
 public slots:
+    void UpdateHistory(QJsonObject a,QTcpSocket * from);
     void WriteOnSocket(const QJsonObject& json,QTcpSocket * whichSocket);
     void ChangeReadyStatusSokeckt(QString Username,QTcpSocket * a);
     void CheckAnswer(QString Answer,int pos,int id,QTcpSocket * from);

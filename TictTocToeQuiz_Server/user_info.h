@@ -19,6 +19,7 @@ class User_info:public QObject
     QJsonObject UserJson;
 public:
     User_info(QString Uname,QString Pass,QString Em);
+    User_info(QJsonObject sorce);
     QString information_getter(int num_of_info);//1->Username / 2->Password / 3->Email
     void Lose_Updater();
     void Win_Updater();

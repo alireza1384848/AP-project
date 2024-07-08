@@ -2,6 +2,7 @@
 #include<QCoreApplication>
 #include<QEventLoop>
 #include<QThread>
+#include"user_w_r.h"
 
 Server::Server(char *address, int portnum, QObject *parent): QTcpServer{parent}
 {
@@ -25,6 +26,8 @@ Server::Server(char *address, int portnum, QObject *parent): QTcpServer{parent}
     connect(Responder,SIGNAL(IsAnswer(QString,int,int,QTcpSocket*)),this,SLOT(CheckAnswer(QString,int,int,QTcpSocket*)));
     connect(Responder,SIGNAL(Skipreq(int,QTcpSocket*)),this,SLOT(skipreq(int,QTcpSocket*)));
     connect(Responder,SIGNAL(Updateboard(QTcpSocket*)),this,SLOT(sendboardstatus(QTcpSocket*)));
+    connect(Responder,SIGNAL(updatehistory(QJsonObject,QTcpSocket*)),this,SLOT(UpdateHistory(QJsonObject,QTcpSocket*)));
+    connect(this,SIGNAL(updateuser(QString,QJsonObject)),Responder,SLOT(updateUserinfo(QString,QJsonObject)));
 }
 void Server::incomingConnection(qintptr socketDescriptor)
 {
@@ -39,9 +42,27 @@ void Server::incomingConnection(qintptr socketDescriptor)
 
 }
 
+void Server::UpdateHistory(QJsonObject a,QTcpSocket *from)
+{
+    User_info newuser(a);
+    if(Games[from->property("ServerNO").toInt()]->Winner_getter()==from->property("Character")){
+        newuser.History_Updater(Games[from->property("ServerNO").toInt()]->Enemy_getter(from)->property("Username").toString(),1);
+        newuser.Win_Updater();
+    }
+    else{
+        newuser.History_Updater(Games[from->property("ServerNO").toInt()]->Enemy_getter(from)->property("Username").toString(),0);
+        newuser.Lose_Updater();
+    }
+    emit updateuser(from->property("Username").toString(),newuser.json_getter());
+    QJsonObject f;
+    f["res"]=true;
+    WriteOnSocket(f,from);
+
+}
+
 void Server::WriteOnSocket(const QJsonObject& json, QTcpSocket *whichSocket){
     QJsonDocument message(json);
-    qDebug() << "sending data to Client " <<whichSocket->peerAddress().toString()<<":"<<whichSocket->peerPort();//<<message.toJson();
+    qDebug() << "sending data to Client " <<whichSocket->peerAddress().toString()<<":"<<whichSocket->peerPort()<<message.toJson();
     whichSocket->write(message.toJson());
 }
 
@@ -58,6 +79,7 @@ void Server::ChangeReadyStatusSokeckt(QString Username,QTcpSocket *a)
             qDebug() << "Change Ready Status socket: " <<client->peerAddress().toString()<<":"<<client->peerPort();
             client->setProperty("ReadyOrNot",1);
             a->setProperty("Username",Username);
+            client->setProperty("Username",Username);
             players.push_back(client);
             if(isfull==false&&players.size()==2){
                 QJsonObject res;
@@ -229,6 +251,7 @@ void Server::Disconnected()
     qDebug() << "Client"<<socket->peerAddress().toString()<<":"<<socket->peerPort()<<"Disconnected";
     Games[socket->property("ServerNO").toInt()]->setstatus(socket,false);
     Games[socket->property("ServerNO").toInt()]->iswinsetter(true);
+    this->UpdateHistory(User_w_r::User_getter(socket->property("Username").toString()),socket);
     if(socket->property("Character").toString()=="X")
     Games[socket->property("ServerNO").toInt()]->Winnersetter("O");
     else{
@@ -293,9 +316,10 @@ void Server::sendboardstatus(QTcpSocket *to)
         QVariant num = i;
         MainObj.insert(num.toString(),eachobj);
     }
-    MainObj.insert("player1stat",to->property("NumSkip").toInt());
-    MainObj.insert("player2stat",to->property("NumSkip").toInt());
+
     MainObj.insert("NumSkip",to->property("NumSkip").toInt());
+    MainObj.insert("Username",to->property("Username").toString());
+
     WriteOnSocket(MainObj,to);
 }
 
