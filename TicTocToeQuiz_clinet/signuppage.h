@@ -37,9 +37,9 @@ public slots:
 
 private:
     Ui::SignUpPage *ui;
+    QVBoxLayout *layout;
     UserInformation info;
     SigninPagge * Login;
-    QGridLayout * layout;
     QLabel * Emaillabel;
     QLabel * Topic;
     QLabel * Passlabel;

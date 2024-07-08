@@ -5,22 +5,40 @@ EnterPage::EnterPage(QWidget *parent)
 {
     //Client::ConnectToServer("",1);
 
-    this->setFixedSize(QSize(200,200));
+    this->setFixedSize(QSize(400,300));
     setWindowTitle("Entring Page");
     layout=new QVBoxLayout;
 
+    QPixmap bkgnd("D:/New folder/AP-project/TicTocToeQuiz_clinet/—Pngtree—tic tac toe pattern png_7613072.png");
+    bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
+    QPalette palette;
+    palette.setBrush(QPalette::Window, bkgnd);
+    this->setPalette(palette);
+
     label=new QLabel("TIC TOC TOE QUIZ");
-    label->setFixedHeight(10);
+
+    QFont font = label->font();
+    font.setPointSize(20);
+    label->setFont(font);
+    label->setFixedHeight(30);
     label->setAlignment(Qt::AlignCenter);
+    label->setStyleSheet(";color: yellow;font-weight: 900;");
     layout->addWidget(label);
 
     pbn1=new QPushButton("Signin");
+    pbn1->setFixedHeight(30);
+    pbn1->setStyleSheet(" background-color: #0054ff;font-weight: 1000;font-size: 17px;border:none;border-radius: 25px;");
     layout->addWidget(pbn1);
 
+
     pbn2=new QPushButton("Signup");
-    layout->addWidget(pbn2);
+    pbn2->setFixedHeight(30);
+    pbn2->setStyleSheet(" background-color: #0054ff;font-weight: 1000;font-size: 17px;border:none;border-radius: 25px;");
+     layout->addWidget(pbn2);
 
     this->setLayout(layout);
+
+
     QObject::connect(pbn1,&QPushButton::clicked,this,&EnterPage::OpenSigninPage);
     QObject::connect(pbn2,&QPushButton::clicked,this,&EnterPage::OpenSignupPage);
 }

@@ -107,7 +107,7 @@ color: rgb(0, 255, 0);</string>
   <widget class="QPushButton" name="verifybot">
    <property name="geometry">
     <rect>
-     <x>190</x>
+     <x>390</x>
      <y>370</y>
      <width>83</width>
      <height>29</height>
@@ -120,10 +120,10 @@ color: rgb(0, 255, 0);</string>
   <widget class="QTextBrowser" name="quesText">
    <property name="geometry">
     <rect>
-     <x>130</x>
+     <x>100</x>
      <y>60</y>
-     <width>256</width>
-     <height>192</height>
+     <width>311</width>
+     <height>111</height>
     </rect>
    </property>
    <property name="html">
@@ -182,7 +182,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
   <widget class="QLabel" name="typetxt">
    <property name="geometry">
     <rect>
-     <x>380</x>
+     <x>390</x>
      <y>20</y>
      <width>63</width>
      <height>20</height>

@@ -27,7 +27,7 @@
 color: rgb(0, 0, 0);</string>
    </property>
    <property name="text">
-    <string>you win</string>
+    <string>you won</string>
    </property>
   </widget>
  </widget>

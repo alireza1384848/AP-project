@@ -26,7 +26,7 @@
     <string notr="true">font: 600 36pt &quot;Segoe UI Semibold&quot;;color:rgb(0, 0, 0);</string>
    </property>
    <property name="text">
-    <string>you lose</string>
+    <string>you lost</string>
    </property>
   </widget>
  </widget>
