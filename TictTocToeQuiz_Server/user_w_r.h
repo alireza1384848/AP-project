@@ -16,7 +16,6 @@ class User_w_r:public QObject
 public:
 
     static void AddNewUser(const QJsonObject &newuser);
-
     static bool IsUserExist(QString Username);
     static QJsonObject User_getter(QString Username);
     static void Update_User(QString,QJsonObject);

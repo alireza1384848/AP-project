@@ -20,18 +20,28 @@ private:
     //object qustion
 public:
     explicit RespondReqest(QObject *parent = nullptr);
-    void sendQuestion();
+    void sendQuestion(int pos);
     void updateUserinfo();
     void addUserinfo(QString username,QString pass,QString Email);
-    void isAnswer();
+    void isAnswer(QString Answer,int pos,int id);
     void setClientready();
     void IsExistUser(QString username,QString pass);
+    void cancelready();
     void UserInfoGetter(QString username);
+    void ClickedOnBut(int pos);
+    void Skip(int pos);
+    void updateboard();
 public slots:
     void ProccesData(QTcpSocket * from,QByteArray Data);
 signals:
+    void Updateboard(QTcpSocket * HowAmI);
     void ImReady(QTcpSocket * HowAmI);
+    void ImNotReady(QTcpSocket * HowAmI);
     void WriteOnSocket(const QJsonObject& json, QTcpSocket *whichSocket);
+    void SendQuestion(int pos,QTcpSocket* to);
+    void Skipreq(int pos,QTcpSocket* to);
+    void IsAnswer(QString Answer,int pos,int id,QTcpSocket * from);
+    void ButtomClicked(int pos,QTcpSocket * from);
 };
 
 #endif // RESPONDREQEST_H

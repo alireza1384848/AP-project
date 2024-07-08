@@ -16,28 +16,34 @@ WaitingPage::WaitingPage(QJsonObject userinfo)
     layout->addLayout(l2);
 
     this->setLayout(layout);
+    WaittingThread =new WaittingFunc();
+    connect(Client::socket,SIGNAL(readyRead()),this,SLOT(CanConnect()));
+    // ino pas az rah andazie server az comment dar miari
+    QWidget::connect(button,SIGNAL(clicked()),this,SLOT(CancelStarting()));
+    QWidget::connect(WaittingThread,SIGNAL(canstart()),this,SLOT(CanConnect()));
+  //  WaittingThread->start();
+}
+void WaitingPage::CanConnect()
+{
+    disconnect(Client::socket,SIGNAL(readyRead()),this,SLOT(CanConnect()));
+    WaittingThread->exit();
+    Gameboard *w=new Gameboard();
+    this->close();
+    w->show();
 
-    // ino pas az rah andazie server az comment dar miarim
-
-   /* QObject::connect(button,&QPushButton::clicked,this,&WaitingPage::CancelStarting);
-     QJsonObject ansewer;
-     if(Client::socket->waitForReadyRead(-1))
-     {
-         ansewer=Client::readData();
-         if(ansewer["typereq"].toString()=="Start")
-         {
-             Gameboard *w=new Gameboard;
-             w->show();
-             this->close();
-         }
-     }*/
+}
+void WaitingPage::CanNotConnect()
+{
+    errorbox=new QMessageBox(this);
+    errorbox->setText("server is full");
+    errorbox->show();
 }
 void WaitingPage::CancelStarting()
 {
     QJsonObject request;
     request.insert("typereq","CancelStarting");
-    //Client::WriteData(request);
-    WelcomePage *w=new WelcomePage(UserInfo);
-    w->show();
+    Client::WriteData(request);
+  //  WelcomePage *w=new WelcomePage(UserInfo);
+    //w->show();
     this->close();
 }

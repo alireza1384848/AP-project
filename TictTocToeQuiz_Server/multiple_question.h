@@ -7,11 +7,12 @@
 #include <QNetworkReply>
 #include <QUrl>
 #include "questions.h"
-class Multiple_Question: public Questions
-{
+class Multiple_Question:public Questions
+{    QString Answer;
 public:
     Multiple_Question();
     QJsonObject GetQuestion()override;
+    QString AnswerGetter();
 };
 
 #endif // MULTIPLE_QUESTION_H

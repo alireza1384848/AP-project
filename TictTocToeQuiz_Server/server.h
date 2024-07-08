@@ -5,9 +5,9 @@
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <QVector>
+#include "buttonmanager.h"
 #include <QEventLoop>
 #include <QTimer>
-
 class Server : public QTcpServer
 {
     Q_OBJECT
@@ -15,6 +15,11 @@ private:
     QHostAddress serverAddr;
     quint16 portNo;
     QVector<QTcpSocket *> Clients;
+    QVector<QTcpSocket *> players;//add two client here
+    QVector<ButtonManager *> Games ;//add two client here
+    QVector<QJsonObject> multipleAnswer;
+    QVector<QJsonObject> ShortAnswer;
+    QVector<QJsonObject> numberAnswer;
     bool isfull=false;
     RespondReqest * Responder;
 
@@ -28,8 +33,14 @@ public:
 public slots:
     void WriteOnSocket(const QJsonObject& json,QTcpSocket * whichSocket);
     void ChangeReadyStatusSokeckt(QTcpSocket * a);
+    void CheckAnswer(QString Answer,int pos,int id,QTcpSocket * from);
+    void setNOtReady(QTcpSocket * a);
     void Disconnected();
+    void SendQuestion(int pos,QTcpSocket* to);
+    void skipreq(int pos,QTcpSocket* to);
     void Readyread();
+    void sendboardstatus(QTcpSocket* to);
+    void clickedBut(int pos,QTcpSocket* to);
 };
 
 #endif // SERVER_H

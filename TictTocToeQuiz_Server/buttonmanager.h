@@ -9,11 +9,35 @@
 class ButtonManager : public QObject
 {
     Q_OBJECT
-
-    Button *buttons[9];
+    QTcpSocket * player1;
+    QTcpSocket * player2;
+    Button * buttons[9];
+    Button * sortbuttons[9];
+    QString Winner;
+    bool iswin=false;
+    int numblkobj=0;
 public:
+    int numblkgetter();
+    void numblkpluser();
+
     void ResetQuestion(int position);
-    ButtonManager();
+    ButtonManager(QTcpSocket *p1=0,QTcpSocket *p2=0);
+    bool iswingetter();
+    void Winnersetter(QString win);
+    void iswinsetter(bool iswin);
+    QJsonObject json_FullQ_getter(int pos);
+    QJsonObject json_Ans_getter(int pos);
+    QString typeQuestion2Getter(int pos);
+    int typeQuestion1Getter(int pos);
+    void setState(int pos,QString state);
+    QString getState(int pos);
+    void setowner(int pos,QString owner);
+    QString getowner(int pos);
+    void setBlockfor(int pos,QString blkfor);
+    QString getBlockfor(int pos);
+    bool canWins();
+    QString Winner_getter();
+    //QJsonObject json_getter(int pos);
 
 signals:
 };
