@@ -57,6 +57,9 @@ void Server::ChangeReadyStatusSokeckt(QTcpSocket *a)
                 players[0]->setProperty("ServerNO",Games.size()-1);
                 players[1]->setProperty("ServerNO",Games.size()-1);
                 players[0]->setProperty("Character","X");
+                players[0]->setProperty("NumSkip",0);
+                players[1]->setProperty("NumSkip",0);
+                players[0]->setProperty("Character","X");
                 players[1]->setProperty("Character","O");
                 res.insert("IsGameStart","true");
                 WriteOnSocket(res,players[0]);
@@ -224,6 +227,7 @@ void Server::SendQuestion(int pos, QTcpSocket *to)
 void Server::skipreq(int pos, QTcpSocket *to)
 {
     qDebug()<<"set this"<< pos <<"skip";
+    to->setProperty("NumSkip",to->property("NumSkip").toInt()+1);
     Games[to->property("ServerNO").toInt()]->setState(pos,"Defalt");
 }
 
@@ -257,6 +261,7 @@ void Server::sendboardstatus(QTcpSocket *to)
         QVariant num = i;
         MainObj.insert(num.toString(),eachobj);
     }
+    MainObj.insert("NumSkip",to->property("NumSkip").toInt());
     WriteOnSocket(MainObj,to);
 }
 

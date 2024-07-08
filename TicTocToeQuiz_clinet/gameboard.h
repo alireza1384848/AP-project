@@ -38,15 +38,18 @@ public:
     explicit Gameboard(QWidget *parent = nullptr);
     void setbuttostext(int position,QString text);
     ~Gameboard();
-   QLabel * title;
-   QPushButton * dasd;
 private:
+    QLabel * title;
+    QLabel * lastAnswer;
+    QLabel * NumSkip;
+    QPushButton * dasd;
     int NumUseSkip=0;
     MultipleQustion * qes;
    QTimer * timer;
     Ui::Gameboard *ui;
     QGridLayout * main_layout;
     QHBoxLayout *topic_layout;
+    QHBoxLayout *explain_layout;
     QVBoxLayout * base_layout;
     QVector<QPushButton *> Buttons;
     QPushButton * Updatebutton;

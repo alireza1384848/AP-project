@@ -15,7 +15,6 @@ void Gameboard::WhichCliched()
         if(resalt["Resalt"]==QJsonValue::Null){
             //multiple
             if(resalt["type"].toString()=="multiple"){
-                NumUseSkip = this->property("numskip").toInt();
                 if (NumUseSkip>=2)
                     qes = new MultipleQustion(false,Button->property("position").toInt(),resalt,this);
                 else
@@ -37,6 +36,10 @@ void Gameboard::WhichCliched()
             ErrorBox->show();
         }
     }
+
+
+
+
 }
 
 void Gameboard::UpdateButton()
@@ -48,6 +51,9 @@ void Gameboard::UpdateButton()
     QJsonObject resalt;
     if(Client::socket->waitForReadyRead(-1)){
         resalt = Client::readData();
+        NumUseSkip = resalt["NumSkip"].toInt();
+        QVariant a =(2-NumUseSkip);
+        NumSkip->setText("Available Num of Skip = "+a.toString());
         for(int i=0;i<9;i++){
             QVariant num = i;
             QJsonObject eachbot;
@@ -120,18 +126,26 @@ Gameboard::Gameboard(QWidget *parent)
     ui->setupUi(this);
     this->Updatebutton  = new QPushButton();
     QObject::connect(Updatebutton,SIGNAL(clicked()),this,SLOT(UpdateButton()));
-    this->setFixedSize(500,400);
+    this->setFixedSize(500,450);
     title = new QLabel("Game",this);
     topic_layout = new QHBoxLayout();
     main_layout = new QGridLayout();
     base_layout = new QVBoxLayout();
+    explain_layout = new QHBoxLayout();
     this->setLayout(base_layout);
     //manage lauyouts
     base_layout->addLayout(topic_layout);
     base_layout->addLayout(main_layout);
+    base_layout->addLayout(explain_layout);
     //topic layout
     topic_layout->addWidget(title);
-
+    //explain layout
+    NumSkip = new QLabel();
+    QVariant a =(2-NumUseSkip);
+    NumSkip->setText("Available Num of Skip = "+a.toString());
+    lastAnswer = new QLabel();
+    explain_layout->addWidget(NumSkip);
+    explain_layout->addWidget(lastAnswer);
     //main_layout
     int counter =0;
     for(int i=0;i<3;i++)
@@ -153,8 +167,8 @@ Gameboard::Gameboard(QWidget *parent)
     //every 10 sec button clicked
     timer = new QTimer();
     QObject::connect(timer,SIGNAL(timeout()),this,SLOT(emitclicked()));
-
     timer->start(1000);
+    this->emitclicked();
 }
 
 void Gameboard::setbuttostext(int position, QString text)

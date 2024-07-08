@@ -73,6 +73,7 @@ void MultipleQustion::timefinished()
 
 void MultipleQustion::on_verifybot_clicked()
 {
+    timer->stop();
     QJsonObject p;
     p.insert("typereq","istrueAnsweer");
     p.insert("Answer",Answer);
@@ -92,19 +93,15 @@ void MultipleQustion::on_verifybot_clicked()
 
 void MultipleQustion::on_skipbot_clicked()
 {
+    timer->stop();
     QJsonObject p;
     p.insert("typereq","Skip");
     p.insert("pos",pos);
     Client::WriteData(p);
+    Errorbox = new QMessageBox("Warning","You Use Skip buttom",QMessageBox::Warning,0,0,0);
     this->close();
     Board->show();
-    timer->stop();
-    int newskip=Board->property("numskip").toInt();
-    qDebug()<<Board->property("numskip").toInt();
-    Board->property("numskip")=newskip;
 }
-
-
 void MultipleQustion::on_answer4_clicked()
 {
     Answer = ui->answer4->text();
