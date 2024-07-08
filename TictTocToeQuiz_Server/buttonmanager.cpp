@@ -4,6 +4,8 @@
 ButtonManager::ButtonManager(QTcpSocket *p1, QTcpSocket *p2)
 {
     Winner ="";
+    IsConnectedplayer1 =true;
+    IsConnectedplayer2 =true;
     player1 = p1;
     player2 =p2;
     srand(time(0));
@@ -185,6 +187,16 @@ QString ButtonManager::Winner_getter()
     return Winner;
 }
 
+void ButtonManager::setstatus(QTcpSocket *which, bool what)
+{
+    if(player1==which){
+        IsConnectedplayer1 = what;
+    }
+    else{
+        IsConnectedplayer2 = what;
+    }
+}
+
 int ButtonManager::numblkgetter()
 {
     return numblkobj;
@@ -193,6 +205,15 @@ int ButtonManager::numblkgetter()
 void ButtonManager::numblkpluser()
 {
     numblkobj++;
+}
+
+bool ButtonManager::Isconnected(QTcpSocket * a)
+{
+    if(a==player1)
+        return IsConnectedplayer1;
+    if(a==player2)
+        return IsConnectedplayer2;
+    else return false;
 }
 
 void ButtonManager::ResetQuestion(int position)
