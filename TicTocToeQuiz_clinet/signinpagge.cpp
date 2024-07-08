@@ -4,17 +4,35 @@ SigninPagge::SigninPagge(QWidget *parent)
     : QWidget{parent}
 {
     setWindowTitle("Signin page");
-    setFixedSize(QSize(250,180));
+    setFixedSize(QSize(300,250));
 
     layout=new QVBoxLayout;
 
-    signinpage=new QLabel("Signin page");
-    signinpage->setFixedHeight(25);
+    QPixmap bkgnd("D:/New folder/AP-project/TicTocToeQuiz_clinet/—Pngtree—tic tac toe pattern png_7613072.png");
+    bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
+    QPalette palette;
+    palette.setBrush(QPalette::Window, bkgnd);
+    this->setPalette(palette);
+
+    signinpage=new QLabel("Signin");
+    signinpage->setFixedHeight(35);
+    signinpage->setAlignment(Qt::AlignCenter);     
+    QFont font = signinpage->font();
+    font.setPointSize(20);
+    signinpage->setFont(font);
+    signinpage->setFixedHeight(30);
     signinpage->setAlignment(Qt::AlignCenter);
+    signinpage->setStyleSheet("color: yellow;font-weight: 900;");
     layout->addWidget(signinpage);
+
 
     username=new QLabel("Username");
     username->setAlignment(Qt::AlignCenter);
+    font = username->font();
+    font.setPointSize(15);
+    username->setFont(font);
+    username->setStyleSheet("color: blue;font-weight: 900;");
+    username->setFixedHeight(20);
     layout->addWidget(username);
 
     usernameLE=new QLineEdit;
@@ -22,12 +40,19 @@ SigninPagge::SigninPagge(QWidget *parent)
 
     password=new QLabel("Password");
     password->setAlignment(Qt::AlignCenter);
+    font = password->font();
+    font.setPointSize(15);
+    password->setFont(font);
+    password->setStyleSheet("color: blue;font-weight: 900;");
     layout->addWidget(password);
 
     passwordLE=new QLineEdit;
+    passwordLE->setEchoMode(QLineEdit::Password);
+    password->setFixedHeight(20);
     layout->addWidget(passwordLE);
 
     signin=new QPushButton("Signin");
+    signin->setStyleSheet(" background-color: #0054ff;font-weight: 1000;font-size: 17px;border:none;border-radius: 25px;");
     layout->addWidget(signin);
 
     this->setLayout(layout);
@@ -36,6 +61,15 @@ SigninPagge::SigninPagge(QWidget *parent)
 
 void SigninPagge::InformationChecker()
 {
+    if(passwordLE->text()==""||usernameLE->text()=="")
+    {
+        QMessageBox errorBox;
+        errorBox.setIcon(QMessageBox::Critical);
+        errorBox.setWindowTitle("Error");
+        errorBox.setText("Some inputs are invalid");
+        errorBox.exec();
+        return ;
+    }
     QByteArray _pass = passwordLE->text().toUtf8();
     qDebug()<<passwordLE->text();
     QString a = QCryptographicHash::hash(_pass,QCryptographicHash::Md4);

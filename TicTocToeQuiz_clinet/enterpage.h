@@ -10,6 +10,7 @@ class EnterPage : public QWidget
     QLabel* label;//The name of the game
     QPushButton *pbn1;//Signin
     QPushButton *pbn2;//Signup
+    QLabel *backgroundLabel;//Background
     QVBoxLayout *layout;
 public:
     explicit EnterPage(QWidget *parent = nullptr);
