@@ -33,8 +33,6 @@ void Gameboard::WhichCliched()
                 this->close();
                 Sqes->show();
             }
-
-
             //number
             if(resalt["type"].toString()=="number"){
                 if (NumUseSkip>=2)
@@ -54,10 +52,6 @@ void Gameboard::WhichCliched()
             ErrorBox->show();
         }
     }
-
-
-
-
 }
 
 void Gameboard::UpdateButton()
@@ -103,7 +97,8 @@ void Gameboard::UpdateButton()
         }
         if(resalt["isEqual"] != QJsonValue::Null){
             //Winnerpage *a = new Winnerpage();
-            QMessageBox * a = new QMessageBox("Equal","Your Game is Equal",QMessageBox::Information,0,0,0);
+            //QMessageBox * a = new QMessageBox("Equal","Your Game is Equal",QMessageBox::Information,0,0,0);
+            Egalepage * a =new Egalepage(resalt["Username"].toString());
             timer->stop();
             this->close();
             a->open();
@@ -118,7 +113,7 @@ void Gameboard::UpdateButton()
             else
             {
                 timer->stop();
-                Loserpage *a = new Loserpage();
+                Loserpage *a = new Loserpage(resalt["Username"].toString());
                 this->close();
                 a->open();
             }

@@ -12,6 +12,7 @@ QJsonObject Multiple_Question::GetQuestion()
     QString Address=
    "https://questionbank.liara.run/api/QWxpcmV6YSByb29ob2xsYWhpLEZhcnNoYWQgZ2hhZGFtLFk4NUZ2MnBZa2xNMA/question?type=multiple";
     QUrl url(Address);
+    qDebug()<<url.errorString();
     QNetworkAccessManager manager;
     while (1) {
 
@@ -34,10 +35,9 @@ QJsonObject Multiple_Question::GetQuestion()
         loop.exit();
 
     });
-
-    if(jsonObj["message"]=="error message here")continue;
-
     loop.exec();
+    QVariant statusCode = Reply->attribute( QNetworkRequest::HttpStatusCodeAttribute );
+    if(statusCode.toInt() != 200){continue;}
     return jsonObj;
     }
 }

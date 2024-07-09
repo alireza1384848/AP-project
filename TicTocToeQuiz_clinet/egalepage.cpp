@@ -1,34 +1,23 @@
-#include "loserpage.h"
-#include "ui_loserpage.h"
+#include "egalepage.h"
+#include "ui_egalepage.h"
 #include<QJsonObject>
 #include"welcomepage.h"
-Loserpage::Loserpage(QString Username,QWidget *parent )
+
+Egalepage::Egalepage(QString Username,QWidget *parent)
     : QDialog(parent)
-    , ui(new Ui::Loserpage)
+    , ui(new Ui::Egalepage)
 {
     ui->setupUi(this);
+
     username = Username;
-    ui->label->setText(Username+" Lose!");
 }
 
-Loserpage::~Loserpage()
+Egalepage::~Egalepage()
 {
     delete ui;
 }
 
-void Loserpage::on_exitbot_clicked()
-{
-    QJsonObject res;
-    res.insert("typereq","UpdateHistory");
-    qDebug()<<res;
-    Client::WriteData(res);
-    QThread::msleep(500);
-    QCoreApplication::quit();
-
-}
-
-
-void Loserpage::on_welbot_clicked()
+void Egalepage::on_pushButton_2_clicked()
 {
     QJsonObject req;
     req.insert("typereq","UpdateHistory");
@@ -46,6 +35,17 @@ void Loserpage::on_welbot_clicked()
     WelcomePage *w=new WelcomePage(response);
     this->close();
     w->show();
+}
+
+
+void Egalepage::on_exit_clicked()
+{
+    QJsonObject res;
+    res.insert("typereq","UpdateHistory");
+    qDebug()<<res;
+    Client::WriteData(res);
+    QThread::msleep(500);
+    QCoreApplication::quit();
 
 }
 

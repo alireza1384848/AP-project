@@ -47,9 +47,9 @@ int main(int argc, char *argv[])
     //  QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonString.toUtf8());
     // QJsonObject n = jsonDoc.object();
     //MainWindow w;
-    //EnterPage w;
+    EnterPage w;
      // SignUpPage w;
-    Gameboard w;
+  //  Gameboard w;
     //SigninPagge w;
  //  MultipleQustion w(2,n,d);
    // WelcomePage w(object1);

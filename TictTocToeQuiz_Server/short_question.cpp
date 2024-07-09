@@ -19,10 +19,15 @@ QJsonObject Short_Question::GetQuestion()
             QByteArray data = Reply->readAll();
             QJsonDocument jsonDoc = QJsonDocument::fromJson(data);
             jsonObj = jsonDoc.object();
+            QVariant statusCode = Reply->attribute( QNetworkRequest::HttpStatusCodeAttribute );
+            qDebug()<<statusCode;
 
         } else {
             // If there was an error, display the error message
             qDebug() << "Error:" << Reply->errorString();
+            QVariant statusCode = Reply->attribute( QNetworkRequest::HttpStatusCodeAttribute );
+            qDebug()<<statusCode;
+            //if(statusCode.toInt() != 200){continue;}
         }
 
         // Cleanup the reply object and exit the application
@@ -30,9 +35,9 @@ QJsonObject Short_Question::GetQuestion()
         loop.exit();
     });
 
-    if(jsonObj["message"]=="error message here")continue;
-
     loop.exec();
+    QVariant statusCode = Reply->attribute( QNetworkRequest::HttpStatusCodeAttribute );
+    if(statusCode.toInt() != 200){continue;}
     qDebug()<<jsonObj;
     return jsonObj;
     }
