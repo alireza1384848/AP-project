@@ -76,26 +76,26 @@ void Server::ChangeReadyStatusSokeckt(QString Username,QTcpSocket *a)
                 WriteOnSocket(res,client);
             }
             else {
-            qDebug() << "Change Ready Status socket: " <<client->peerAddress().toString()<<":"<<client->peerPort();
-            client->setProperty("ReadyOrNot",1);
-            a->setProperty("Username",Username);
-            client->setProperty("Username",Username);
-            players.push_back(client);
-            if(isfull==false&&players.size()==2){
-                QJsonObject res;
-                ButtonManager * b = new ButtonManager(players[0],players[1]);
-                Games.push_back(b);
-                players[0]->setProperty("ServerNO",Games.size()-1);
-                players[1]->setProperty("ServerNO",Games.size()-1);
-                players[0]->setProperty("NumSkip",0);
-                players[1]->setProperty("NumSkip",0);
-                players[0]->setProperty("Character","X");
-                players[1]->setProperty("Character","O");
-                res.insert("IsGameStart","true");
-                WriteOnSocket(res,players[0]);
-                WriteOnSocket(res,players[1]);
-                players.clear();
-            }
+                qDebug() << "Change Ready Status socket: " <<client->peerAddress().toString()<<":"<<client->peerPort();
+                client->setProperty("ReadyOrNot",1);
+                a->setProperty("Username",Username);
+                client->setProperty("Username",Username);
+                players.push_back(client);
+                if(isfull==false&&players.size()==2){
+                    QJsonObject res;
+                    ButtonManager * b = new ButtonManager(players[0],players[1]);
+                    Games.push_back(b);
+                    players[0]->setProperty("ServerNO",Games.size()-1);
+                    players[1]->setProperty("ServerNO",Games.size()-1);
+                    players[0]->setProperty("NumSkip",0);
+                    players[1]->setProperty("NumSkip",0);
+                    players[0]->setProperty("Character","X");
+                    players[1]->setProperty("Character","O");
+                    res.insert("IsGameStart","true");
+                    WriteOnSocket(res,players[0]);
+                    WriteOnSocket(res,players[1]);
+                    players.clear();
+                }
             }
         }
     }
@@ -148,6 +148,7 @@ void Server::CheckAnswer(QString Answer, int pos, int id, QTcpSocket * from)
         for(int i=0;i<ShortAnswer.size();i++){
             if(ShortAnswer[i]["id"].toInt()==id){
                 if(ShortAnswer[i]["answer"].toString()==Answer){
+                    Games[server]->numblkpluser();
                     Games[server]->setowner(pos,from->property("Character").toString());
                     if(Games[server]->typeQuestion1Getter(pos)==2){
                         Games[server]->iswinsetter(true);
@@ -160,10 +161,11 @@ void Server::CheckAnswer(QString Answer, int pos, int id, QTcpSocket * from)
                 else{
                     Games[server]->setState(pos,"Defalt");
                     if(Games[server]->getBlockfor(pos)=="None")
-                        Games[server]->setBlockfor(pos,property("Character").toString());
-                    else
+                        Games[server]->setBlockfor(pos,from->property("Character").toString());
+                    else{
+                        Games[server]->numblkpluser();
                         Games[server]->setBlockfor(pos,"both");
-
+                    }
                     if(Games[server]->typeQuestion1Getter(pos)==1){
                         Games[server]->iswinsetter(true);
                         if(from->property("Character").toString()=="X")
@@ -183,14 +185,12 @@ void Server::CheckAnswer(QString Answer, int pos, int id, QTcpSocket * from)
         for(int i=0;i<numberAnswer.size();i++){
             if(numberAnswer[i]["id"].toInt()==id){
                 if(numberAnswer[i]["answer"].toString()==Answer){
+                    Games[server]->numblkpluser();
                     Games[server]->setowner(pos,from->property("Character").toString());
                     res.insert("Resalt","Your answer is true");
-                    if(Games[server]->typeQuestion1Getter(pos)==1){
+                    if(Games[server]->typeQuestion1Getter(pos)==2){
                         Games[server]->iswinsetter(true);
-                        if(from->property("Character").toString()=="X")
-                            Games[server]->Winnersetter("O");
-                        else
-                            Games[server]->Winnersetter("X");
+                        Games[server]->Winnersetter(from->property("Character").toString());
                     }
                     WriteOnSocket(res,from);
                     return;
@@ -198,13 +198,17 @@ void Server::CheckAnswer(QString Answer, int pos, int id, QTcpSocket * from)
                 else{
                     Games[server]->setState(pos,"Defalt");
                     if(Games[server]->getBlockfor(pos)=="None")
-                        Games[server]->setBlockfor(pos,property("Character").toString());
-                    else
+                        Games[server]->setBlockfor(pos,from->property("Character").toString());
+                    else{
+                        Games[server]->numblkpluser();
                         Games[server]->setBlockfor(pos,"both");
-
-                    if(Games[server]->typeQuestion1Getter(pos)==2){
+                    }
+                    if(Games[server]->typeQuestion1Getter(pos)==1){
                         Games[server]->iswinsetter(true);
-                        Games[server]->Winnersetter(from->property("Character").toString());
+                        if(from->property("Character").toString()=="X")
+                            Games[server]->Winnersetter("O");
+                        else
+                            Games[server]->Winnersetter("X");
                     }
                     res.insert("Resalt","Your answer is False");
                     WriteOnSocket(res,from);
@@ -228,7 +232,7 @@ void Server::setNOtReady(QTcpSocket *a)
 void Server::Disconnected()
 {
     QTcpSocket *socket = qobject_cast<QTcpSocket *>(sender());
-/*    QEventLoop a;
+    /*    QEventLoop a;
     Time = new QTimer();
     Time->start(20000);
     bool& Isbreak = isbreak;
@@ -253,11 +257,11 @@ void Server::Disconnected()
     Games[socket->property("ServerNO").toInt()]->iswinsetter(true);
     this->UpdateHistory(User_w_r::User_getter(socket->property("Username").toString()),socket);
     if(socket->property("Character").toString()=="X")
-    Games[socket->property("ServerNO").toInt()]->Winnersetter("O");
+        Games[socket->property("ServerNO").toInt()]->Winnersetter("O");
     else{
         Games[socket->property("ServerNO").toInt()]->Winnersetter("X");
     }
-//}
+    //}
 }
 
 void Server::SendQuestion(int pos, QTcpSocket *to)
@@ -381,7 +385,7 @@ void reconnect::run()
             qDebug()<<"reconnect"<<server->Clients[server->Clients.size()-1]->property("Character").toString();
             server->canrec = true;
             break;
-           }
+        }
         QThread::msleep(500);
     }
 

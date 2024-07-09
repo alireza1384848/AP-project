@@ -8,6 +8,7 @@
 #include"signinpagge.h"
 #include"welcomepage.h"
 #include"waitingpage.h"
+#include"shortquestion.h"
 #include <QApplication>
 #include <QDebug>
 
@@ -22,17 +23,18 @@ int main(int argc, char *argv[])
     // object1.insert("Loses",2);
     // object1.insert("Wins",3);
     // object1.insert("Equals",6);
-    // QFile f("multiple.json");
-    // f.open(QIODeviceBase::ReadOnly);
-    // QTextStream in(&f);
-    // QString jsonString = in.readAll();
-    //  QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonString.toUtf8());
-    // QJsonObject n = jsonDoc.object();
+    /* QFile f("multiple.json");
+     f.open(QIODeviceBase::ReadOnly);
+     QTextStream in(&f);
+     QString jsonString = in.readAll();
+      QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonString.toUtf8());
+     QJsonObject n = jsonDoc.object();*/
     //MainWindow w;
-    //EnterPage w;
-      SignUpPage w;
+    EnterPage w;
+   //   SignUpPage w;
     //Gameboard w;
-    //SigninPagge w;
+    // ShortQuestion w(true,3,n,nullptr);
+     //SigninPagge w;
  //  MultipleQustion w(2,n,d);
    // WelcomePage w(object1);
    // WaitingPage w(object1);

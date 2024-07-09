@@ -24,9 +24,27 @@ void Gameboard::WhichCliched()
                 qes->show();
             }
             //Short
+            if(resalt["type"].toString()=="short"){
+                if (NumUseSkip>=2)
+                    Sqes = new ShortQuestion(false,Button->property("position").toInt(),resalt,this);
+                else
+                    Sqes = new ShortQuestion(true,Button->property("position").toInt(),resalt,this);
+                QObject::connect(Sqes,SIGNAL(skipused()),this,SLOT(addskip()));
+                this->close();
+                Sqes->show();
+            }
 
 
             //number
+            if(resalt["type"].toString()=="number"){
+                if (NumUseSkip>=2)
+                    Nqes = new numberQuestion(false,Button->property("position").toInt(),resalt,this);
+                else
+                    Nqes = new numberQuestion(true,Button->property("position").toInt(),resalt,this);
+                QObject::connect(Nqes,SIGNAL(skipused()),this,SLOT(addskip()));
+                this->close();
+                Nqes->show();
+            }
 
         }
         else{
