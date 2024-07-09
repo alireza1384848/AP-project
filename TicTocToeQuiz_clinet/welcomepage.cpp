@@ -77,7 +77,7 @@ WelcomePage::WelcomePage(QJsonObject User)
 
     sublayout=new QHBoxLayout;
     int i=0;
-    QJsonArray arrayhistory=user["history"].toArray();
+    QJsonArray arrayhistory=user["History"].toArray();
     for (QJsonValue value : arrayhistory) {
         QJsonObject obj = value.toObject();
         opponent[i]=new QLabel(obj["Opponent"].toString());
