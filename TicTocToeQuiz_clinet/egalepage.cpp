@@ -9,6 +9,7 @@ Egalepage::Egalepage(QString Username,QWidget *parent)
 {
     ui->setupUi(this);
 
+    this->setWindowIcon(QIcon("icon.ico"));
     username = Username;
 }
 

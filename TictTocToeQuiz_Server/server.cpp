@@ -44,6 +44,7 @@ void Server::incomingConnection(qintptr socketDescriptor)
 
 void Server::UpdateHistory(QJsonObject a,QTcpSocket *from)
 {
+    from->setProperty("Isupdate",true);
     QString hostalchar ;
     if(from->property("Character")  == "X")
         hostalchar = "O";
@@ -287,12 +288,17 @@ void Server::Disconnected()
     else{
         Games[socket->property("ServerNO").toInt()]->setstatus(socket,false);
         Games[socket->property("ServerNO").toInt()]->iswinsetter(true);
-        this->UpdateHistory(User_w_r::User_getter(socket->property("Username").toString()),socket);
+
         if(socket->property("Character").toString()=="X")
             Games[socket->property("ServerNO").toInt()]->Winnersetter("O");
         else{
             Games[socket->property("ServerNO").toInt()]->Winnersetter("X");
         }
+        if(socket->property("Isupdate").toBool() &&socket->property("Isupdate").isValid()){
+            ;
+        }
+        else
+        this->UpdateHistory(User_w_r::User_getter(socket->property("Username").toString()),socket);
         socket->deleteLater();
     }
     //}
