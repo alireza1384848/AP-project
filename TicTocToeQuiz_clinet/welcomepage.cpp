@@ -82,7 +82,8 @@ WelcomePage::WelcomePage(QJsonObject User)
         QJsonObject obj = value.toObject();
         opponent[i]=new QLabel(obj["Opponent"].toString());
         if(obj["State"].toInt()==0)opponent[i]->setStyleSheet("color:red;font-weight: 900;");
-        else opponent[i]->setStyleSheet("color:#00FF29 ;font-weight: 900;");
+        if(obj["State"].toInt()==1) opponent[i]->setStyleSheet("color:#00FF29 ;font-weight: 900;");
+        if(obj["State"].toInt()==2) opponent[i]->setStyleSheet("color:#8E00FE ;font-weight: 900;");
         font=opponent[i]->font();
         font.setPointSize(15);
         opponent[i]->setFont(font);
