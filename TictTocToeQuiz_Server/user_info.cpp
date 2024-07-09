@@ -48,6 +48,7 @@ void User_info::Equals_Updater()
 void User_info::History_Updater(QString Opponent, int State)
 {
     //State==0->Lose/State==1->Win
+
     QVector<QJsonObject> myHistory;
     QJsonObject NewHistory;
     NewHistory.insert("Opponent",Opponent);
