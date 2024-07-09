@@ -5,12 +5,15 @@ numberQuestion::numberQuestion(bool canSkip,int pos,QJsonObject sorce,QDialog * 
     : QDialog(parent)
     , ui(new Ui::numberQuestion)
 {
+
     Board = board;
     this->pos = pos;
     this->sorce = sorce;
     this->setFixedSize(540,430);
     //0:Usual 1:Bomb  2:King question
     ui->setupUi(this);
+        this->setWindowIcon(QIcon("icon.ico"));
+    this->setWindowTitle("Question");
     //  ui->category->setAlignment(Qt::AlignRight);
     ui->category->setText(sorce["category"].toString());
     ui->type1_label->setText(sorce["type1"].toString());

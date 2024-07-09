@@ -1,8 +1,10 @@
 #include "buttonmanager.h"
 #include <QThread>
 
-ButtonManager::ButtonManager(QTcpSocket *p1, QTcpSocket *p2)
+ButtonManager::ButtonManager(QTcpSocket *p1,QString user1, QTcpSocket *p2,QString User2)
 {
+    this->user1 = user1;
+    this->user2 = User2;
     Winner ="";
     IsConnectedplayer1 =true;
     IsConnectedplayer2 =true;
@@ -187,12 +189,12 @@ QString ButtonManager::Winner_getter()
     return Winner;
 }
 
-QTcpSocket *ButtonManager::Enemy_getter(QTcpSocket *you)
+QString ButtonManager::Enemy_getter(QTcpSocket *you)
 {
     if(player1==you)
-        return player2;
+        return user2;
     if(player2==you)
-        return player1;
+        return user1;
 
 
 }

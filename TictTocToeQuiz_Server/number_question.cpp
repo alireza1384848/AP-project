@@ -36,9 +36,11 @@ QJsonObject Number_Question::GetQuestion()
         loop.exit();
     });
 
-    if(jsonObj["message"]=="error message here")continue;
     loop.exec();
+    QVariant statusCode = Reply->attribute( QNetworkRequest::HttpStatusCodeAttribute );
+    if(statusCode.toInt() != 200){continue;}
     qDebug()<<jsonObj;
     return jsonObj;
+    break;
     }
 }

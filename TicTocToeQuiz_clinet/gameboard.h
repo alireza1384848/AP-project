@@ -22,6 +22,7 @@
 #include<QMessageBox>
 #include "winnerpage.h"
 #include "loserpage.h"
+#include "egalepage.h"
 namespace Ui {
 class Gameboard;
 }

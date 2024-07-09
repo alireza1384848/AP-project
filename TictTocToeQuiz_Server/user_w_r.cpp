@@ -42,6 +42,7 @@ void User_w_r::AddNewUser(const QJsonObject &newuser)
 
 void User_w_r::Update_User(QString username,QJsonObject userobject)
 {
+
     QJsonArray usersarray=LoadUsersFromFile();
     QJsonObject uobject;
     int index;
@@ -53,6 +54,7 @@ void User_w_r::Update_User(QString username,QJsonObject userobject)
         if(index==usersarray.size()-1)
             return;
     }
+    qDebug()<<"Update obj"<<userobject<<index;
     usersarray.replace(index,userobject);
     SaveUsersToFile(usersarray);
 }

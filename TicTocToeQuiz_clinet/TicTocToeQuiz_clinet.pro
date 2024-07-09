@@ -13,6 +13,7 @@ CONFIG += c++17
 
 SOURCES += \
     client.cpp \
+    egalepage.cpp \
     enterpage.cpp \
     gameboard.cpp \
     loserpage.cpp \
@@ -30,6 +31,7 @@ SOURCES += \
 
 HEADERS += \
     client.h \
+    egalepage.h \
     enterpage.h \
     gameboard.h \
     loserpage.h \
@@ -45,6 +47,7 @@ HEADERS += \
     winnerpage.h
 
 FORMS += \
+    egalepage.ui \
     gameboard.ui \
     loserpage.ui \
     mainwindow.ui \

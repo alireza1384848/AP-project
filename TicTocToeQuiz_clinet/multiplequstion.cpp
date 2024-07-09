@@ -31,6 +31,8 @@ MultipleQustion::MultipleQustion(bool canSkip,int pos,QJsonObject sorce,QDialog 
             ui->answer4->setText(ans[i].toObject()["text"].toString());
         }
     }
+        this->setWindowIcon(QIcon("icon.ico"));
+    this->setWindowTitle("Question");
     if(!canSkip)
         ui->skipbot->setDisabled(true);
     timer = new QTimer();

@@ -33,8 +33,6 @@ void Gameboard::WhichCliched()
                 this->close();
                 Sqes->show();
             }
-
-
             //number
             if(resalt["type"].toString()=="number"){
                 if (NumUseSkip>=2)
@@ -54,10 +52,6 @@ void Gameboard::WhichCliched()
             ErrorBox->show();
         }
     }
-
-
-
-
 }
 
 void Gameboard::UpdateButton()
@@ -82,20 +76,24 @@ void Gameboard::UpdateButton()
             QString Character= eachbot["Character"].toString();
             if(owner!="None"){
                 Buttons[i]->setText(owner);
+                Buttons[i]->setStyleSheet("font: 25pt Segoe U;background-color:#E7AE74;color:black;");
                 Buttons[i]->setDisabled(true);
             }
             else{
                 if(blkfor==Character ||blkfor=="both"){
-                    Buttons[i]->setText("LOCK");
+                    Buttons[i]->setText("🔒");
+                    Buttons[i]->setStyleSheet("font: 25pt Segoe U;");
                     Buttons[i]->setDisabled(true);
                 }
                 else{
                     if(state =="inUse"){
-                        Buttons[i]->setText("...");
+                        Buttons[i]->setText("⚔️");
+                         Buttons[i]->setStyleSheet("font: 25pt Segoe U;background-color:#E7AE74;color:black;");
                         Buttons[i]->setDisabled(true);
                     }
                     if(state =="Defalt"){
                         Buttons[i]->setText("-");
+                         Buttons[i]->setStyleSheet("font: 25pt Segoe U;background-color:#E7AE74;color:black;");
                         Buttons[i]->setEnabled(true);
                     }
                 }
@@ -103,7 +101,8 @@ void Gameboard::UpdateButton()
         }
         if(resalt["isEqual"] != QJsonValue::Null){
             //Winnerpage *a = new Winnerpage();
-            QMessageBox * a = new QMessageBox("Equal","Your Game is Equal",QMessageBox::Information,0,0,0);
+            //QMessageBox * a = new QMessageBox("Equal","Your Game is Equal",QMessageBox::Information,0,0,0);
+            Egalepage * a =new Egalepage(resalt["Username"].toString());
             timer->stop();
             this->close();
             a->open();
@@ -118,7 +117,7 @@ void Gameboard::UpdateButton()
             else
             {
                 timer->stop();
-                Loserpage *a = new Loserpage();
+                Loserpage *a = new Loserpage(resalt["Username"].toString());
                 this->close();
                 a->open();
             }
@@ -143,6 +142,7 @@ Gameboard::Gameboard(QWidget *parent)
 {
     //Ui
     ui->setupUi(this);
+        this->setWindowIcon(QIcon("icon.ico"));
     this->Updatebutton  = new QPushButton();
     QObject::connect(Updatebutton,SIGNAL(clicked()),this,SLOT(UpdateButton()));
     this->setFixedSize(500,450);
