@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
     HArray.append(h[1]);
 
     h[2].insert("Opponent","Bob");
-    h[2].insert("State",1);
+    h[2].insert("State",2);
     HArray.append(h[2]);
 
     object1.insert("history",HArray);
@@ -54,6 +54,7 @@ int main(int argc, char *argv[])
  //  MultipleQustion w(2,n,d);
    // WelcomePage w(object1);
    // WaitingPage w(object1);
+   // MultipleQustion w;
     w.show();
     return a.exec();
 }

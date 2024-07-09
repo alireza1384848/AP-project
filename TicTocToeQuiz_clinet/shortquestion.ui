@@ -7,11 +7,14 @@
     <x>0</x>
     <y>0</y>
     <width>533</width>
-    <height>400</height>
+    <height>386</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: #5A5856;</string>
   </property>
   <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
@@ -23,22 +26,24 @@
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="1">
-     <widget class="QLabel" name="cat_text_2">
-      <property name="text">
-       <string>موضوع:</string>
+    <item row="4" column="4">
+     <widget class="QPushButton" name="verifybot_2">
+      <property name="styleSheet">
+       <string notr="true">background-color: #36C3FF ; 
+ font-weight: 1000; 
+ font-size: 17px; 
+ border: none; </string>
       </property>
-     </widget>
-    </item>
-    <item row="0" column="3">
-     <widget class="QLabel" name="typetxt_2">
       <property name="text">
-       <string>نوع:</string>
+       <string>ثبت پاسخ</string>
       </property>
      </widget>
     </item>
     <item row="0" column="0">
      <widget class="QLabel" name="category">
+      <property name="styleSheet">
+       <string notr="true">color: #29FF43;font-weight: 900;font-size: 17px;</string>
+      </property>
       <property name="text">
        <string/>
       </property>
@@ -47,20 +52,24 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="2">
-     <widget class="QLabel" name="category_2">
-      <property name="text">
-       <string/>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    <item row="2" column="0" colspan="5">
+     <widget class="QLineEdit" name="answelineedit">
+      <property name="styleSheet">
+       <string notr="true">background-color: #FCE293 ;</string>
       </property>
      </widget>
     </item>
-    <item row="2" column="0" colspan="4">
-     <widget class="QLineEdit" name="answelineedit"/>
+    <item row="0" column="1">
+     <widget class="QLabel" name="cat_text_2">
+      <property name="styleSheet">
+       <string notr="true">color: yellow;font-weight: 900;font-size: 17px;</string>
+      </property>
+      <property name="text">
+       <string>موضوع:</string>
+      </property>
+     </widget>
     </item>
-    <item row="3" column="0" colspan="4">
+    <item row="3" column="0" colspan="5">
      <widget class="QProgressBar" name="progressBar_2">
       <property name="styleSheet">
        <string notr="true">background-color: rgb(22, 23, 75);
@@ -83,8 +92,24 @@ color: rgb(0, 255, 0);</string>
       </property>
      </widget>
     </item>
-    <item row="1" column="0" colspan="4">
+    <item row="4" column="0">
+     <widget class="QPushButton" name="skipbot_2">
+      <property name="styleSheet">
+       <string notr="true">background-color: #36C3FF ; 
+ font-weight: 1000; 
+ font-size: 17px; 
+ border: none; </string>
+      </property>
+      <property name="text">
+       <string>skip</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0" colspan="5">
      <widget class="QTextBrowser" name="quesText_2">
+      <property name="styleSheet">
+       <string notr="true">background-color: #9D9DFA ;</string>
+      </property>
       <property name="html">
        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -97,20 +122,26 @@ li.checked::marker { content: &quot;\2612&quot;; }
       </property>
      </widget>
     </item>
-    <item row="4" column="0">
-     <widget class="QPushButton" name="skipbot_2">
+    <item row="0" column="4">
+     <widget class="QLabel" name="typetxt_2">
       <property name="styleSheet">
-       <string notr="true"/>
+       <string notr="true">color: yellow;font-weight: 900;font-size: 17px;</string>
       </property>
       <property name="text">
-       <string>skip</string>
+       <string>نوع:</string>
       </property>
      </widget>
     </item>
-    <item row="4" column="2">
-     <widget class="QPushButton" name="verifybot_2">
+    <item row="0" column="3">
+     <widget class="QLabel" name="category_2">
+      <property name="styleSheet">
+       <string notr="true">color: #29FF43;font-weight: 900;font-size: 17px;</string>
+      </property>
       <property name="text">
-       <string>ثبت پاسخ</string>
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
       </property>
      </widget>
     </item>

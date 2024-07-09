@@ -14,6 +14,10 @@ QJsonObject Multiple_Question::GetQuestion()
     QUrl url(Address);
     qDebug()<<url.errorString();
     QNetworkAccessManager manager;
+<<<<<<< HEAD
+
+=======
+>>>>>>> master
     while (1) {
 
 
