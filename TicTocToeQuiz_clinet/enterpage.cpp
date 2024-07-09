@@ -9,7 +9,7 @@ EnterPage::EnterPage(QWidget *parent)
     setWindowTitle("Entring Page");
     layout=new QVBoxLayout;
 
-    QPixmap bkgnd("D:/New folder/AP-project/TicTocToeQuiz_clinet/—Pngtree—tic tac toe pattern png_7613072.png");
+    QPixmap bkgnd("—Pngtree—tic tac toe pattern png_7613072.png");
     bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
     QPalette palette;
     palette.setBrush(QPalette::Window, bkgnd);

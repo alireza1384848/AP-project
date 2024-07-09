@@ -3,7 +3,7 @@
 WelcomePage::WelcomePage(QJsonObject User)
     :UserInfo(User)
 {
-
+    user = User;
 
     setFixedSize(QSize(300,300));
     layout =new QVBoxLayout;
@@ -46,6 +46,7 @@ void WelcomePage::StartTheGame()
 {
     QJsonObject request;
     request.insert("typereq","ReadyToPlay");
+    request.insert("Username",user["Username"].toString());
     Client::WriteData(request);
     WaitingPage *w=new WaitingPage(UserInfo);
     w->show();

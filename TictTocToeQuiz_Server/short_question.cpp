@@ -9,7 +9,10 @@ QJsonObject Short_Question::GetQuestion()
         "https://questionbank.liara.run/api/QWxpcmV6YSByb29ob2xsYWhpLEZhcnNoYWQgZ2hhZGFtLFk4NUZ2MnBZa2xNMA/question?type=short";
     QUrl url(Address);
     QNetworkAccessManager manager;
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
     QEventLoop loop;
     QJsonObject jsonObj;
     while(1){
@@ -36,7 +39,6 @@ QJsonObject Short_Question::GetQuestion()
     loop.exec();
     qDebug()<<jsonObj;
     return jsonObj;
->>>>>>> master
     }
-    }
+
 }

@@ -11,10 +11,10 @@ void RespondReqest::sendQuestion(int pos)
     emit SendQuestion(pos,Socket);
 }
 
-void RespondReqest::updateUserinfo()
+void RespondReqest::updateUserinfo(QString a, QJsonObject b)
 {
+    MangeFile->Update_User(a,b);
 }
-
 void RespondReqest::addUserinfo(QString username,QString pass,QString Email)
 {
     if(MangeFile->IsUserExist(username)){
@@ -36,9 +36,9 @@ void RespondReqest::isAnswer(QString Answer,int pos,int id)
 {
     emit IsAnswer(Answer,pos,id,Socket);
 }
-void RespondReqest::setClientready()
+void RespondReqest::setClientready(QString Username)
 {
-    emit ImReady(Socket);    
+    emit ImReady(Username,Socket);
 }
 
 void RespondReqest::IsExistUser(QString username, QString pass)
@@ -93,6 +93,7 @@ void RespondReqest::updateboard()
 void RespondReqest::ProccesData(QTcpSocket *from, QByteArray Data)
 {
     Socket = from;
+    qDebug()<<Data;
     qDebug()<< "in responst to socket"<<from->peerAddress().toString();
     QJsonDocument newJsonDoc = QJsonDocument::fromJson(Data);
     QJsonObject Req = newJsonDoc.object();
@@ -100,15 +101,12 @@ void RespondReqest::ProccesData(QTcpSocket *from, QByteArray Data)
     if(Req["typereq"]=="adduser"){
         this->addUserinfo(Req["Username"].toString(),Req["Password"].toString(),Req["Email"].toString());
     }
-    else if(Req["typereq"]=="updateuser"){
-        this->updateUserinfo();
-    }
     else if(Req["typereq"]=="NeedQuestion"){
 
         this->sendQuestion(Req["Pos"].toInt());
     }
     else if (Req["typereq"]=="ReadyToPlay"){
-        this->setClientready();
+        this->setClientready(Req["Username"].toString());
     }
     else if(Req["typereq"]=="CancelStarting"){
         this->cancelready();
@@ -135,7 +133,10 @@ void RespondReqest::ProccesData(QTcpSocket *from, QByteArray Data)
 
         this->updateboard();
     }
-
+    else if(Req["typereq"]=="UpdateHistory"){
+        QJsonObject userobj=MangeFile->User_getter(Socket->property("Username").toString());
+        emit updatehistory(userobj,Socket);
+    }
 }
 
 

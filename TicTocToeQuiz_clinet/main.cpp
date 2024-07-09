@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     // QJsonObject object1;
     // MainWindow v;
-    // Client::ConnectToServer("127.0.0.1",50000);
+     Client::ConnectToServer("127.0.0.1",50000);
     // object1.insert("Username","aa");
     // object1.insert("Email","bb");
     // object1.insert("Loses",2);
