@@ -146,7 +146,22 @@ Gameboard::Gameboard(QWidget *parent)
     this->Updatebutton  = new QPushButton();
     QObject::connect(Updatebutton,SIGNAL(clicked()),this,SLOT(UpdateButton()));
     this->setFixedSize(500,450);
-    title = new QLabel("Game",this);
+
+    // QPixmap bkgnd("—Pngtree—tic tac toe pattern png_7613072.png");
+    // bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
+    // QPalette palette;
+    // palette.setBrush(QPalette::Window, bkgnd);
+    // this->setPalette(palette);
+    this->setStyleSheet("background-color: #5A5856;");
+
+    title = new QLabel("Game");
+    QFont font = title->font();
+    font.setPointSize(20);
+    title->setFont(font);
+    title->setFixedHeight(30);
+    title->setAlignment(Qt::AlignCenter);
+    title->setStyleSheet(";color: yellow;font-weight: 900;");
+
     topic_layout = new QHBoxLayout();
     main_layout = new QGridLayout();
     base_layout = new QVBoxLayout();
@@ -161,7 +176,12 @@ Gameboard::Gameboard(QWidget *parent)
     //explain layout
     NumSkip = new QLabel();
     QVariant a =(2-NumUseSkip);
-    NumSkip->setText("Available Num of Skip = "+a.toString());
+    NumSkip->setText("Available Num of Skip : "+a.toString());
+    font = NumSkip->font();
+    font.setPointSize(15);
+    NumSkip->setFont(font);
+    NumSkip->setStyleSheet("color: #FB7F00 ;font-weight: 900;");
+
     lastAnswer = new QLabel();
     explain_layout->addWidget(NumSkip);
     explain_layout->addWidget(lastAnswer);
@@ -173,7 +193,7 @@ Gameboard::Gameboard(QWidget *parent)
             Buttons.push_back(new QPushButton(this));
             Buttons[counter]->setFixedHeight(100);
             Buttons[counter]->setProperty("position",counter);
-
+            Buttons[counter]->setStyleSheet("background-color:#E7AE74 ");
             qDebug()<< Buttons[counter]->property("position");
             QObject::connect(Buttons[counter],SIGNAL(clicked()),this,SLOT(WhichCliched()));
             main_layout->addWidget(Buttons[counter],i,j);
@@ -182,7 +202,13 @@ Gameboard::Gameboard(QWidget *parent)
     }
     Updatebutton->setFixedHeight(50);
     Updatebutton->setText("Update Page");
-    main_layout->addWidget(Updatebutton,3,2);
+    Updatebutton->setStyleSheet("QPushButton { background-color: #0054ff; "
+                        "font-weight: 1000; "
+                        "font-size: 17px; "
+                        "border: none; "
+                        " } "
+                        "QPushButton:hover { background-color: #0BEA14; }");
+    explain_layout->addWidget(Updatebutton);
     //every 10 sec button clicked
     timer = new QTimer();
     QObject::connect(timer,SIGNAL(timeout()),this,SLOT(emitclicked()));

@@ -14,6 +14,7 @@ class WelcomePage :  public QWidget
 {
     Q_OBJECT
     QVBoxLayout *layout;
+
     QJsonObject user;
     QLabel * welcome;
     QLabel * username;
@@ -23,6 +24,8 @@ class WelcomePage :  public QWidget
     QLabel * wins;
     QLabel * equals;
     QLabel * history;
+    QHBoxLayout *sublayout;
+    QLabel *opponent[3];
     QPushButton *Start;
     QJsonObject UserInfo;
 public:

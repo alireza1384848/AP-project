@@ -20,11 +20,14 @@ class SigninPagge : public QWidget
     QLineEdit *usernameLE;
     QLineEdit *passwordLE;
     QPushButton *signin;
+    QPushButton *signup;
 public:
     void InformationChecker();
     explicit SigninPagge(QWidget *parent = nullptr);
+    void OpenSignupPage();
 
 signals:
+    void SignupPageSignal(SigninPagge *s);
 };
 
 #endif // SIGNINPAGGE_H

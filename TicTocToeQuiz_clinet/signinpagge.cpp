@@ -52,11 +52,21 @@ SigninPagge::SigninPagge(QWidget *parent)
     layout->addWidget(passwordLE);
 
     signin=new QPushButton("Signin");
-    signin->setStyleSheet(" background-color: #0054ff;font-weight: 1000;font-size: 17px;border:none;border-radius: 25px;");
+    signin->setStyleSheet("QPushButton { background-color: #0054ff; "
+                                "font-weight: 1000; "
+                                "font-size: 17px; "
+                                "border: none; "
+                                " } "
+                                "QPushButton:hover { background-color: #0BEA14; }");
     layout->addWidget(signin);
+
+    // signup=new QPushButton("Go to signup page");
+    // signup->setStyleSheet(" background-color: #0054ff;font-weight: 1000;font-size: 17px;border:none;border-radius: 25px;");
+    // layout->addWidget(signup);
 
     this->setLayout(layout);
     QObject::connect(signin,&QPushButton::clicked,this,&SigninPagge::InformationChecker);
+    //QObject::connect(signup,&QPushButton::clicked,this,&SigninPagge::OpenSignupPage);
 }
 
 void SigninPagge::InformationChecker()
@@ -102,4 +112,9 @@ void SigninPagge::InformationChecker()
     }
     }
 
+}
+
+void SigninPagge::OpenSignupPage()
+{
+    emit SignupPageSignal(this);
 }

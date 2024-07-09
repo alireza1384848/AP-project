@@ -18,17 +18,13 @@ SignUpPage::SignUpPage(QWidget *parent)
 
     layout=new QVBoxLayout;
 
-    Topic = new QLabel;
-    Topic->setText("Sign up Page");
+    Topic = new QLabel("Signup");
     Topic->setAlignment(Qt::AlignCenter);
-    Topic=new QLabel("Signup");
     Topic->setFixedHeight(35);
-    Topic->setAlignment(Qt::AlignCenter);
     QFont font = Topic->font();
     font.setPointSize(20);
     Topic->setFont(font);
     Topic->setFixedHeight(30);
-    Topic->setAlignment(Qt::AlignCenter);
     Topic->setStyleSheet("color: yellow;font-weight: 900;");
     layout->addWidget(Topic);
 
@@ -68,12 +64,24 @@ SignUpPage::SignUpPage(QWidget *parent)
 
     Ok_Buttom = new QPushButton;
     Ok_Buttom->setText("Sign Up");
-    Ok_Buttom->setStyleSheet(" background-color: #0054ff;font-weight: 1000;font-size: 17px;border:none;border-radius: 25px;");
+    Ok_Buttom->setStyleSheet("QPushButton { background-color: #0054ff; "
+                             "font-weight: 1000; "
+                             "font-size: 17px; "
+                             "border: none; "
+                             " } "
+                             "QPushButton:hover { background-color: #0BEA14; }");
     layout->addWidget(Ok_Buttom);
 
     login_Buttom =  new QPushButton;
-    login_Buttom->setText("Signin");
-    login_Buttom->setStyleSheet(" background-color: #0054ff;font-weight: 1000;font-size: 17px;border:none;border-radius: 25px;");
+    login_Buttom->setText("Go to signin page");
+    //login_Buttom->setStyleSheet(" background-color: #0054ff;font-weight: 1000;font-size: 17px;border:none;border-radius: 25px;");
+    login_Buttom->setStyleSheet("QPushButton { background-color: #0054ff; "
+                                "font-weight: 1000; "
+                                "font-size: 17px; "
+                                "border: none; "
+                                " } "
+                                "QPushButton:hover { background-color: #0BEA14; }"
+                                );
     layout->addWidget(login_Buttom);
 
     Lineedit_Pass->setEchoMode(QLineEdit::Password);
@@ -90,7 +98,6 @@ SignUpPage::SignUpPage(QWidget *parent)
 
     connect(Ok_Buttom,SIGNAL(clicked()),this,SLOT(Clicked_Ok_But()));
     connect(login_Buttom,SIGNAL(clicked()),this,SLOT(Click_Login_But()));
-
 
 }
 
@@ -121,6 +128,16 @@ void SignUpPage::set_Email(QString Email)
 
 void SignUpPage::Clicked_Ok_But()
 {
+    if(Lineedit_User->text()==""||Lineedit_Pass->text()==""||Lineedit_Email->text()=="")
+    {
+        QMessageBox errorBox;
+        errorBox.setIcon(QMessageBox::Critical);
+        errorBox.setWindowTitle("Error");
+        errorBox.setText("Some inputs are invalid");
+        //errorBox.button()->setText("Hey");
+        errorBox.exec();
+        return ;
+    }
     QJsonObject UserObject;
     UserObject.insert("typereq","adduser");
     UserObject.insert("Username",info.username);
@@ -159,3 +176,4 @@ void SignUpPage::Click_Login_But()
     this->close();
     Login->show();
 }
+
