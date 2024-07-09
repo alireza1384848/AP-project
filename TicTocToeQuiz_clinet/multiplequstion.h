@@ -36,7 +36,7 @@ private:
     Ui::MultipleQustion *ui;
 signals:
     void skipused();
-    //define a slote to say he lose if time finished emitted
+
 private slots:
     void on_verifybot_clicked();
     void on_skipbot_clicked();

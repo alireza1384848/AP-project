@@ -8,6 +8,7 @@
 #include"signinpagge.h"
 #include"welcomepage.h"
 #include"waitingpage.h"
+#include"shortquestion.h"
 #include <QApplication>
 #include <QDebug>
 

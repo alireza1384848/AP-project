@@ -15,6 +15,8 @@
 #include <QVector>
 #include "client.h"
 #include "multiplequstion.h"
+#include "numberquestion.h"
+#include "shortquestion.h"
 #include<QJsonObject>
 #include<QJsonValue>
 #include<QMessageBox>
@@ -45,6 +47,8 @@ private:
     QPushButton * dasd;
     int NumUseSkip=0;
     MultipleQustion * qes;
+    numberQuestion  * Nqes;
+    ShortQuestion * Sqes;
    QTimer * timer;
     Ui::Gameboard *ui;
     QGridLayout * main_layout;
