@@ -34,7 +34,6 @@ public slots:
     void set_Email(QString Email);
     void Clicked_Ok_But();
     void Click_Login_But();
-
 private:
     Ui::SignUpPage *ui;
     QVBoxLayout *layout;

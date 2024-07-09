@@ -16,7 +16,6 @@ EnterPage::EnterPage(QWidget *parent)
     this->setPalette(palette);
 
     label=new QLabel("TIC TOC TOE QUIZ");
-
     QFont font = label->font();
     font.setPointSize(20);
     label->setFont(font);
@@ -27,13 +26,23 @@ EnterPage::EnterPage(QWidget *parent)
 
     pbn1=new QPushButton("Signin");
     pbn1->setFixedHeight(30);
-    pbn1->setStyleSheet(" background-color: #0054ff;font-weight: 1000;font-size: 17px;border:none;border-radius: 25px;");
+    pbn1->setStyleSheet("QPushButton { background-color: #0054ff; "
+                        "font-weight: 1000; "
+                        "font-size: 17px; "
+                        "border: none; "
+                        " } "
+                        "QPushButton:hover { background-color: #0BEA14; }");
     layout->addWidget(pbn1);
 
 
     pbn2=new QPushButton("Signup");
     pbn2->setFixedHeight(30);
-    pbn2->setStyleSheet(" background-color: #0054ff;font-weight: 1000;font-size: 17px;border:none;border-radius: 25px;");
+    pbn2->setStyleSheet("QPushButton { background-color: #0054ff; "
+                        "font-weight: 1000; "
+                        "font-size: 17px; "
+                        "border: none; "
+                        " } "
+                        "QPushButton:hover { background-color: #0BEA14; }");
      layout->addWidget(pbn2);
 
     this->setLayout(layout);

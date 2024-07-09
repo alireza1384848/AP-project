@@ -112,20 +112,20 @@
         "Equals": 0,
         "History": [
         ],
-        "Loses": 1,
+        "Loses": 6,
         "Password": "\u0011LZ3��\u0012�I+�X:�M",
         "Username": "12",
-        "Wins": 3
+        "Wins": 9
     },
     {
         "Email": "13",
         "Equals": -922730880,
         "History": [
         ],
-        "Loses": 1,
+        "Loses": 5,
         "Password": "��.�ħ�\\��z���H�",
         "Username": "13",
-        "Wins": 4
+        "Wins": 10
     },
     {
         "Email": "14",
@@ -152,10 +152,9 @@
         "Equals": 1892454272,
         "History": [
         ],
-        "Loses": 0,
+        "Loses": 3,
         "Password": "",
         "Username": "",
-        "Wins": 0,
-        "loses": 1
+        "Wins": 0
     }
 ]
