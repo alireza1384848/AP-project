@@ -59,7 +59,8 @@ SigninPagge::SigninPagge(QWidget *parent)
                                 " } "
                                 "QPushButton:hover { background-color: #0BEA14; }");
     layout->addWidget(signin);
-
+    this->setWindowIcon(QIcon("icon.ico"));
+    this->setWindowTitle("Sign In");
     // signup=new QPushButton("Go to signup page");
     // signup->setStyleSheet(" background-color: #0054ff;font-weight: 1000;font-size: 17px;border:none;border-radius: 25px;");
     // layout->addWidget(signup);

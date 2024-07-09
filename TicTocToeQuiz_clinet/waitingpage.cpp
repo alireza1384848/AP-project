@@ -25,7 +25,8 @@ WaitingPage::WaitingPage(QJsonObject userinfo)
     layout->addWidget(label);
 
     layout->addWidget(label);
-
+    this->setWindowIcon(QIcon("icon.ico"));
+    this->setWindowTitle("Waitting");
     button=new QPushButton("Cancel");
     button->setFixedWidth(110);
     button->setFixedHeight(30);

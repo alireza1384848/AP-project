@@ -7,8 +7,16 @@ Loserpage::Loserpage(QString Username,QWidget *parent )
     , ui(new Ui::Loserpage)
 {
     ui->setupUi(this);
+        this->setWindowIcon(QIcon("icon.ico"));
     username = Username;
-    ui->label->setText(Username+" Lose!");
+     this->setFixedSize(500,400);
+    this->setWindowTitle(Username+" Lose!");
+    QPixmap bkgnd("lose.jpg");
+    bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
+    QPalette palette;
+    palette.setBrush(QPalette::Window, bkgnd);
+    this->setPalette(palette);
+
 }
 
 Loserpage::~Loserpage()

@@ -4,9 +4,9 @@ EnterPage::EnterPage(QWidget *parent)
     : QWidget{parent}
 {
     //Client::ConnectToServer("",1);
-
+    this->setWindowIcon(QIcon("icon.ico"));
+    this->setWindowTitle("Enter Page");
     this->setFixedSize(QSize(400,300));
-    setWindowTitle("Entring Page");
     layout=new QVBoxLayout;
 
     QPixmap bkgnd("—Pngtree—tic tac toe pattern png_7613072.png");

@@ -76,20 +76,24 @@ void Gameboard::UpdateButton()
             QString Character= eachbot["Character"].toString();
             if(owner!="None"){
                 Buttons[i]->setText(owner);
+                Buttons[i]->setStyleSheet("font: 25pt Segoe U;background-color:#E7AE74;color:black;");
                 Buttons[i]->setDisabled(true);
             }
             else{
                 if(blkfor==Character ||blkfor=="both"){
-                    Buttons[i]->setText("LOCK");
+                    Buttons[i]->setText("🔒");
+                    Buttons[i]->setStyleSheet("font: 25pt Segoe U;");
                     Buttons[i]->setDisabled(true);
                 }
                 else{
                     if(state =="inUse"){
-                        Buttons[i]->setText("...");
+                        Buttons[i]->setText("⚔️");
+                         Buttons[i]->setStyleSheet("font: 25pt Segoe U;background-color:#E7AE74;color:black;");
                         Buttons[i]->setDisabled(true);
                     }
                     if(state =="Defalt"){
                         Buttons[i]->setText("-");
+                         Buttons[i]->setStyleSheet("font: 25pt Segoe U;background-color:#E7AE74;color:black;");
                         Buttons[i]->setEnabled(true);
                     }
                 }
@@ -138,6 +142,7 @@ Gameboard::Gameboard(QWidget *parent)
 {
     //Ui
     ui->setupUi(this);
+        this->setWindowIcon(QIcon("icon.ico"));
     this->Updatebutton  = new QPushButton();
     QObject::connect(Updatebutton,SIGNAL(clicked()),this,SLOT(UpdateButton()));
     this->setFixedSize(500,450);

@@ -107,7 +107,8 @@ WelcomePage::WelcomePage(QJsonObject User)
                              "QPushButton:hover { background-color: #0BEA14; }");
     layout->addWidget(Start);
     this->setLayout(layout);
-
+    this->setWindowIcon(QIcon("icon.ico"));
+    this->setWindowTitle("Welcome");
     QObject::connect(Start,&QPushButton::clicked,this,&WelcomePage::StartTheGame);
 }
 

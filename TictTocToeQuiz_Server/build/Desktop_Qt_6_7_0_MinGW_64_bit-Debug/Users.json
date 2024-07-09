@@ -1,38 +1,46 @@
 [
     {
         "Email": "12",
-        "Equals": 0,
+        "Equals": 2,
         "History": [
+            {
+                "Opponent": "13",
+                "State": 0
+            },
             {
                 "Opponent": "13",
                 "State": 1
             },
             {
                 "Opponent": "13",
-                "State": 1
+                "State": 0
             }
         ],
-        "Loses": 0,
+        "Loses": 10,
         "Password": "\u0011LZ3��\u0012�I+�X:�M",
         "Username": "12",
-        "Wins": 5
+        "Wins": 12
     },
     {
         "Email": "13",
-        "Equals": 7,
+        "Equals": 8,
         "History": [
             {
                 "Opponent": "12",
-                "State": 2
+                "State": 0
             },
             {
                 "Opponent": "12",
-                "State": 2
+                "State": 0
+            },
+            {
+                "Opponent": "12",
+                "State": 0
             }
         ],
-        "Loses": 0,
+        "Loses": 12,
         "Password": "��.�ħ�\\��z���H�",
         "Username": "13",
-        "Wins": 0
+        "Wins": 2
     }
 ]
