@@ -36,6 +36,10 @@ SigninPagge::SigninPagge(QWidget *parent)
     layout->addWidget(username);
 
     usernameLE=new QLineEdit;
+    usernameLE->setStyleSheet("color: #FE9200;font-weight: 900;");
+    font = usernameLE->font();
+    font.setPointSize(13);
+    usernameLE->setFont(font);
     layout->addWidget(usernameLE);
 
     password=new QLabel("Password");
@@ -48,6 +52,10 @@ SigninPagge::SigninPagge(QWidget *parent)
 
     passwordLE=new QLineEdit;
     passwordLE->setEchoMode(QLineEdit::Password);
+    passwordLE->setStyleSheet("color: #FE9200;font-weight: 900;");
+    font = passwordLE->font();
+    font.setPointSize(13);
+    passwordLE->setFont(font);
     password->setFixedHeight(20);
     layout->addWidget(passwordLE);
 
