@@ -1,8 +1,21 @@
 #include "enterpage.h"
+#include <QHBoxLayout>
+#include <QMessageBox>
 
 EnterPage::EnterPage(QWidget *parent)
     : QWidget{parent}
 {
+
+    ok= new QPushButton(this);
+    ok->setText("OK");
+    address = new QLineEdit(this);
+    address->setText("127.0.0.1");
+    port = new QLineEdit(this);
+    port->setText("50000");
+    QHBoxLayout * hlayout =new QHBoxLayout();
+    hlayout->addWidget(address);
+    hlayout->addWidget(port);
+    hlayout->addWidget(ok);
     //Client::ConnectToServer("",1);
     this->setWindowIcon(QIcon("icon.ico"));
     this->setWindowTitle("Enter Page");
@@ -44,12 +57,13 @@ EnterPage::EnterPage(QWidget *parent)
                         " } "
                         "QPushButton:hover { background-color: #0BEA14; }");
      layout->addWidget(pbn2);
-
+    layout->addLayout(hlayout);
     this->setLayout(layout);
 
 
     QObject::connect(pbn1,&QPushButton::clicked,this,&EnterPage::OpenSigninPage);
     QObject::connect(pbn2,&QPushButton::clicked,this,&EnterPage::OpenSignupPage);
+    QObject::connect(ok,&QPushButton::clicked,this,&EnterPage::pressok);
 }
 
 void EnterPage::OpenSigninPage()
@@ -57,6 +71,16 @@ void EnterPage::OpenSigninPage()
     SigninPagge *window=new SigninPagge;
     window->show();
     this->close();
+}
+
+void EnterPage::pressok()
+{
+Client::socket->disconnectFromHost();
+Client::socket->connectToHost(address->text(),port->text().toInt());
+connect(Client::socket,&QTcpSocket::connected,[=](){
+    QMessageBox * a = new QMessageBox("Warning","Connected to host",QMessageBox::Warning,0,0,0);
+    a->show();
+});
 }
 void EnterPage::OpenSignupPage()
 {

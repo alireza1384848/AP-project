@@ -1,46 +1,30 @@
 [
     {
-        "Email": "12",
-        "Equals": 2,
+        "Email": "fasf",
+        "Equals": 0,
         "History": [
             {
-                "Opponent": "13",
-                "State": 0
-            },
-            {
-                "Opponent": "13",
-                "State": 0
-            },
-            {
-                "Opponent": "13",
+                "Opponent": "farshad",
                 "State": 0
             }
         ],
-        "Loses": 21,
-        "Password": "\u0011LZ3��\u0012�I+�X:�M",
-        "Username": "12",
-        "Wins": 15
+        "Loses": 1,
+        "Password": "\u0001-s����n\u000fMe�`wQ\u001e",
+        "Username": "alireza",
+        "Wins": 0
     },
     {
-        "Email": "13",
-        "Equals": 8,
+        "Email": "fdaadsd",
+        "Equals": 0,
         "History": [
             {
-                "Opponent": "12",
-                "State": 1
-            },
-            {
-                "Opponent": "12",
-                "State": 0
-            },
-            {
-                "Opponent": "12",
+                "Opponent": "alireza",
                 "State": 0
             }
         ],
-        "Loses": 20,
-        "Password": "��.�ħ�\\��z���H�",
-        "Username": "13",
-
+        "Loses": 1,
+        "Password": "\u0001-s����n\u000fMe�`wQ\u001e",
+        "Username": "farshad",
+        "Wins": 0
     }
 ]

@@ -15,9 +15,9 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-     QJsonObject object1;
+    Client::ConnectToServer("127.0.0.1",50000);
+    /*  QJsonObject object1;
     // MainWindow v;
-     Client::ConnectToServer("127.0.0.1",50000);
     object1.insert("Username","Tom");
     object1.insert("Email","Tom_jk@gmail.com");
     object1.insert("Loses",2);
@@ -40,15 +40,15 @@ int main(int argc, char *argv[])
 
     object1.insert("History",HArray);
 
-    QFile f("multiple.json");
+    QFile f("multiple.json");*/
     // f.open(QIODeviceBase::ReadOnly);
     // QTextStream in(&f);
     // QString jsonString = in.readAll();
     //  QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonString.toUtf8());
     // QJsonObject n = jsonDoc.object();
     //MainWindow w;
-    //EnterPage w;
-      SignUpPage w;
+    EnterPage w;
+    //  SignUpPage w;
   //  Gameboard w;
     //SigninPagge w;
  //  MultipleQustion w(2,n,d);

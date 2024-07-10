@@ -277,12 +277,13 @@ void Server::Disconnected()
     //if(isbreak){
     //rec.exit();
     qDebug() << "Client"<<socket->peerAddress().toString()<<":"<<socket->peerPort()<<"Disconnected";
-    qDebug()<<socket->property("ServerNO").toInt();
+//    qDebug()<<socket->property("ServerNO").toInt();
     if(!socket->property("ServerNO").isValid()){
-        socket->deleteLater();
         players.clear();
+
         Responder->removeusername(socket->property("Username").toString());
         playersname.clear();
+         socket->deleteLater();
     }
     else{
         Responder->removeusername(socket->property("Username").toString());

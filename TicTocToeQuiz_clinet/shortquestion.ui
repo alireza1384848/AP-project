@@ -42,7 +42,14 @@
     <item row="2" column="0" colspan="5">
      <widget class="QLineEdit" name="answelineedit">
       <property name="styleSheet">
-       <string notr="true">background-color: #FCE293 ;</string>
+       <string notr="true">background-color: #FCE293 ;
+color: blue;
+font-weight: 900;
+font-size: 15px;
+</string>
+      </property>
+      <property name="text">
+       <string/>
       </property>
      </widget>
     </item>
