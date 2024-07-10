@@ -17,6 +17,7 @@ private:
     User_w_r * MangeFile;
     Questions * needQustion;
     QTcpSocket * Socket;
+    QVector<QString> login_username;
     //object qustion
 public:
     explicit RespondReqest(QObject *parent = nullptr);
@@ -26,6 +27,7 @@ public:
     void isAnswer(QString Answer,int pos,int id);
     void setClientready(QString Username);
     void IsExistUser(QString username,QString pass);
+    void removeusername(QString username);
     void cancelready();
     void UserInfoGetter(QString username);
     void ClickedOnBut(int pos);

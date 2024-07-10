@@ -46,6 +46,15 @@ void RespondReqest::IsExistUser(QString username, QString pass)
     qDebug()<<"Server is cheching username and pass of User is Existed or not";
     if (MangeFile->IsUserExist(username)){
         if(MangeFile->User_getter(username)["Password"].toString()==pass){
+            for (int var = 0; var < login_username.size(); ++var) {
+                if(login_username[var]==username){
+                    QJsonObject  mess;
+                    mess.insert("Result","false");
+                    emit WriteOnSocket(mess,Socket);
+                    return;
+                }
+            }
+            login_username.push_back(username);
             QJsonObject  mess;
             mess.insert("Result","true");
             emit WriteOnSocket(mess,Socket);
@@ -60,6 +69,16 @@ void RespondReqest::IsExistUser(QString username, QString pass)
     QJsonObject  mess;
     mess.insert("Result","false");
     emit WriteOnSocket(mess,Socket);
+    }
+}
+
+void RespondReqest::removeusername(QString username)
+{
+    for(int i=0;i<login_username.size();i++){
+        if(login_username[i]==username){
+            login_username.erase(login_username.begin()+i);
+            return;
+        }
     }
 }
 

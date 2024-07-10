@@ -16,7 +16,7 @@
                 "State": 0
             }
         ],
-        "Loses": 19,
+        "Loses": 21,
         "Password": "\u0011LZ3��\u0012�I+�X:�M",
         "Username": "12",
         "Wins": 15
@@ -27,18 +27,18 @@
         "History": [
             {
                 "Opponent": "12",
-                "State": 0
-            },
-            {
-                "Opponent": "12",
-                "State": 0
-            },
-            {
-                "Opponent": "12",
                 "State": 1
+            },
+            {
+                "Opponent": "12",
+                "State": 0
+            },
+            {
+                "Opponent": "12",
+                "State": 0
             }
         ],
-        "Loses": 18,
+        "Loses": 20,
         "Password": "��.�ħ�\\��z���H�",
         "Username": "13",
         "Wins": 4
