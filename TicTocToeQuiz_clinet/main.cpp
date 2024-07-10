@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
     h[2].insert("State",2);
     HArray.append(h[2]);
 
-    object1.insert("history",HArray);
+    object1.insert("History",HArray);
 
     QFile f("multiple.json");
     // f.open(QIODeviceBase::ReadOnly);
@@ -47,12 +47,12 @@ int main(int argc, char *argv[])
     //  QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonString.toUtf8());
     // QJsonObject n = jsonDoc.object();
     //MainWindow w;
-    EnterPage w;
-     // SignUpPage w;
+    //EnterPage w;
+      SignUpPage w;
   //  Gameboard w;
     //SigninPagge w;
  //  MultipleQustion w(2,n,d);
-   // WelcomePage w(object1);
+  //  WelcomePage w(object1);
    // WaitingPage w(object1);
    // MultipleQustion w;
     w.show();

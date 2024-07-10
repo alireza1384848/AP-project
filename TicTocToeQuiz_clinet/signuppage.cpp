@@ -38,6 +38,10 @@ SignUpPage::SignUpPage(QWidget *parent)
     layout->addWidget(UsernameLabel);
 
     Lineedit_User = new QLineEdit;
+    Lineedit_User->setStyleSheet("color: #FE9200;font-weight: 900;");
+    font = Lineedit_User->font();
+    font.setPointSize(13);
+    Lineedit_User->setFont(font);
     layout->addWidget(Lineedit_User);
 
     Passlabel=new QLabel("Password");
@@ -49,6 +53,10 @@ SignUpPage::SignUpPage(QWidget *parent)
     layout->addWidget(Passlabel);
 
     Lineedit_Pass = new QLineEdit;
+    Lineedit_Pass->setStyleSheet("color: #FE9200;font-weight: 900;");
+    font = Lineedit_Pass->font();
+    font.setPointSize(13);
+    Lineedit_Pass->setFont(font);
     layout->addWidget(Lineedit_Pass);
 
     Emaillabel=new QLabel("Email");
@@ -60,6 +68,10 @@ SignUpPage::SignUpPage(QWidget *parent)
     layout->addWidget(Emaillabel);
 
     Lineedit_Email = new QLineEdit;
+    Lineedit_Email->setStyleSheet("color: #FE9200;font-weight: 900;");
+    font = Lineedit_Email->font();
+    font.setPointSize(13);
+    Lineedit_Email->setFont(font);
     layout->addWidget(Lineedit_Email);
 
     Ok_Buttom = new QPushButton;
@@ -139,6 +151,16 @@ void SignUpPage::Clicked_Ok_But()
         errorBox.exec();
         return ;
     }
+    else if(Lineedit_Pass->text().size()<8)
+    {
+        QMessageBox errorBox;
+        errorBox.setIcon(QMessageBox::Critical);
+        errorBox.setWindowTitle("Error");
+        errorBox.setText("You password should has atleast 8 characters");
+        //errorBox.button()->setText("Hey");
+        errorBox.exec();
+        return ;
+    }
     QJsonObject UserObject;
     UserObject.insert("typereq","adduser");
     UserObject.insert("Username",info.username);
@@ -160,9 +182,12 @@ void SignUpPage::Clicked_Ok_But()
         }
         else
         {
+            SigninPagge * w=new SigninPagge;
+            w->show();
             waitting->setText("Sign up Succesfuly Done.");
             waitting->setIcon(QMessageBox::Warning);
             waitting->show();
+            this->close();
         }
 
     }

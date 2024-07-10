@@ -79,25 +79,27 @@ WelcomePage::WelcomePage(QJsonObject User)
     int i=0;
     QJsonArray arrayhistory=user["History"].toArray();
     for (QJsonValue value : arrayhistory) {
-        QJsonObject obj = value.toObject();
+       QJsonObject obj = value.toObject();
         opponent[i]=new QLabel(obj["Opponent"].toString());
+        opponent[i]->setAlignment(Qt::AlignHCenter);
         if(obj["State"].toInt()==0)opponent[i]->setStyleSheet("color:red;font-weight: 900;");
         if(obj["State"].toInt()==1) opponent[i]->setStyleSheet("color:#00FF29 ;font-weight: 900;");
         if(obj["State"].toInt()==2) opponent[i]->setStyleSheet("color:#8E00FE ;font-weight: 900;");
         font=opponent[i]->font();
         font.setPointSize(15);
         opponent[i]->setFont(font);
-        opponent[i]->setFixedWidth(70);
-        if(i==1)opponent[i]->setAlignment(Qt::AlignHCenter);
-        sublayout->addWidget(opponent[i]);
+       // opponent[i]->setFixedWidth(100);
+
+        layout->addWidget(opponent[i]);
+
         i++;
     }
-    if(i==3)
-    {
-        opponent[0]->setAlignment(Qt::AlignLeft);
-        opponent[2]->setAlignment(Qt::AlignRight);
-    }
-    layout->addLayout(sublayout);
+
+    // opponent[0]->setAlignment(Qt::AlignHCenter);
+    // opponent[1]->setAlignment(Qt::AlignHCenter);
+    // opponent[2]->setAlignment(Qt::AlignHCenter);
+
+    //layout->addLayout(sublayout);
 
     Start=new QPushButton("Start the game");
     Start->setStyleSheet("QPushButton { background-color: #0054ff; "
