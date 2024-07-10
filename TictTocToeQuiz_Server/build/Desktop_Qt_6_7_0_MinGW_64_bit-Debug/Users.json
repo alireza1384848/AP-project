@@ -4,22 +4,22 @@
         "Equals": 2,
         "History": [
             {
-                "Opponent": "13",
-                "State": 0
+                "Opponent": "12",
+                "State": 1
             },
             {
                 "Opponent": "13",
-                "State": 1
+                "State": 0
             },
             {
                 "Opponent": "13",
                 "State": 0
             }
         ],
-        "Loses": 10,
+        "Loses": 15,
         "Password": "\u0011LZ3��\u0012�I+�X:�M",
         "Username": "12",
-        "Wins": 12
+        "Wins": 14
     },
     {
         "Email": "13",
@@ -38,9 +38,9 @@
                 "State": 0
             }
         ],
-        "Loses": 12,
+        "Loses": 16,
         "Password": "��.�ħ�\\��z���H�",
         "Username": "13",
-        "Wins": 2
+        "Wins": 3
     }
 ]
