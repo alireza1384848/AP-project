@@ -16,10 +16,12 @@ numberQuestion::numberQuestion(bool canSkip,int pos,QJsonObject sorce,QDialog * 
     this->setWindowTitle("Question");
     //  ui->category->setAlignment(Qt::AlignRight);
     ui->category->setText(sorce["category"].toString());
+    ui->category->setAlignment(Qt::AlignRight);
     ui->type1_label->setText(sorce["type1"].toString());
+    ui->type1_label->setAlignment(Qt::AlignRight);
     ui->quesText->setText(sorce["questionText"].toString());
     if(!canSkip)
-        ui->skipbot->setDisabled(true);
+     ui->skipbot->setDisabled(true);
     timer = new QTimer();
     QObject::connect(timer,SIGNAL(timeout()),this,SLOT(SetProgresboreAndTime()));
     timer->start(1000);
@@ -84,7 +86,6 @@ void numberQuestion::on_verifybot_clicked()
     }
 
 }
-
 
 void numberQuestion::on_skipbot_clicked()
 {

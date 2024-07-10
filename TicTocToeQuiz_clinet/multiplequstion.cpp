@@ -13,13 +13,17 @@ MultipleQustion::MultipleQustion(bool canSkip,int pos,QJsonObject sorce,QDialog 
     //0:Usual 1:Bomb  2:King question
     ui->setupUi(this);
     //  ui->category->setAlignment(Qt::AlignRight);
+    ui->category->setAlignment(Qt::AlignRight);
     ui->category->setText(sorce["category"].toString());
+     ui->type1_label->setAlignment(Qt::AlignRight);
     ui->type1_label->setText(sorce["type1"].toString());
+
     ui->quesText->setText(sorce["questionText"].toString());
     QJsonArray ans(sorce["answers"].toArray());
     for (int i=0;i<4;i++){
         if(i==0){
             ui->answer1->setText(ans[i].toObject()["text"].toString());
+
         }
         else if(i==1){
             ui->answer2->setText(ans[i].toObject()["text"].toString());

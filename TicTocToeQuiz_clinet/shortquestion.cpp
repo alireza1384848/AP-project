@@ -40,10 +40,13 @@ ShortQuestion::ShortQuestion(bool canSkip, int pos, QJsonObject sorce, QDialog *
     this->setFixedSize(540,430);
     //0:Usual 1:Bomb  2:King question
     //  ui->category->setAlignment(Qt::AlignRight);
+    ui->category->setAlignment(Qt::AlignRight);
     ui->category->setText(sorce["category"].toString());
+        ui->category_2->setAlignment(Qt::AlignRight);
     ui->category_2->setText(sorce["type1"].toString());
+
     ui->quesText_2->setText(sorce["questionText"].toString());
-     this->setWindowIcon(QIcon("icon.ico"));
+    this->setWindowIcon(QIcon("icon.ico"));
     this->setWindowTitle("Question");
     if(!canSkip)
     ui->skipbot_2->setDisabled(true);

@@ -9,17 +9,17 @@
             },
             {
                 "Opponent": "13",
-                "State": 1
+                "State": 0
             },
             {
                 "Opponent": "13",
                 "State": 0
             }
         ],
-        "Loses": 10,
+        "Loses": 21,
         "Password": "\u0011LZ3��\u0012�I+�X:�M",
         "Username": "12",
-        "Wins": 12
+        "Wins": 15
     },
     {
         "Email": "13",
@@ -27,7 +27,7 @@
         "History": [
             {
                 "Opponent": "12",
-                "State": 0
+                "State": 1
             },
             {
                 "Opponent": "12",
@@ -38,57 +38,9 @@
                 "State": 0
             }
         ],
-        "Loses": 12,
+        "Loses": 20,
         "Password": "��.�ħ�\\��z���H�",
         "Username": "13",
-        "Wins": 2
-    },
-    {
-        "Email": "abc",
-        "Equals": 0,
-        "History": [
-        ],
-        "Loses": 0,
-        "Password": "\u0001-s����n\u000fMe�`wQ\u001e",
-        "Username": "farsahd",
-        "Wins": 0
-    },
-    {
-        "Email": "asd",
-        "Equals": 0,
-        "History": [
-            {
-                "Opponent": "polonium",
-                "State": 0
-            }
-        ],
-        "Loses": 1,
-        "Password": "Ō�I�\u0007H��\u000fϥ\u0011�\u0016�",
-        "Username": "farshad",
-        "Wins": 0
-    },
-    {
-        "Email": "zxc",
-        "Equals": 0,
-        "History": [
-            {
-                "Opponent": "farshad",
-                "State": 1
-            }
-        ],
-        "Loses": 0,
-        "Password": "�u�\u0001�Ƙ�S?\u0016��\u001e��",
-        "Username": "polonium",
-        "Wins": 1
-    },
-    {
-        "Email": "asd",
-        "Equals": 0,
-        "History": [
-        ],
-        "Loses": 0,
-        "Password": "a\u0011���k�X*Y��\"\u0004��",
-        "Username": "asd",
-        "Wins": 0
+
     }
 ]

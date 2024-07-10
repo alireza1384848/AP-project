@@ -111,7 +111,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
       </property>
      </widget>
     </item>
-    <item row="0" column="3">
+    <item row="0" column="2" colspan="2">
      <widget class="QLabel" name="category_2">
       <property name="styleSheet">
        <string notr="true">color: #29FF43;font-weight: 900;font-size: 17px;</string>

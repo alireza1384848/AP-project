@@ -281,14 +281,13 @@ void Server::Disconnected()
     if(!socket->property("ServerNO").isValid()){
         socket->deleteLater();
         players.clear();
-
-
+        Responder->removeusername(socket->property("Username").toString());
         playersname.clear();
     }
     else{
+        Responder->removeusername(socket->property("Username").toString());
         Games[socket->property("ServerNO").toInt()]->setstatus(socket,false);
         Games[socket->property("ServerNO").toInt()]->iswinsetter(true);
-
         if(socket->property("Character").toString()=="X")
             Games[socket->property("ServerNO").toInt()]->Winnersetter("O");
         else{
