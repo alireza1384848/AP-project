@@ -85,7 +85,8 @@ SignUpPage::SignUpPage(QWidget *parent)
     layout->addWidget(login_Buttom);
 
     Lineedit_Pass->setEchoMode(QLineEdit::Password);
-
+    this->setWindowIcon(QIcon("icon.ico"));
+this->setWindowTitle("Sign Up");
     this->setLayout(layout);
     connect(Lineedit_User,SIGNAL(textChanged(QString)),this,SLOT(set_Username(QString)));
     connect(Lineedit_User,SIGNAL(textEdited(QString)),this,SLOT(set_Username(QString)));

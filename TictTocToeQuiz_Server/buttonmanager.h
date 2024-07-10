@@ -19,13 +19,13 @@ class ButtonManager : public QObject
     int numblkobj=0;
 public:
 
-    QTcpSocket *Enemy_getter(QTcpSocket * you);
+    QString Enemy_getter(QTcpSocket * you);
     void setstatus(QTcpSocket *which,bool what);
     int numblkgetter();
     void numblkpluser();
     bool Isconnected(QTcpSocket *);
     void ResetQuestion(int position);
-    ButtonManager(QTcpSocket *p1=0,QTcpSocket *p2=0);
+    ButtonManager(QTcpSocket *p1,QString user1, QTcpSocket *p2,QString User2);
     bool iswingetter();
     void Winnersetter(QString win);
     void iswinsetter(bool iswin);
@@ -46,6 +46,8 @@ public:
 signals:
 protected:
     QTcpSocket * player1;
+    QString user1;
+    QString user2;
     QTcpSocket * player2;
 };
 

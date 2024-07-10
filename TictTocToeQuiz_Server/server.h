@@ -22,6 +22,7 @@ private:
     quint16 portNo;
     QVector<QTcpSocket *> Clients;
     QVector<QTcpSocket *> players;//add two client here
+    QVector<QString> playersname;//add two client here
     QVector<ButtonManager *> Games ;//add two client here
     QVector<QJsonObject> multipleAnswer;
     QVector<QJsonObject> ShortAnswer;

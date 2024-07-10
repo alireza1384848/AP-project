@@ -26,9 +26,9 @@ void RespondReqest::addUserinfo(QString username,QString pass,QString Email)
     else{
     User_info myuser(username,pass,Email);
     MangeFile->AddNewUser(myuser.json_getter());
-    QJsonObject * a = new QJsonObject();
-    a->insert("IsExist","false");
-    emit WriteOnSocket(*a,Socket);
+    QJsonObject a ;
+    a.insert("IsExist","false");
+    emit WriteOnSocket(a,Socket);
     }
 }
 

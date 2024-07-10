@@ -43,6 +43,8 @@ ShortQuestion::ShortQuestion(bool canSkip, int pos, QJsonObject sorce, QDialog *
     ui->category->setText(sorce["category"].toString());
     ui->category_2->setText(sorce["type1"].toString());
     ui->quesText_2->setText(sorce["questionText"].toString());
+     this->setWindowIcon(QIcon("icon.ico"));
+    this->setWindowTitle("Question");
     if(!canSkip)
     ui->skipbot_2->setDisabled(true);
     timer = new QTimer();

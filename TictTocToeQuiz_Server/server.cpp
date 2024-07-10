@@ -44,16 +44,31 @@ void Server::incomingConnection(qintptr socketDescriptor)
 
 void Server::UpdateHistory(QJsonObject a,QTcpSocket *from)
 {
+    from->setProperty("Isupdate",true);
+    QString hostalchar ;
+    if(from->property("Character")  == "X")
+        hostalchar = "O";
+    else {
+        hostalchar = "X";
+    }
+
     User_info newuser(a);
     if(Games[from->property("ServerNO").toInt()]->Winner_getter()==from->property("Character")){
-        newuser.History_Updater(Games[from->property("ServerNO").toInt()]->Enemy_getter(from)->property("Username").toString(),1);
+        qDebug()<<from->property("ServerNO").toInt();
+        newuser.History_Updater(Games[from->property("ServerNO").toInt()]->Enemy_getter(from),1);
         newuser.Win_Updater();
     }
-    else{
-        newuser.History_Updater(Games[from->property("ServerNO").toInt()]->Enemy_getter(from)->property("Username").toString(),0);
+    else if(Games[from->property("ServerNO").toInt()]->Winner_getter()==hostalchar){
+        newuser.History_Updater(Games[from->property("ServerNO").toInt()]->Enemy_getter(from),0);
         newuser.Lose_Updater();
     }
-    emit updateuser(from->property("Username").toString(),newuser.json_getter());
+    else{
+        newuser.History_Updater(Games[from->property("ServerNO").toInt()]->Enemy_getter(from),2);
+        newuser.Equals_Updater();
+    }
+    //emit updateuser(from->property("Username").toString(),newuser.json_getter());
+    qDebug()<<"new user"<<newuser.json_getter();
+    User_w_r::Update_User(from->property("Username").toString(),newuser.json_getter());
     QJsonObject f;
     f["res"]=true;
     WriteOnSocket(f,from);
@@ -62,7 +77,7 @@ void Server::UpdateHistory(QJsonObject a,QTcpSocket *from)
 
 void Server::WriteOnSocket(const QJsonObject& json, QTcpSocket *whichSocket){
     QJsonDocument message(json);
-    qDebug() << "sending data to Client " <<whichSocket->peerAddress().toString()<<":"<<whichSocket->peerPort()<<message.toJson();
+    qDebug() << "sending data to Client " <<whichSocket->peerAddress().toString()<<":"<<whichSocket->peerPort();//<<message.toJson();
     whichSocket->write(message.toJson());
 }
 
@@ -81,12 +96,20 @@ void Server::ChangeReadyStatusSokeckt(QString Username,QTcpSocket *a)
                 a->setProperty("Username",Username);
                 client->setProperty("Username",Username);
                 players.push_back(client);
+                playersname.push_back(Username);
                 if(isfull==false&&players.size()==2){
+                    if(players[0]->peerAddress()==players[1]->peerAddress() &&players[0]->peerPort()==players[1]->peerPort()){
+                        players.pop_back();
+                        playersname.pop_back();
+                        return;
+                    }
                     QJsonObject res;
-                    ButtonManager * b = new ButtonManager(players[0],players[1]);
+                    ButtonManager * b = new ButtonManager(players[0],playersname[0],players[1],playersname[1]);
                     Games.push_back(b);
                     players[0]->setProperty("ServerNO",Games.size()-1);
                     players[1]->setProperty("ServerNO",Games.size()-1);
+                    players[0]->setProperty("Username",playersname[0]);
+                    players[1]->setProperty("Username",playersname[1]);
                     players[0]->setProperty("NumSkip",0);
                     players[1]->setProperty("NumSkip",0);
                     players[0]->setProperty("Character","X");
@@ -95,6 +118,7 @@ void Server::ChangeReadyStatusSokeckt(QString Username,QTcpSocket *a)
                     WriteOnSocket(res,players[0]);
                     WriteOnSocket(res,players[1]);
                     players.clear();
+                    playersname.clear();
                 }
             }
         }
@@ -253,13 +277,29 @@ void Server::Disconnected()
     //if(isbreak){
     //rec.exit();
     qDebug() << "Client"<<socket->peerAddress().toString()<<":"<<socket->peerPort()<<"Disconnected";
-    Games[socket->property("ServerNO").toInt()]->setstatus(socket,false);
-    Games[socket->property("ServerNO").toInt()]->iswinsetter(true);
-    this->UpdateHistory(User_w_r::User_getter(socket->property("Username").toString()),socket);
-    if(socket->property("Character").toString()=="X")
-        Games[socket->property("ServerNO").toInt()]->Winnersetter("O");
+    qDebug()<<socket->property("ServerNO").toInt();
+    if(!socket->property("ServerNO").isValid()){
+        socket->deleteLater();
+        players.clear();
+
+
+        playersname.clear();
+    }
     else{
-        Games[socket->property("ServerNO").toInt()]->Winnersetter("X");
+        Games[socket->property("ServerNO").toInt()]->setstatus(socket,false);
+        Games[socket->property("ServerNO").toInt()]->iswinsetter(true);
+
+        if(socket->property("Character").toString()=="X")
+            Games[socket->property("ServerNO").toInt()]->Winnersetter("O");
+        else{
+            Games[socket->property("ServerNO").toInt()]->Winnersetter("X");
+        }
+        if(socket->property("Isupdate").toBool() &&socket->property("Isupdate").isValid()){
+            ;
+        }
+        else
+        this->UpdateHistory(User_w_r::User_getter(socket->property("Username").toString()),socket);
+        socket->deleteLater();
     }
     //}
 }

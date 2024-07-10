@@ -77,7 +77,7 @@ WelcomePage::WelcomePage(QJsonObject User)
 
     sublayout=new QHBoxLayout;
     int i=0;
-    QJsonArray arrayhistory=user["history"].toArray();
+    QJsonArray arrayhistory=user["History"].toArray();
     for (QJsonValue value : arrayhistory) {
         QJsonObject obj = value.toObject();
         opponent[i]=new QLabel(obj["Opponent"].toString());
@@ -108,7 +108,8 @@ WelcomePage::WelcomePage(QJsonObject User)
                              "QPushButton:hover { background-color: #0BEA14; }");
     layout->addWidget(Start);
     this->setLayout(layout);
-
+    this->setWindowIcon(QIcon("icon.ico"));
+    this->setWindowTitle("Welcome");
     QObject::connect(Start,&QPushButton::clicked,this,&WelcomePage::StartTheGame);
 }
 

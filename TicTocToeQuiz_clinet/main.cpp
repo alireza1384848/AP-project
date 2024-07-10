@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
     //MainWindow w;
     EnterPage w;
      // SignUpPage w;
-    //Gameboard w;
+  //  Gameboard w;
     //SigninPagge w;
  //  MultipleQustion w(2,n,d);
    // WelcomePage w(object1);
