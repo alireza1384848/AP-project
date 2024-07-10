@@ -42,5 +42,43 @@
         "Password": "��.�ħ�\\��z���H�",
         "Username": "13",
         "Wins": 2
+    },
+    {
+        "Email": "abc",
+        "Equals": 0,
+        "History": [
+        ],
+        "Loses": 0,
+        "Password": "\u0001-s����n\u000fMe�`wQ\u001e",
+        "Username": "farsahd",
+        "Wins": 0
+    },
+    {
+        "Email": "asd",
+        "Equals": 0,
+        "History": [
+            {
+                "Opponent": "polonium",
+                "State": 0
+            }
+        ],
+        "Loses": 1,
+        "Password": "Ō�I�\u0007H��\u000fϥ\u0011�\u0016�",
+        "Username": "farshad",
+        "Wins": 0
+    },
+    {
+        "Email": "zxc",
+        "Equals": 0,
+        "History": [
+            {
+                "Opponent": "farshad",
+                "State": 1
+            }
+        ],
+        "Loses": 0,
+        "Password": "�u�\u0001�Ƙ�S?\u0016��\u001e��",
+        "Username": "polonium",
+        "Wins": 1
     }
 ]
