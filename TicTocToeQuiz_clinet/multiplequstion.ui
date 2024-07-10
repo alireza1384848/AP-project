@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>502</width>
-    <height>447</height>
+    <width>503</width>
+    <height>420</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
   <widget class="QRadioButton" name="answer1">
    <property name="geometry">
     <rect>
-     <x>90</x>
+     <x>60</x>
      <y>260</y>
      <width>151</width>
      <height>26</height>
@@ -35,7 +35,7 @@
   <widget class="QRadioButton" name="answer2">
    <property name="geometry">
     <rect>
-     <x>290</x>
+     <x>260</x>
      <y>210</y>
      <width>161</width>
      <height>26</height>
@@ -51,7 +51,7 @@
   <widget class="QRadioButton" name="answer3">
    <property name="geometry">
     <rect>
-     <x>90</x>
+     <x>60</x>
      <y>210</y>
      <width>151</width>
      <height>26</height>
@@ -67,7 +67,7 @@
   <widget class="QRadioButton" name="answer4">
    <property name="geometry">
     <rect>
-     <x>290</x>
+     <x>260</x>
      <y>260</y>
      <width>161</width>
      <height>26</height>
@@ -147,9 +147,9 @@ color: rgb(0, 255, 0);</string>
   <widget class="QTextBrowser" name="quesText">
    <property name="geometry">
     <rect>
-     <x>50</x>
+     <x>20</x>
      <y>100</y>
-     <width>411</width>
+     <width>441</width>
      <height>91</height>
     </rect>
    </property>
@@ -173,9 +173,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
   <widget class="QLabel" name="category">
    <property name="geometry">
     <rect>
-     <x>80</x>
+     <x>30</x>
      <y>70</y>
-     <width>91</width>
+     <width>141</width>
      <height>20</height>
     </rect>
    </property>

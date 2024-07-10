@@ -27,76 +27,7 @@
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout_2">
-    <item row="0" column="3">
-     <widget class="QLabel" name="category">
-      <property name="styleSheet">
-       <string notr="true">color: #29FF43;font-weight: 900;font-size: 17px;</string>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="4">
-     <widget class="QPushButton" name="verifybot">
-      <property name="styleSheet">
-       <string notr="true">background-color: #36C3FF ; 
- font-weight: 1000; 
- font-size: 17px; 
- border: none; </string>
-      </property>
-      <property name="text">
-       <string>ثبت پاسخ</string>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="0">
-     <widget class="QPushButton" name="skipbot">
-      <property name="styleSheet">
-       <string notr="true">background-color: #36C3FF ; 
- font-weight: 1000; 
- font-size: 17px; 
- border: none; </string>
-      </property>
-      <property name="text">
-       <string>skip</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="4">
-     <widget class="QLabel" name="cat_text">
-      <property name="styleSheet">
-       <string notr="true">color: yellow;font-weight: 900;font-size: 17px;</string>
-      </property>
-      <property name="text">
-       <string>موضوع:</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="0" colspan="5">
-     <widget class="QProgressBar" name="progressBar">
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(22, 23, 75);
-color: rgb(0, 255, 0);</string>
-      </property>
-      <property name="maximum">
-       <number>20</number>
-      </property>
-      <property name="value">
-       <number>20</number>
-      </property>
-      <property name="invertedAppearance">
-       <bool>false</bool>
-      </property>
-      <property name="format">
-       <string>%vs</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="1" colspan="3">
+    <item row="4" column="1" colspan="3">
      <widget class="QSpinBox" name="spinBox">
       <property name="styleSheet">
        <string notr="true">font: 24pt &quot;Segoe UI&quot;;
@@ -128,7 +59,27 @@ background-color: #FCE293 ;
       </property>
      </widget>
     </item>
-    <item row="1" column="0" colspan="5">
+    <item row="6" column="0" colspan="6">
+     <widget class="QProgressBar" name="progressBar">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(22, 23, 75);
+color: rgb(0, 255, 0);</string>
+      </property>
+      <property name="maximum">
+       <number>20</number>
+      </property>
+      <property name="value">
+       <number>20</number>
+      </property>
+      <property name="invertedAppearance">
+       <bool>false</bool>
+      </property>
+      <property name="format">
+       <string>%vs</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0" colspan="6">
      <widget class="QTextBrowser" name="quesText">
       <property name="styleSheet">
        <string notr="true">background-color: #9D9DFA ;
@@ -147,6 +98,42 @@ li.checked::marker { content: &quot;\2612&quot;; }
       </property>
      </widget>
     </item>
+    <item row="7" column="5">
+     <widget class="QPushButton" name="verifybot">
+      <property name="styleSheet">
+       <string notr="true">background-color: #36C3FF ; 
+ font-weight: 1000; 
+ font-size: 17px; 
+ border: none; </string>
+      </property>
+      <property name="text">
+       <string>ثبت پاسخ</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="0">
+     <widget class="QPushButton" name="skipbot">
+      <property name="styleSheet">
+       <string notr="true">background-color: #36C3FF ; 
+ font-weight: 1000; 
+ font-size: 17px; 
+ border: none; </string>
+      </property>
+      <property name="text">
+       <string>skip</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="5">
+     <widget class="QLabel" name="cat_text">
+      <property name="styleSheet">
+       <string notr="true">color: yellow;font-weight: 900;font-size: 17px;</string>
+      </property>
+      <property name="text">
+       <string>موضوع:</string>
+      </property>
+     </widget>
+    </item>
     <item row="0" column="2">
      <widget class="QLabel" name="typetxt">
       <property name="styleSheet">
@@ -154,6 +141,19 @@ li.checked::marker { content: &quot;\2612&quot;; }
       </property>
       <property name="text">
        <string>نوع:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="3" colspan="2">
+     <widget class="QLabel" name="category">
+      <property name="styleSheet">
+       <string notr="true">color: #29FF43;font-weight: 900;font-size: 17px;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
       </property>
      </widget>
     </item>
