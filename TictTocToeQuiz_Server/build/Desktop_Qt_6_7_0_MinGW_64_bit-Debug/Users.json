@@ -6,12 +6,20 @@
             {
                 "Opponent": "farshad",
                 "State": 0
+            },
+            {
+                "Opponent": "farshad",
+                "State": 1
+            },
+            {
+                "Opponent": "farshad",
+                "State": 0
             }
         ],
-        "Loses": 1,
+        "Loses": 3,
         "Password": "\u0001-s����n\u000fMe�`wQ\u001e",
         "Username": "alireza",
-        "Wins": 0
+        "Wins": 1
     },
     {
         "Email": "fdaadsd",
@@ -19,12 +27,20 @@
         "History": [
             {
                 "Opponent": "alireza",
+                "State": 1
+            },
+            {
+                "Opponent": "alireza",
+                "State": 0
+            },
+            {
+                "Opponent": "alireza",
                 "State": 0
             }
         ],
-        "Loses": 1,
+        "Loses": 3,
         "Password": "\u0001-s����n\u000fMe�`wQ\u001e",
         "Username": "farshad",
-        "Wins": 0
+        "Wins": 1
     }
 ]

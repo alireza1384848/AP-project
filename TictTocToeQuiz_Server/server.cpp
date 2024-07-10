@@ -279,10 +279,19 @@ void Server::Disconnected()
     qDebug() << "Client"<<socket->peerAddress().toString()<<":"<<socket->peerPort()<<"Disconnected";
 //    qDebug()<<socket->property("ServerNO").toInt();
     if(!socket->property("ServerNO").isValid()){
+        //if(players.size()==1){
         players.clear();
-
+            playersname.clear();
+        //}
+        //else{
+          //  for (int var = 0; var < 2; ++var) {
+            //    if(players[var]==socket){
+              //      players.erase(players.begin()+var);
+                //    playersname.erase(playersname.begin()+var);
+                //}
+            //}
+        //}
         Responder->removeusername(socket->property("Username").toString());
-        playersname.clear();
          socket->deleteLater();
     }
     else{
